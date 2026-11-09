@@ -1,0 +1,200 @@
+#!/bin/sh
+# Launcher for gh (Linux, macOS). Runs the gh already on PATH (remote agent VM
+# images bake it in), or on first use installs the pinned upstream release
+# (verifying its SHA-256). Before running gh, it exports the user's connected
+# GitHub credential as GH_TOKEN (which gh reads natively) when the remote agent
+# proxy has written one to plugin_data/<plugin>/token.json.
+set -eu
+
+TOOL=gh
+PLUGIN_VERSION=0.0.8
+GH_VERSION=2.103.3
+BASE_URL=https://github.com/cli/cli/releases/download/v$GH_VERSION
+# Plugin ID the remote agent proxy writes the token file under.
+PLUGIN_ID=github
+
+IS_FALLBACK=0
+if [ -z "${ANTIGRAVITY_APP_DATA_DIR:-}" ]; then
+  ANTIGRAVITY_APP_DATA_DIR="$HOME/.gemini/antigravity"
+  IS_FALLBACK=1
+fi
+
+# Resolve the real script path, following symlinks if invoked via a shim.
+TARGET_FILE=$0
+while [ -L "$TARGET_FILE" ]; do
+  TARGET_DIR=$(CDPATH= cd -- "$(dirname -- "$TARGET_FILE")" && pwd)
+  TARGET_FILE=$(readlink "$TARGET_FILE")
+  case "$TARGET_FILE" in
+    /*) ;;
+    *) TARGET_FILE="$TARGET_DIR/$TARGET_FILE" ;;
+  esac
+done
+SCRIPT_DIR=$(CDPATH= cd -- "$(dirname -- "$TARGET_FILE")" && pwd)
+REAL_SCRIPT="$SCRIPT_DIR/$TOOL"
+PLUGIN_DIR=$(CDPATH= cd -- "$SCRIPT_DIR/../../.." && pwd)
+PLUGIN_DIR_NAME=$(basename -- "$PLUGIN_DIR")
+BIN_DIR="$ANTIGRAVITY_APP_DATA_DIR/plugin_data/$PLUGIN_DIR_NAME/bin"
+TARGET="$BIN_DIR/$TOOL-$GH_VERSION"
+
+# Self-register into Antigravity's bin directory (already in PATH for agent).
+SHIM="$ANTIGRAVITY_APP_DATA_DIR/bin/$TOOL"
+if [ ! -e "$SHIM" ]; then
+  mkdir -p "$ANTIGRAVITY_APP_DATA_DIR/bin"
+  if ln -sf "$REAL_SCRIPT" "$SHIM" 2>/dev/null && [ "$IS_FALLBACK" = "0" ]; then
+    echo "Registered '$TOOL' into PATH ($SHIM). It can now be run directly." >&2
+  fi
+fi
+
+# With the terminal sandbox off, Antigravity puts a plugin-cli shim for gh on
+# PATH, which runs gh with the connected account's token.
+PLUGIN_CLI_SHIM=${ANTIGRAVITY_PLUGIN_SHIM_DIR:+$ANTIGRAVITY_PLUGIN_SHIM_DIR/$TOOL}
+
+# Prefer a gh already on PATH (e.g. baked into the VM image), skipping this
+# launcher and the shims so it never execs itself.
+find_system_gh() {
+  OLD_IFS=$IFS
+  IFS=:
+  for dir in $PATH; do
+    IFS=$OLD_IFS
+    candidate="${dir:-.}/$TOOL"
+    if [ -f "$candidate" ] && [ -x "$candidate" ] &&
+      ! [ "$candidate" -ef "$REAL_SCRIPT" ] && ! [ "$candidate" -ef "$SHIM" ] &&
+      ! [ "$candidate" -ef "$PLUGIN_CLI_SHIM" ]; then
+      echo "$candidate"
+      return 0
+    fi
+  done
+  IFS=$OLD_IFS
+  return 1
+}
+
+SYSTEM_GH=$(find_system_gh || true)
+if [ -n "$SYSTEM_GH" ]; then
+  TARGET=$SYSTEM_GH
+fi
+
+if [ -z "$SYSTEM_GH" ] && [ ! -x "$TARGET" ]; then
+  case "$(uname -s)/$(uname -m)" in
+    Linux/x86_64 | Linux/amd64)
+      ASSET="gh_${GH_VERSION}_linux_amd64.tar.gz"
+      SHA256=4c806978ffce1cec70853302a56d70ac6da4f19bae7adca4e1a8ab00633dd91d ;;
+    Linux/arm64 | Linux/aarch64)
+      ASSET="gh_${GH_VERSION}_linux_arm64.tar.gz"
+      SHA256=ee32df2323c8847f5fac6cb6b4b69ca75828e9329a8f22f677021f7b3306ce63 ;;
+    Darwin/x86_64)
+      ASSET="gh_${GH_VERSION}_macOS_amd64.zip"
+      SHA256=a2f86418f4350ae6e9ec60d5000bdf7665728436946a97fc27fe50e6ae752682 ;;
+    Darwin/arm64)
+      ASSET="gh_${GH_VERSION}_macOS_arm64.zip"
+      SHA256=d700207eae9ae98fe2b89535c2c087c07823d4628c56364695a5a07ef311c062 ;;
+    *)
+      echo "error: unsupported platform: $(uname -s)/$(uname -m)" >&2
+      exit 1 ;;
+  esac
+  mkdir -p "$BIN_DIR"
+  rm -f "$BIN_DIR/$TOOL"-*
+  WORK="$BIN_DIR/.$TOOL.tmp.$$"
+  rm -rf "$WORK"
+  mkdir -p "$WORK"
+  trap 'rm -rf "$WORK"' EXIT
+  if ! curl -fsSL "$BASE_URL/$ASSET" -o "$WORK/$ASSET"; then
+    echo "error: failed to download $BASE_URL/$ASSET" >&2
+    exit 1
+  fi
+  if command -v sha256sum >/dev/null 2>&1; then
+    ACTUAL=$(sha256sum "$WORK/$ASSET" | cut -d' ' -f1)
+  else
+    ACTUAL=$(shasum -a 256 "$WORK/$ASSET" | cut -d' ' -f1)
+  fi
+  if [ "$ACTUAL" != "$SHA256" ]; then
+    echo "error: checksum mismatch for $ASSET (got $ACTUAL, want $SHA256)" >&2
+    exit 1
+  fi
+  # The archive unpacks to <asset name without extension>/bin/gh.
+  case "$ASSET" in
+    *.zip)
+      unzip -q "$WORK/$ASSET" -d "$WORK"
+      ROOT=${ASSET%.zip} ;;
+    *)
+      tar -xzf "$WORK/$ASSET" -C "$WORK"
+      ROOT=${ASSET%.tar.gz} ;;
+  esac
+  mv -f "$WORK/$ROOT/bin/gh" "$TARGET"
+  chmod +x "$TARGET"
+  rm -rf "$WORK"
+  trap - EXIT
+fi
+
+# Hand off to the plugin-cli shim, which finds this launcher through $SHIM and
+# runs it again with GH_TOKEN set.
+if [ -x "$PLUGIN_CLI_SHIM" ] &&
+  [ -z "${GH_TOKEN:-}${GITHUB_TOKEN:-}${AGY_GH_HANDED_OFF:-}" ]; then
+  AGY_GH_HANDED_OFF=1
+  PATH="$ANTIGRAVITY_APP_DATA_DIR/bin:$PATH"
+  export AGY_GH_HANDED_OFF PATH
+  exec "$PLUGIN_CLI_SHIM" "$@"
+fi
+
+# Remote agents: the proxy writes the user's connected GitHub credential to a
+# token.json file (and agy-plugin-proxy also exports GH_TOKEN from it). Hand its
+# access token to gh unless the caller supplied a different one. The file never
+# holds quotes inside values.
+for TOKEN_FILE in \
+  "${GITHUB_TOKEN_FILE:-}" \
+  "$ANTIGRAVITY_APP_DATA_DIR/plugin_data/$PLUGIN_ID/token.json" \
+  "$ANTIGRAVITY_APP_DATA_DIR/plugin_data/$PLUGIN_DIR_NAME/token.json"; do
+  if [ -n "$TOKEN_FILE" ] && [ -r "$TOKEN_FILE" ]; then
+    TOKEN=$(sed -n 's/.*"access_token":"\([^"]*\)".*/\1/p' "$TOKEN_FILE")
+    if [ -n "$TOKEN" ]; then
+      if [ -z "${GH_TOKEN:-}" ] && [ -z "${GITHUB_TOKEN:-}" ]; then
+        GH_TOKEN=$TOKEN
+        export GH_TOKEN
+      fi
+      if [ "${GH_TOKEN:-}" = "$TOKEN" ] && [ -z "${GITHUB_TOKEN:-}" ]; then
+        TOKEN_FROM_FILE=1
+      fi
+      break
+    fi
+  fi
+done
+
+# Agent-friendly defaults; any value the caller already set wins.
+: "${GH_PROMPT_DISABLED:=1}"
+: "${GH_NO_UPDATE_NOTIFIER:=1}"
+: "${GH_PAGER:=cat}"
+export GH_PROMPT_DISABLED GH_NO_UPDATE_NOTIFIER GH_PAGER
+
+# Remote agents: wire git to the same connected credential so HTTPS clone/push
+# and commits work without manual setup. Only runs when the token came from
+# token.json, so a local user's git config is never touched, and is a no-op
+# once configured. Git must call this launcher (not the raw gh binary, which is
+# what `gh auth setup-git` configures) because only the launcher sets GH_TOKEN.
+if [ "${TOKEN_FROM_FILE:-0}" = 1 ] && command -v git >/dev/null 2>&1; then
+  HELPER_KEY=credential.https://github.com.helper
+  HELPER="!'$REAL_SCRIPT' auth git-credential"
+  # An empty entry first resets helpers inherited from other config scopes.
+  if [ "$(git config --global --get-all "$HELPER_KEY" 2>/dev/null)" != "$(printf '\n%s' "$HELPER")" ]; then
+    git config --global --replace-all "$HELPER_KEY" '' &&
+      git config --global --add "$HELPER_KEY" "$HELPER" || true
+  fi
+
+  # Default the commit identity to the connected account. Skipped while git is
+  # fetching credentials so a push never waits on an extra API call.
+  if [ "${1:-} ${2:-}" != "auth git-credential" ] &&
+    { [ -z "$(git config --global --get user.name 2>/dev/null)" ] ||
+      [ -z "$(git config --global --get user.email 2>/dev/null)" ]; }; then
+    IDENTITY=$("$TARGET" api user \
+      --jq '"\(.name // .login)\n\(.id)+\(.login)@users.noreply.github.com"' \
+      2>/dev/null || true)
+    GIT_NAME=$(printf '%s\n' "$IDENTITY" | sed -n 1p)
+    GIT_EMAIL=$(printf '%s\n' "$IDENTITY" | sed -n 2p)
+    if [ -n "$GIT_NAME" ] && [ -n "$GIT_EMAIL" ]; then
+      [ -n "$(git config --global --get user.name 2>/dev/null)" ] ||
+        git config --global user.name "$GIT_NAME" || true
+      [ -n "$(git config --global --get user.email 2>/dev/null)" ] ||
+        git config --global user.email "$GIT_EMAIL" || true
+    fi
+  fi
+fi
+
+exec "$TARGET" "$@"
