@@ -1,6 +1,6 @@
 # 🚀 My Agent Skills
 
-คลังรวบรวม **Antigravity Skills** แบบพกพาครบวงจร (**รวมทั้งหมด 27 Skills**) พร้อมชุดสคริปต์ติดตั้งอัตโนมัติด้วยคำสั่งเดียว (`1-Line Installer`) และระบบซิงค์ข้อมูลกับ GitHub สามารถนำไปติดตั้งใช้งานได้ทันทีในทุกเครื่อง, ทุก Environment หรือทุก Workspace ใหม่
+คลังรวบรวม **Antigravity Skills** แบบพกพาครบวงจรที่สุด (**รวมทั้งหมด 66 Skills**) พร้อมชุดสคริปต์ติดตั้งอัตโนมัติด้วยคำสั่งเดียว (`1-Line Installer`) และระบบซิงค์ข้อมูลกับ GitHub สามารถนำไปติดตั้งใช้งานได้ทันทีในทุกเครื่อง, ทุก Environment หรือทุก Workspace ใหม่
 
 ---
 
@@ -9,7 +9,7 @@
 เพียงรันคำสั่งด้านล่างนี้ใน Terminal ของเครื่องหรือ Environment ใดก็ได้ที่ใช้ Antigravity:
 
 ### 1. ติดตั้งระดับ Global (แนะนำ - ใช้ได้กับทุกโปรเจกต์ในเครื่องทันที)
-คำสั่งนี้จะติดตั้ง Skills ทั้งหมด 27 รายการลงใน `~/.gemini/config/skills/` ทำให้ Agent ในเครื่องนั้นมองเห็นและเรียกใช้ได้ทันทีทุก Workspace:
+คำสั่งนี้จะติดตั้ง Skills ทั้งหมด 66 รายการลงใน `~/.gemini/config/skills/` ทำให้ Agent ในเครื่องนั้นมองเห็นและเรียกใช้ได้ทันทีทุก Workspace:
 
 ```bash
 curl -sSL https://raw.githubusercontent.com/borwonratsri/my-agent-skills/main/install.sh | bash
@@ -24,120 +24,104 @@ curl -sSL https://raw.githubusercontent.com/borwonratsri/my-agent-skills/main/in
 
 ---
 
-## 📦 รายชื่อ Skills ทั้งหมดในคลัง (27 รายการ)
+## 📦 สารบัญ Skills ทั้งหมดในคลัง (66 รายการ)
 
-### 💻 1. Professional Software Engineering & Quality (8 Skills)
-| ชื่อ Skill | คำอธิบาย | Slash Command |
-| :--- | :--- | :--- |
-| `code-reviewer` | รีวิวโค้ดเชิงลึก ตรวจสอบบั๊ก ความปลอดภัย ประสิทธิภาพ และ Clean Architecture | `/code-reviewer` |
-| `unit-test-generator` | สร้าง Unit และ Integration Tests คุณภาพสูง ครอบคลุม Edge Cases และ Mocks | `/unit-test-generator` |
-| `refactoring-clean-code` | ปรับโครงสร้างโค้ดให้อ่านง่าย ลดความซับซ้อนตามหลัก SOLID โดยไม่กระทบการทำงานเดิม | `/refactoring-clean-code` |
-| `api-architect` | ออกแบบ RESTful API, OpenAPI 3.0 Specs, GraphQL, และ gRPC พร้อม Error Handling มาตรฐาน | `/api-architect` |
-| `database-architect` | ออกแบบ Database Schema, ER Diagram, Migration Scripts, Indexing, และ Query Tuning | `/database-architect` |
-| `docker-devops` | สร้าง Dockerfile (Multi-stage), Docker Compose, และ GitHub Actions CI/CD Pipelines | `/docker-devops` |
-| `security-auditor` | ตรวจสอบช่องโหว่ความปลอดภัยตาม OWASP Top 10, Secrets Leak, และ Dependency Vulnerabilities | `/security-auditor` |
-| `technical-writer` | ผลิตเอกสารทางเทคนิคระดับมืออาชีพ Architecture Decision Records (ADRs), API Specs, Runbooks | `/technical-writer` |
-
-### 🌐 2. Web & UI Development (2 Skills)
+### 🧩 1. Matt Pocock Engineering & Spec Workflow Suite
 | ชื่อ Skill | คำอธิบาย |
 | :--- | :--- |
-| `web-app-development` | สร้างและปรับแต่ง Web App, UI, React, Vite, Next.js, HTML/CSS/JS |
-| `generative_ui` | แสดงผล Rich UI Widgets, แผนภูมิข้อมูล, แดชบอร์ดแบบ Interactive ในแชต |
+| `setup-matt-pocock-skills` | ตั้งค่า Issue Tracker, Triage Labels, และโครงสร้างเอกสารของโปรเจกต์ |
+| `grill-with-docs` | สัมภาษณ์และเจาะลึกความต้องการร่วมกับเอกสารก่อนเริ่มโค้ด |
+| `to-spec` | แปลงบทสนทนาและข้อสรุปให้เป็น Technical Specification |
+| `to-tickets` | ซอย Spec ออกเป็น Tracer-bullet Tickets ลงใน Issue Tracker |
+| `implement` / `implement-spec` | นำ Ticket หรือ Spec มาพัฒนาเป็นโค้ดจริงทีละสเต็ป |
+| `tdd` | Test-Driven Development เขียน Test นำก่อนเขียนฟีเจอร์ |
+| `triage` | จัดการและคัดแยกประเด็นใน Issue Tracker |
+| `diagnosing-bugs` | วินิจฉัยและระบุต้นตอของบักอย่างเป็นระบบ |
+| `improve-codebase-architecture` | ปรับปรุงสถาปัตยกรรมโค้ดเบสใหญ่ให้เป็นระเบียบ |
+| `codebase-design` | ออกแบบโครงสร้างระบบและโมดูลของโปรเจกต์ |
+| `prototype` | สร้าง Proof of Concept (PoC) และ Prototype รวดเร็ว |
+| `retro` | ประเมินผลและ Retrospective หลังจบงาน |
+| `wayfinder` | ค้นหาและทำความเข้าใจไฟล์สำคัญในโค้ดเบสขนาดใหญ่ |
+| `wizard` | ผู้ช่วยแนะนำการใช้งาน Skills และเครื่องมือ |
+| `research` | วิจัยและค้นคว้าข้อมูลเชิงลึกจาก Primary Sources |
+| `teach` | สอนและอธิบายแนวคิด คอนเซ็ปต์ หรือเครื่องมือใหม่ๆ ในโปรเจกต์ |
+| `handoff` | ส่งต่อ Context ข้ามเซสชันหรือข้ามเอเจนต์ |
+| `writing-for-agents` | เขียนและปรับแต่ง Instructions สำหรับ AI Agents |
+| `ask-matt` | ถามคำถามและขอคำแนะนำทางเทคนิค |
+| `pr` | จัดการ Pull Request สรุปการเปลี่ยนแปลงและตรวจสอบความพร้อม |
+| `grill-me` / `grilling` | สัมภาษณ์ถามตอบทีละขั้นจนกว่าจะได้ข้อสรุปที่ตรงกัน |
+| `to-questionnaire` | สร้างแบบสอบถามเพื่อเจาะลึกความต้องการ |
+| `wait-what` | ตรวจสอบสมมติฐานและหยุดทบทวนความถูกต้อง |
 
-### 🔍 3. Chrome DevTools & Web Debugging (7 Skills)
+### 🎨 2. UI & Design Polish Suite (Uizze & UI Taste)
 | ชื่อ Skill | คำอธิบาย |
 | :--- | :--- |
-| `chrome-devtools` | ออโตเมชันเบราว์เซอร์และ Debug เว็บไซต์ผ่าน Chrome DevTools MCP |
-| `chrome-devtools-cli` | สคริปต์ควบคุมและทดสอบเบราว์เซอร์ผ่าน CLI |
-| `debug-optimize-lcp` | วิเคราะห์และปรับแต่ง Core Web Vitals (Largest Contentful Paint) |
-| `memory-leak-debugging` | ตรวจจับและวิเคราะห์ปัญหา Memory Leak / Heap Snapshot ใน JS/Node.js |
-| `a11y-debugging` | ตรวจสอบ Accessibility (a11y), Semantic HTML, ARIA, Focus, และ Color Contrast |
-| `cookie-debugging` | ดีบัก Cookies, Session State, Headers, และ Cookie Consent |
-| `troubleshooting` | แก้ปัญหาการเชื่อมต่อและการเริ่มทำงานของ DevTools Browser Server |
+| `ui-taste` | ยกระดับ UI ให้ดูเป็นมืออาชีพ ป้องกันปัญหา AI UI Slop |
+| `anti-ui-slop` | กฎและ Playbook ห้ามไม่ให้เอเจนต์สร้าง UI ที่ดูโหลหรือไม่ประณีต |
+| `ui-design` | ออกแบบหน้าตาและส่วนประกอบตามมาตรฐานโมเดิร์น |
+| `ui-radar` | ตรวจสอบจุดบกพร่องด้านการจัดวางและ Hierarchy บนหน้าจอ |
+| `uizze-ui` | ดึงตัวอย่าง Real App References และ Design Tokens |
+| `image-to-ui` | แปลงภาพดีไซน์หรือภาพสเก็ตช์ให้เป็นโค้ด UI |
 
-### 🤖 4. Automation & Workflows (2 Skills)
+### 🎯 3. Custom & Domain Specific Skills
 | ชื่อ Skill | คำอธิบาย |
 | :--- | :--- |
-| `run-workflow` | รัน Autonomous Workflows และ Tasks ที่มีความซับซ้อน |
-| `migrate-workflows` | แปลง Legacy Workflows เป็น Modern Skills อัตโนมัติ |
+| `project-memory` | จัดการระบบความจำถาวรของโปรเจกต์ สร้างไฟล์ `PROJECT_CONTEXT.md` |
+| `summary-text` | สรุปความจากข้อความอย่างเป็นทางการระดับผู้บริหาร (Executive Summary) |
+| `website-design` | ออกแบบหน้าเว็บไซต์และ UI/UX ระดับมืออาชีพ พร้อม Component สวยงาม |
+| `product-impact-assessment` | Pharmaceutical Product Impact Assessment (PIA) ประเมินผลกระทบ GMP/Change Control |
+| `schema-mapping` | วิเคราะห์ จัดทำ และแมปปิ้งโครงสร้างข้อมูลระหว่างระบบ |
+| `skill-repair` | ตรวจสอบ ซ่อมแซม และติดตั้ง Skills ที่มีปัญหา syntax/permissions |
 
-### ☁️ 5. Cloud & Google Workspace Apps (6 Skills)
+### 💻 4. Professional Engineering & Architecture
 | ชื่อ Skill | คำอธิบาย |
 | :--- | :--- |
-| `github` | ทำงานกับ GitHub ผ่าน GitHub CLI (PR, Issues, CI Actions, Repos) |
-| `gdrive` | ค้นหา จัดการ ดาวน์โหลด และอัปโหลดไฟล์ใน Google Drive |
-| `gsheets` | อ่าน เขียน จัดรูปแบบ และคำนวณข้อมูลใน Google Sheets |
-| `gcalendar` | จัดการนัดหมายและตารางเวลาใน Google Calendar |
-| `gdocs` | อ่าน เขียน และจัดรูปแบบเอกสาร Google Docs |
-| `gslides` | สร้างและตกแต่งสไลด์นำเสนอ Google Slides |
+| `code-reviewer` | รีวิวโค้ดเชิงลึก ตรวจสอบบั๊ก Logic, Security, Performance |
+| `unit-test-generator` | สร้าง Unit และ Integration Tests ครอบคลุม Edge Cases และ Mocks |
+| `refactoring-clean-code` | ปรับโครงสร้างโค้ดให้อ่านง่าย ลดความซับซ้อนตามหลัก SOLID |
+| `api-architect` | ออกแบบ RESTful API, OpenAPI 3.0 Specs, GraphQL, และ gRPC |
+| `database-architect` | ออกแบบ Database Schema, ER Diagram, Migration และ Indexing |
+| `docker-devops` | สร้าง Dockerfile (Multi-stage), Docker Compose และ CI/CD Pipelines |
+| `security-auditor` | ตรวจสอบช่องโหว่ความปลอดภัยตาม OWASP Top 10 และ Secrets Leak |
+| `technical-writer` | ผลิตเอกสารเทคนิค ADRs, API Reference, Runbook และ Architecture Guide |
 
-### 🛠️ 6. Management & Template (2 Skills)
-| ชื่อ Skill | คำอธิบาย |
-| :--- | :--- |
-| `sync-agent-skills` | ซิงค์ Skills อัตโนมัติระหว่างเครื่องกับ GitHub Repository นี้ (`/sync-agent-skills`) |
-| `example-custom-skill` | แม่แบบและตัวอย่างโครงสร้างสำหรับการสร้าง Custom Skill ใหม่ |
+### 🔍 5. Chrome DevTools & Web Debugging
+- `chrome-devtools` : ตรวจสอบ ดีบักเว็บ ออโตเมชันเบราว์เซอร์
+- `chrome-devtools-cli` : ควบคุมและทดสอบเบราว์เซอร์ผ่าน CLI
+- `debug-optimize-lcp` : วิเคราะห์และปรับแต่งความเร็ว Core Web Vitals (LCP)
+- `memory-leak-debugging` : ตรวจจับและวิเคราะห์ปัญหา Memory Leak / Heap Snapshot
+- `a11y-debugging` : ตรวจสอบ Accessibility (a11y), Semantic HTML, ARIA, Focus
+- `cookie-debugging` : ดีบัก Cookies, Session State, Headers, Cookie Consent
+- `troubleshooting` : วิเคราะห์และแก้ปัญหาเชื่อมต่อ DevTools Server
 
----
+### 🤖 6. Built-in & Web Tools
+- `web-app-development` : สร้างและปรับแต่ง Web App, UI, React, Next.js, Vite
+- `generative_ui` : เรนเดอร์ Rich Interactive Widgets, Charts, Dashboard ในแชต
+- `run-workflow` : รัน Autonomous Workflows และ Tasks ที่มีความซับซ้อน
+- `migrate-workflows` : แปลง Legacy Workflows เป็น Modern Skills อัตโนมัติ
 
-## 🛠️ โครงสร้างของ Repository
+### ☁️ 7. Git & Google Workspace Apps
+- `github` : จัดการ Pull Requests, Issues, Repos, และ GitHub Actions ผ่าน CLI
+- `gdrive` : ค้นหา จัดการ อัปโหลด/ดาวน์โหลดไฟล์บน Google Drive
+- `gsheets` : จัดการ อ่าน เขียน และคำนวณข้อมูลใน Google Sheets
+- `gcalendar` : ตรวจสอบนัดหมายและตารางเวลาใน Google Calendar
+- `gdocs` : อ่าน เขียน และจัดรูปแบบเอกสาร Google Docs
+- `gslides` : ออกแบบและสร้างสไลด์ Google Slides
 
-```text
-my-agent-skills/
-├── README.md               # เอกสารแนะนำและคู่มือการใช้งาน 27 Skills
-├── install.sh              # สคริปต์ติดตั้งอัตโนมัติ (รองรับ Global และ Workspace)
-├── sync.sh                 # สคริปต์ช่วยซิงค์ ดึง หรือส่ง Skills ขึ้น GitHub
-└── skills/                 # โฟลเดอร์เก็บ Skills ทั้งหมด (27 skills)
-    ├── code-reviewer/
-    ├── unit-test-generator/
-    ├── refactoring-clean-code/
-    ├── api-architect/
-    ├── database-architect/
-    ├── docker-devops/
-    ├── security-auditor/
-    ├── technical-writer/
-    ├── chrome-devtools/
-    ├── web-app-development/
-    ├── sync-agent-skills/
-    └── ... (skills อื่นๆ)
-```
+### 🛠️ 8. Management & Template
+- `sync-agent-skills` : ซิงค์ Skills อัตโนมัติระหว่างเครื่องกับ GitHub Repo นี้
+- `example-custom-skill` : โครงสร้างแม่แบบสำหรับการสร้าง Custom Skill เพิ่มเติมในอนาคต
 
 ---
 
 ## 🔄 วิธีเพิ่ม Custom Skill ใหม่ และซิงค์ขึ้น GitHub
 
-### 1. วิธีเพิ่ม Skill ใหม่
-สร้างโฟลเดอร์ใหม่ใน `skills/<ชื่อ-skill>/` และสร้างไฟล์ `SKILL.md` ตามรูปแบบมาตรฐาน:
-
-```markdown
----
-name: my-new-skill
-description: อธิบายสั้นๆ ว่า Skill นี้ทำอะไร และควรเรียกใช้เมื่อใด
----
-
-# My New Skill
-
-คำสั่ง ขั้นตอน หรือ Guideline ที่ต้องการให้ Agent ปฏิบัติตามเมื่อเรียกใช้ Skill นี้...
-```
-
-### 2. สั่งซิงค์และ Push ขึ้น GitHub
-รันสคริปต์ `sync.sh`:
-
 ```bash
 ./sync.sh push "Add my new skill"
 ```
 
-สคริปต์จะตรวจหา Skills ใหม่ ทำการ Commit และ Push ขึ้น GitHub ให้ทันที
-
----
-
 ## 📥 วิธีอัปเดต Skills ให้เป็นเวอร์ชันล่าสุด
 
-เมื่อมีการแก้ไขหรือเพิ่ม Skill ใหม่บน GitHub หากต้องการอัปเดตในเครื่องของคุณ สามารถรัน:
-
 ```bash
-# หากอยู่ใน repo
-./sync.sh pull
-
-# หรือรันคำสั่ง 1-Line installer ซ้ำอีกครั้งได้ตลอดเวลา
 curl -sSL https://raw.githubusercontent.com/borwonratsri/my-agent-skills/main/install.sh | bash
 ```
