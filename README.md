@@ -1,6 +1,6 @@
 # 🚀 My Agent Skills
 
-คลังรวบรวม **Antigravity Skills** แบบพกพา (ทั้งหมด 19 Skills) พร้อมชุดสคริปต์ติดตั้งอัตโนมัติด้วยคำสั่งเดียว (`1-Line Installer`) และระบบซิงค์ข้อมูลกับ GitHub สามารถนำไปติดตั้งใช้งานได้ทันทีในทุกเครื่อง, ทุก Environment หรือทุก Workspace ใหม่
+คลังรวบรวม **Antigravity Skills** แบบพกพาครบวงจร (**รวมทั้งหมด 27 Skills**) พร้อมชุดสคริปต์ติดตั้งอัตโนมัติด้วยคำสั่งเดียว (`1-Line Installer`) และระบบซิงค์ข้อมูลกับ GitHub สามารถนำไปติดตั้งใช้งานได้ทันทีในทุกเครื่อง, ทุก Environment หรือทุก Workspace ใหม่
 
 ---
 
@@ -8,8 +8,8 @@
 
 เพียงรันคำสั่งด้านล่างนี้ใน Terminal ของเครื่องหรือ Environment ใดก็ได้ที่ใช้ Antigravity:
 
-### 1. ติดตั้งระดับ Global (แนะนำ - ใช้ได้กับทุกโปรเจกต์)
-คำสั่งนี้จะติดตั้ง Skills ทั้งหมดลงใน `~/.gemini/config/skills/` ทำให้ Agent ในเครื่องนั้นมองเห็นและเรียกใช้ได้ทันทีทุก Workspace:
+### 1. ติดตั้งระดับ Global (แนะนำ - ใช้ได้กับทุกโปรเจกต์ในเครื่องทันที)
+คำสั่งนี้จะติดตั้ง Skills ทั้งหมด 27 รายการลงใน `~/.gemini/config/skills/` ทำให้ Agent ในเครื่องนั้นมองเห็นและเรียกใช้ได้ทันทีทุก Workspace:
 
 ```bash
 curl -sSL https://raw.githubusercontent.com/borwonratsri/my-agent-skills/main/install.sh | bash
@@ -24,29 +24,58 @@ curl -sSL https://raw.githubusercontent.com/borwonratsri/my-agent-skills/main/in
 
 ---
 
-## 📦 รายชื่อ Skills ทั้งหมดที่มีในคลัง (19 รายการ)
+## 📦 รายชื่อ Skills ทั้งหมดในคลัง (27 รายการ)
 
-| หมวดหมู่ | ชื่อ Skill | คำอธิบาย |
+### 💻 1. Professional Software Engineering & Quality (8 Skills)
+| ชื่อ Skill | คำอธิบาย | Slash Command |
 | :--- | :--- | :--- |
-| **Development** | `web-app-development` | สร้างและปรับปรุง Web App, UI, React, Vite, Next.js, HTML/CSS/JS |
-| **Development** | `generative_ui` | แสดงผล Rich UI Widgets, แผนภูมิข้อมูล, แดชบอร์ดแบบ Interactive |
-| **Chrome DevTools** | `chrome-devtools` | ออโตเมชันเบราว์เซอร์และ Debug เว็บไซต์ผ่าน Chrome DevTools MCP |
-| **Chrome DevTools** | `chrome-devtools-cli` | สคริปต์ CLI สำหรับควบคุมและทดสอบเบราว์เซอร์ผ่าน DevTools |
-| **Chrome DevTools** | `debug-optimize-lcp` | วิเคราะห์และปรับแต่งความเร็ว Core Web Vitals (Largest Contentful Paint) |
-| **Chrome DevTools** | `memory-leak-debugging` | ตรวจสอบและแก้ไขปัญหา Memory Leak / Heap Snapshot ใน JS/Node.js |
-| **Chrome DevTools** | `a11y-debugging` | ตรวจสอบ Accessibility (a11y), Semantic HTML, ARIA, และ Contrast |
-| **Chrome DevTools** | `cookie-debugging` | ดีบัก Cookies, Session State, Headers, และ Cookie Consent |
-| **Chrome DevTools** | `troubleshooting` | แก้ปัญหาการเชื่อมต่อและการเริ่มทำงานของ DevTools Browser Server |
-| **Automation** | `run-workflow` | รัน Autonomous Workflows และ Tasks ที่มีความซับซ้อน |
-| **Automation** | `migrate-workflows` | แปลง Legacy Workflows เป็น Modern Skills อัตโนมัติ |
-| **Cloud & Tools** | `github` | ทำงานกับ GitHub ผ่าน GitHub CLI (PR, Issues, CI Actions, Repos) |
-| **Google Apps** | `gdrive` | ค้นหา จัดการ ดาวน์โหลด และอัปโหลดไฟล์ใน Google Drive |
-| **Google Apps** | `gsheets` | อ่าน เขียน จัดรูปแบบ และคำนวณข้อมูลใน Google Sheets |
-| **Google Apps** | `gcalendar` | จัดการนัดหมายและตารางเวลาใน Google Calendar |
-| **Google Apps** | `gdocs` | อ่าน เขียน และจัดรูปแบบเอกสาร Google Docs |
-| **Google Apps** | `gslides` | สร้างและตกแต่งสไลด์นำเสนอ Google Slides |
-| **Management** | `sync-agent-skills` | ซิงค์ Skills อัตโนมัติระหว่างเครื่องกับ GitHub Repository นี้ |
-| **Template** | `example-custom-skill` | แม่แบบและตัวอย่างโครงสร้างสำหรับการสร้าง Custom Skill ใหม่ |
+| `code-reviewer` | รีวิวโค้ดเชิงลึก ตรวจสอบบั๊ก ความปลอดภัย ประสิทธิภาพ และ Clean Architecture | `/code-reviewer` |
+| `unit-test-generator` | สร้าง Unit และ Integration Tests คุณภาพสูง ครอบคลุม Edge Cases และ Mocks | `/unit-test-generator` |
+| `refactoring-clean-code` | ปรับโครงสร้างโค้ดให้อ่านง่าย ลดความซับซ้อนตามหลัก SOLID โดยไม่กระทบการทำงานเดิม | `/refactoring-clean-code` |
+| `api-architect` | ออกแบบ RESTful API, OpenAPI 3.0 Specs, GraphQL, และ gRPC พร้อม Error Handling มาตรฐาน | `/api-architect` |
+| `database-architect` | ออกแบบ Database Schema, ER Diagram, Migration Scripts, Indexing, และ Query Tuning | `/database-architect` |
+| `docker-devops` | สร้าง Dockerfile (Multi-stage), Docker Compose, และ GitHub Actions CI/CD Pipelines | `/docker-devops` |
+| `security-auditor` | ตรวจสอบช่องโหว่ความปลอดภัยตาม OWASP Top 10, Secrets Leak, และ Dependency Vulnerabilities | `/security-auditor` |
+| `technical-writer` | ผลิตเอกสารทางเทคนิคระดับมืออาชีพ Architecture Decision Records (ADRs), API Specs, Runbooks | `/technical-writer` |
+
+### 🌐 2. Web & UI Development (2 Skills)
+| ชื่อ Skill | คำอธิบาย |
+| :--- | :--- |
+| `web-app-development` | สร้างและปรับแต่ง Web App, UI, React, Vite, Next.js, HTML/CSS/JS |
+| `generative_ui` | แสดงผล Rich UI Widgets, แผนภูมิข้อมูล, แดชบอร์ดแบบ Interactive ในแชต |
+
+### 🔍 3. Chrome DevTools & Web Debugging (7 Skills)
+| ชื่อ Skill | คำอธิบาย |
+| :--- | :--- |
+| `chrome-devtools` | ออโตเมชันเบราว์เซอร์และ Debug เว็บไซต์ผ่าน Chrome DevTools MCP |
+| `chrome-devtools-cli` | สคริปต์ควบคุมและทดสอบเบราว์เซอร์ผ่าน CLI |
+| `debug-optimize-lcp` | วิเคราะห์และปรับแต่ง Core Web Vitals (Largest Contentful Paint) |
+| `memory-leak-debugging` | ตรวจจับและวิเคราะห์ปัญหา Memory Leak / Heap Snapshot ใน JS/Node.js |
+| `a11y-debugging` | ตรวจสอบ Accessibility (a11y), Semantic HTML, ARIA, Focus, และ Color Contrast |
+| `cookie-debugging` | ดีบัก Cookies, Session State, Headers, และ Cookie Consent |
+| `troubleshooting` | แก้ปัญหาการเชื่อมต่อและการเริ่มทำงานของ DevTools Browser Server |
+
+### 🤖 4. Automation & Workflows (2 Skills)
+| ชื่อ Skill | คำอธิบาย |
+| :--- | :--- |
+| `run-workflow` | รัน Autonomous Workflows และ Tasks ที่มีความซับซ้อน |
+| `migrate-workflows` | แปลง Legacy Workflows เป็น Modern Skills อัตโนมัติ |
+
+### ☁️ 5. Cloud & Google Workspace Apps (6 Skills)
+| ชื่อ Skill | คำอธิบาย |
+| :--- | :--- |
+| `github` | ทำงานกับ GitHub ผ่าน GitHub CLI (PR, Issues, CI Actions, Repos) |
+| `gdrive` | ค้นหา จัดการ ดาวน์โหลด และอัปโหลดไฟล์ใน Google Drive |
+| `gsheets` | อ่าน เขียน จัดรูปแบบ และคำนวณข้อมูลใน Google Sheets |
+| `gcalendar` | จัดการนัดหมายและตารางเวลาใน Google Calendar |
+| `gdocs` | อ่าน เขียน และจัดรูปแบบเอกสาร Google Docs |
+| `gslides` | สร้างและตกแต่งสไลด์นำเสนอ Google Slides |
+
+### 🛠️ 6. Management & Template (2 Skills)
+| ชื่อ Skill | คำอธิบาย |
+| :--- | :--- |
+| `sync-agent-skills` | ซิงค์ Skills อัตโนมัติระหว่างเครื่องกับ GitHub Repository นี้ (`/sync-agent-skills`) |
+| `example-custom-skill` | แม่แบบและตัวอย่างโครงสร้างสำหรับการสร้าง Custom Skill ใหม่ |
 
 ---
 
@@ -54,16 +83,21 @@ curl -sSL https://raw.githubusercontent.com/borwonratsri/my-agent-skills/main/in
 
 ```text
 my-agent-skills/
-├── README.md               # เอกสารแนะนำและคู่มือการใช้งาน
+├── README.md               # เอกสารแนะนำและคู่มือการใช้งาน 27 Skills
 ├── install.sh              # สคริปต์ติดตั้งอัตโนมัติ (รองรับ Global และ Workspace)
 ├── sync.sh                 # สคริปต์ช่วยซิงค์ ดึง หรือส่ง Skills ขึ้น GitHub
-└── skills/                 # โฟลเดอร์เก็บ Skills ทั้งหมด (19 skills)
+└── skills/                 # โฟลเดอร์เก็บ Skills ทั้งหมด (27 skills)
+    ├── code-reviewer/
+    ├── unit-test-generator/
+    ├── refactoring-clean-code/
+    ├── api-architect/
+    ├── database-architect/
+    ├── docker-devops/
+    ├── security-auditor/
+    ├── technical-writer/
     ├── chrome-devtools/
-    ├── debug-optimize-lcp/
-    ├── generative_ui/
     ├── web-app-development/
     ├── sync-agent-skills/
-    ├── example-custom-skill/
     └── ... (skills อื่นๆ)
 ```
 
