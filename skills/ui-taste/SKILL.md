@@ -1,39 +1,49 @@
 ---
 name: ui-taste
-description: Give your coding agent better UI taste. Build and polish web and iOS interfaces with Uizze's anti-ui-slop playbooks, design tokens, responsive layouts, and visual hierarchy standards.
+description: "Give your coding agent better UI taste. Combines Uizze's Anti-UI-Slop playbooks, design tokens, visual hierarchy, responsive layouts, and UI finish gates into one unified master design skill."
 ---
 
-# UI Taste: Stop AI Coding Agents From Shipping Generic UI
+# UI Taste: Professional UI/UX & Anti-UI-Slop Master Skill
 
-Give coding agents real design sensibility, crisp visual hierarchy, refined typography, and intentional spacing instead of boilerplate, generic "AI-slop" interfaces.
+Give coding agents refined design sensibility, crisp visual hierarchy, intentional typography, and production-grade polish instead of generic, robotic "AI-slop" interfaces.
 
 ## When to Use This Skill
 - Slash command: `/ui-taste`
-- User requests: "Make this UI look better", "ยกระดับ UI ให้ดูเป็นมืออาชีพ", "Polish frontend styling", "Prevent AI UI slop"
-- Building new web pages, landing pages, dashboards, or mobile components from scratch.
+- User requests: "Make this UI look better", "ยกระดับ UI ให้ดูเป็นมืออาชีพ", "Polish frontend styling", "Prevent AI UI slop", "Redesign this interface", "Run UI review"
+- Whenever building web pages, mobile apps, landing pages, dashboards, or interface components.
 
-## Anti-UI-Slop Principles
+---
 
-1. **Hierarchy over Uniformity**:
-   - Never give every card, border, and button equal visual weight.
-   - Establish 1 clear focal point per viewport: Hero metric, Primary CTA, or Main data table.
-   - Contrast text size with weight: Big titles should often be tighter and slightly muted (`text-4xl font-bold tracking-tight text-neutral-900 dark:text-neutral-50`).
+## 🛑 The Core Anti-UI-Slop Rules
 
-2. **Intentional Color Palettes**:
-   - Avoid default raw primaries (e.g. pure `#0000ff` or bright purple gradients).
-   - Use high-quality neutral scales (zinc, slate, or stone) for 90% of surfaces.
-   - Use accent colors sparingly: 1 primary brand color for action buttons, links, and active badges.
-   - Dark mode must have depth: Never use pure black `#000000` for all cards; use layered elevated surfaces (`bg-neutral-900`, `bg-neutral-800/60`, subtle borders `border-neutral-800`).
+1. **Stop Making Every Element Equal Weight**:
+   - Never give every card, border, and badge identical visual prominence.
+   - Establish exactly **1 primary focal point** per viewport (e.g. Hero value, Main CTA button, Primary Data Chart).
+   - Balance large text with lighter weight and tighter tracking: `text-3xl md:text-4xl font-bold tracking-tight text-neutral-900 dark:text-neutral-50`.
 
-3. **Spacious, Consistent Rhythm**:
-   - Generous whitespace breathes quality: Use 4px/8px scale (`p-4`, `p-6`, `p-8`, `gap-6`).
-   - Align elements rigorously: Labels above inputs, consistent border-radius (`rounded-xl` or `rounded-2xl` matching across all cards and buttons).
+2. **Refined Color Systems (Kill Raw Primary Gradients)**:
+   - Use high-quality neutral scales (`slate`, `zinc`, or `stone`) for 90% of surfaces and backgrounds.
+   - Restrict accent brand colors to interactive elements: Primary buttons, active tabs, focus rings.
+   - **Dark Mode with Real Depth**: Never use flat pure black `#000000` for all cards. Use layered surfaces (`bg-neutral-900`, `bg-neutral-800/60`, subtle borders `border-neutral-800`).
 
-4. **Complete State Coverage**:
-   - Always implement: Default, Hover, Active/Focus-visible, Loading (skeletons/spinners), Empty state, and Error state.
-   - Smooth transitions: `transition-all duration-150 ease-in-out` on interactive controls.
+3. **Consistent Spacing & Border Radius Rhythm**:
+   - Follow strict 4px/8px scale (`p-4`, `p-6`, `p-8`, `gap-4`, `gap-6`).
+   - Match radii across the page: If cards use `rounded-2xl`, inputs and buttons should use harmonious `rounded-xl`.
 
-## Instructions for the Agent
-1. Inspect existing design tokens and tailwind configuration before writing styles.
-2. Replace generic boilerplate styling with clean, modern, product-grade UI patterns.
-3. Verify visual hierarchy and responsive mobile/desktop layouts.
+4. **100% State Coverage (The Finish Gate)**:
+   - Every interactive component must handle: Default, Hover, Active/Focus-visible, Disabled.
+   - Every data container must handle: Loading (skeletons), Empty state with illustration/helpful CTA, and Error state.
+   - Micro-interactions: `transition-all duration-150 ease-in-out` on buttons, cards, and links.
+
+5. **Typography & Readability**:
+   - Clean, modern typefaces: Inter, Plus Jakarta Sans, Geist, or Prompt (for Thai).
+   - Maintain readable line lengths (max 65–75 characters for prose).
+
+---
+
+## 🛠️ Instructions for the Agent
+
+1. **Audit Existing Tokens**: Inspect Tailwind config or CSS variables before writing styles to ensure brand continuity.
+2. **Design from Real User Needs**: Favor clean, purpose-driven layouts over flashy, empty decorations.
+3. **Execute Clean Markup**: Write semantic HTML (`<main>`, `<nav>`, `<article>`, `<button>`) with accessible ARIA labels.
+4. **Self-Review**: Run the finish gate checklist before presenting UI to the user.

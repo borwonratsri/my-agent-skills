@@ -1,74 +1,85 @@
 ---
 name: chrome-devtools
-description: Uses Chrome DevTools via MCP for efficient debugging, troubleshooting and browser automation. Use when debugging web pages, automating browser interactions, analyzing performance, or inspecting network requests. This skill does not apply to `--slim` mode (MCP configuration).
+description: "Master Chrome DevTools MCP skill for web debugging, browser automation, performance optimization (LCP/CWV), memory leak diagnostics, accessibility (a11y) audits, and cookie/session state management."
 ---
 
-## Core Concepts
+# Chrome DevTools Master Skill & MCP Guide
 
-**Browser lifecycle**: Browser starts automatically on first tool call using a persistent Chrome profile. Configure via CLI args in the MCP server configuration: `npx chrome-devtools-mcp@latest --help`.
-Addional tooling can be enabled by providing the following flags:
+Comprehensive, all-in-one skill for interacting with, automating, and debugging web applications in Chrome via the Model Context Protocol (MCP).
 
-- For extension tooling, use the `--categoryExtensions` flag.
-- For memory tooling, use the `--memoryDebugging` flag.
+## When to Use This Skill
+- Slash command: `/chrome-devtools`
+- User requests: "Debug this website", "ทดสอบหน้าเว็บบนเบราว์เซอร์", "Check Core Web Vitals / LCP", "Inspect cookies and session", "Find memory leaks", "Audit accessibility (a11y)"
 
-**Page targeting**: Page-scoped tools require a `pageId` parameter to target a specific page. Use `list_pages` to see available pages and their IDs (e.g. `pageId: 1`), or use the ID returned when creating a page with `new_page`.
-Note: For `evaluate_script`, `pageId` is required when targeting pages. However, when `--categoryExtensions` is enabled, `pageId` is optional so you can pass `serviceWorkerId` instead to evaluate inside an extension background service worker.
-**Element interaction**: Use `take_snapshot` to get page structure with element `uid`s. Each element has a unique `uid` for interaction. If an element isn't found, take a fresh snapshot - the element may have been removed or the page changed.
+---
 
-## Workflow Patterns
+## ⚙️ MCP Server Configuration
 
-### Before interacting with a page
+To enable Chrome DevTools tools in your environment, ensure `chrome-devtools-mcp` is registered in your client configuration:
 
-1. Navigate: `navigate_page` or `new_page`
-2. Wait: `wait_for` to ensure content is loaded if you know what you look for.
-3. Snapshot: `take_snapshot` with `pageId` to understand page structure
-4. Interact: Use element `uid`s from snapshot for `click`, `fill`, etc., passing the corresponding `pageId`.
+```json
+{
+  "mcpServers": {
+    "chrome-devtools": {
+      "command": "npx",
+      "args": ["chrome-devtools-mcp@latest", "--categoryExtensions", "--memoryDebugging"]
+    }
+  }
+}
+```
 
-### Efficient data retrieval
+---
 
-- Use `filePath` parameter for large outputs (screenshots, snapshots, traces)
-- Use pagination (`pageIdx`, `pageSize`) and filtering (`types`) to minimize data
-- Set `includeSnapshot: false` on input actions unless you need updated page state
+## 🌐 1. Core Browser Automation & Interaction
 
-### Tool selection
+- **Lifecycle**: Browser starts automatically on the first tool call using a persistent profile.
+- **Page Targeting**: Call `list_pages` to get `pageId` (e.g. `pageId: 1`), or use the ID returned by `new_page`.
+- **Navigation & Inspection**:
+  1. `navigate_page`: Load target URL.
+  2. `take_snapshot`: Get full DOM accessibility tree with element `uid`s (faster and more robust than raw screenshots).
+  3. `click` / `fill`: Interact with elements using their `uid`.
+  4. `take_screenshot`: Capture visual state for user verification.
+  5. `evaluate_script`: Run JavaScript directly inside page context for custom inspection.
 
-- **Automation/interaction**: `take_snapshot` (text-based, faster, better for automation)
-- **Visual inspection**: `take_screenshot` (when user needs to see visual state)
-- **CSS & Styling inspection**: Use `get_css_styles` to inspect matched rules, cascade, and CSS variables.
-- **Additional details**: Use `evaluate_script` for final resolved values (`getComputedStyle`) or runtime DOM/JS data not in the accessibility tree.
+---
 
-### Parallel execution
+## ⚡ 2. Performance & Core Web Vitals (LCP)
 
-You can send multiple tool calls in parallel, but maintain correct order: navigate → wait → snapshot → interact.
+- **Identify LCP Element**: Locate the largest visual element in the viewport (hero image, heading, video poster).
+- **Sub-part Breakdown**:
+  - **TTFB (Time to First Byte)**: Server response and redirect latency.
+  - **Resource Load Delay**: Time between TTFB and when the browser starts fetching the LCP resource (optimize via `<link rel="preload" as="image">`).
+  - **Resource Load Duration**: Image/asset transfer time (optimize via WebP/AVIF, responsive `srcset`, CDN caching).
+  - **Element Render Delay**: Time from asset download finish until pixel painting (eliminate render-blocking CSS/JS).
 
-### Testing an extension
+---
 
-> **Before proceeding**: Extension tools (`install_extension`, `list_extensions`, etc.) are only available when the MCP server is started with the `--categoryExtensions` flag. If these tools are not in your tool list, stop and ask the user to update their MCP server configuration:
->
-> ```json
-> {
->   "mcpServers": {
->     "chrome-devtools": {
->       "command": "npx",
->       "args": ["chrome-devtools-mcp@latest", "--categoryExtensions"]
->     }
->   }
-> }
-> ```
->
-> After updating, the user must restart the MCP server (or their AI client) for the change to take effect.
+## ♿ 3. Accessibility (a11y) Auditing
 
-1. **Install**: Use `install_extension` with the path to the unpacked extension.
-2. **Identify**: Get the extension ID from the response or by calling `list_extensions`.
-3. **Trigger Action**: Use `trigger_extension_action` to open the popup or side panel if applicable.
-4. **Verify Service Worker**: Use `evaluate_script` with `serviceWorkerId` (omitting `pageId` and `args`) to check extension state or trigger background actions. When evaluating in a page, pass `pageId` (omitting `serviceWorkerId`).
-5. **Verify Page Behavior**: Navigate to a page where the extension operates and use `take_snapshot` to check if content scripts injected elements or modified the page correctly.
+- Inspect DOM snapshots for proper semantic HTML landmarks (`<main>`, `<nav>`, `<header>`).
+- Verify keyboard focus states (`outline`, `tabindex`, skip links).
+- Audit color contrast ratios (WCAG AA: minimum 4.5:1 for normal text, 3:1 for large text).
+- Check ARIA attributes: Ensure `aria-label`, `aria-expanded`, and `aria-hidden` are used correctly without breaking screen readers.
 
-## Troubleshooting
+---
 
-If `chrome-devtools-mcp` is insufficient, guide users to use Chrome DevTools UI:
+## 🍪 4. Cookies, Session State & Security Headers
 
-- https://developer.chrome.com/docs/devtools
-- https://developer.chrome.com/docs/devtools/ai-assistance
+- Diagnose 401/403 authentication redirects and session expiration.
+- Check security flags: `HttpOnly` (prevent XSS token theft), `Secure` (HTTPS only), and `SameSite=Lax/Strict`.
+- Verify Third-Party cookie phaseout readiness and Partitioned Cookie headers (`CHIPS`).
 
-If there are errors launching `chrome-devtools-mcp` or Chrome, refer to https://github.com/ChromeDevTools/chrome-devtools-mcp/blob/main/docs/troubleshooting.md.
+---
+
+## 🧠 5. Memory Leak & Heap Diagnostics
+
+- Capture heap snapshots to compare object counts before and after running repetitive actions.
+- Identify detached DOM trees (elements removed from DOM but retained by JS event listeners).
+- Spot unbounded closures, uncleaned `setInterval` timers, and global caches.
+
+---
+
+## 🛠️ Instructions for the Agent
+1. Determine the specific debugging goal (Navigation, Speed/LCP, Accessibility, Cookies, or Memory).
+2. Execute tool calls in logical sequence: `navigate` -> `wait_for` -> `take_snapshot` / `evaluate` -> `interact` -> `report`.
+3. Provide actionable, pinpointed code fixes for any issues detected.

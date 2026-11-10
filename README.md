@@ -1,15 +1,15 @@
-# 🚀 My Agent Skills
+# 🚀 My Agent Skills Library (Curated & Consolidated Edition)
 
-คลังรวบรวม **Antigravity Skills** แบบพกพาครบวงจรที่สุด (**รวมทั้งหมด 66 Skills**) พร้อมชุดสคริปต์ติดตั้งอัตโนมัติด้วยคำสั่งเดียว (`1-Line Installer`) และระบบซิงค์ข้อมูลกับ GitHub สามารถนำไปติดตั้งใช้งานได้ทันทีในทุกเครื่อง, ทุก Environment หรือทุก Workspace ใหม่
+คลังรวบรวม **Antigravity Skills** แบบพกพาที่ผ่านการจัดหมวดหมู่ รวมทักษะที่ทับซ้อน และคัดสรรเฉพาะเครื่องมือที่จำเป็นและทรงพลังที่สุด (**รวม 55 Skills**) พร้อมคู่มือการตั้งค่า **MCP Servers** ที่จำเป็นต่อการพัฒนาซอฟต์แวร์
 
 ---
 
-## ⚡ วิธีติดตั้งด่วน (Quick Install)
+## ⚡ วิธีติดตั้งด่วน (Quick 1-Line Install)
 
 เพียงรันคำสั่งด้านล่างนี้ใน Terminal ของเครื่องหรือ Environment ใดก็ได้ที่ใช้ Antigravity:
 
 ### 1. ติดตั้งระดับ Global (แนะนำ - ใช้ได้กับทุกโปรเจกต์ในเครื่องทันที)
-คำสั่งนี้จะติดตั้ง Skills ทั้งหมด 66 รายการลงใน `~/.gemini/config/skills/` ทำให้ Agent ในเครื่องนั้นมองเห็นและเรียกใช้ได้ทันทีทุก Workspace:
+คำสั่งนี้จะติดตั้ง Skills ทั้งหมดลงใน `~/.gemini/config/skills/` ทำให้ Agent ในเครื่องนั้นมองเห็นและเรียกใช้ได้ทันทีทุก Workspace:
 
 ```bash
 curl -sSL https://raw.githubusercontent.com/borwonratsri/my-agent-skills/main/install.sh | bash
@@ -24,9 +24,38 @@ curl -sSL https://raw.githubusercontent.com/borwonratsri/my-agent-skills/main/in
 
 ---
 
-## 📦 สารบัญ Skills ทั้งหมดในคลัง (66 รายการ)
+## 🔌 คู่มือการตั้งค่า MCP Servers ที่จำเป็น (Essential MCPs Guide)
 
-### 🧩 1. Matt Pocock Engineering & Spec Workflow Suite
+Model Context Protocol (MCP) ช่วยให้ AI Agent เชื่อมต่อกับเครื่องมือจริงภายนอกได้โดยตรง แนะนำให้เพิ่มการตั้งค่าด้านล่างนี้ลงในไฟล์คอนฟิก MCP ของคุณ (`settings.json` หรือ client MCP configuration):
+
+```json
+{
+  "mcpServers": {
+    "chrome-devtools": {
+      "command": "npx",
+      "args": ["chrome-devtools-mcp@latest", "--categoryExtensions", "--memoryDebugging"]
+    },
+    "postgres": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-postgres", "postgresql://USER:PASSWORD@localhost:5432/DBNAME"]
+    },
+    "sqlite": {
+      "command": "uvx",
+      "args": ["mcp-server-sqlite", "--db-path", "/path/to/database.db"]
+    }
+  }
+}
+```
+
+### 🌟 ประโยชน์ของแต่ละ MCP:
+1. **Chrome DevTools MCP (`chrome-devtools-mcp`)**: ควบคุม Google Chrome จริง ทำการคลิก, พิมพ์, แคปหน้าจอ, ดึง DOM Snapshot, ตรวจวัดความเร็ว Core Web Vitals (LCP), ตรวจสอบ Cookies และหา Memory Leaks
+2. **Postgres / SQLite MCP**: เปิดให้ Agent สามารถอ่าน Schema ตาราง, รันคำสั่ง SQL วิเคราะห์ข้อมูล และตรวจสอบ Migration ได้อย่างปลอดภัยโดยไม่ต้องสลับหน้าจอ
+
+---
+
+## 📦 สารบัญ Skills ทั้งหมดในคลัง (55 รายการหลังรวมและคัดสรร)
+
+### 🧩 1. Matt Pocock Engineering & Spec Workflow (23 Skills)
 | ชื่อ Skill | คำอธิบาย |
 | :--- | :--- |
 | `setup-matt-pocock-skills` | ตั้งค่า Issue Tracker, Triage Labels, และโครงสร้างเอกสารของโปรเจกต์ |
@@ -53,27 +82,16 @@ curl -sSL https://raw.githubusercontent.com/borwonratsri/my-agent-skills/main/in
 | `to-questionnaire` | สร้างแบบสอบถามเพื่อเจาะลึกความต้องการ |
 | `wait-what` | ตรวจสอบสมมติฐานและหยุดทบทวนความถูกต้อง |
 
-### 🎨 2. UI & Design Polish Suite (Uizze & UI Taste)
+### 🎨 2. UI & Frontend Design (คัดสรรและรวมเหลือ 5 ทักษะตัวท็อป)
 | ชื่อ Skill | คำอธิบาย |
 | :--- | :--- |
-| `ui-taste` | ยกระดับ UI ให้ดูเป็นมืออาชีพ ป้องกันปัญหา AI UI Slop |
-| `anti-ui-slop` | กฎและ Playbook ห้ามไม่ให้เอเจนต์สร้าง UI ที่ดูโหลหรือไม่ประณีต |
-| `ui-design` | ออกแบบหน้าตาและส่วนประกอบตามมาตรฐานโมเดิร์น |
-| `ui-radar` | ตรวจสอบจุดบกพร่องด้านการจัดวางและ Hierarchy บนหน้าจอ |
-| `uizze-ui` | ดึงตัวอย่าง Real App References และ Design Tokens |
-| `image-to-ui` | แปลงภาพดีไซน์หรือภาพสเก็ตช์ให้เป็นโค้ด UI |
+| `ui-taste` | **(Master Consolidated)** รวมกฎ Anti-UI-Slop, Design Tokens, และ Polish Playbooks ของ Uizze เข้าไว้ในตัวเดียว |
+| `image-to-ui` | แปลงภาพดีไซน์ ภาพสเก็ตช์ หรือ Mockup ให้เป็นโค้ด UI |
+| `website-design` | ออกแบบหน้าเว็บไซต์และ UI/UX ระดับมืออาชีพ พร้อมจัดวาง Section Landing Page |
+| `web-app-development` | สร้างและปรับแต่ง Web App, React, Next.js, Vite, HTML/CSS/JS |
+| `generative_ui` | แสดงผล Rich Interactive Widgets, Charts, Dashboard ในแชต |
 
-### 🎯 3. Custom & Domain Specific Skills
-| ชื่อ Skill | คำอธิบาย |
-| :--- | :--- |
-| `project-memory` | จัดการระบบความจำถาวรของโปรเจกต์ สร้างไฟล์ `PROJECT_CONTEXT.md` |
-| `summary-text` | สรุปความจากข้อความอย่างเป็นทางการระดับผู้บริหาร (Executive Summary) |
-| `website-design` | ออกแบบหน้าเว็บไซต์และ UI/UX ระดับมืออาชีพ พร้อม Component สวยงาม |
-| `product-impact-assessment` | Pharmaceutical Product Impact Assessment (PIA) ประเมินผลกระทบ GMP/Change Control |
-| `schema-mapping` | วิเคราะห์ จัดทำ และแมปปิ้งโครงสร้างข้อมูลระหว่างระบบ |
-| `skill-repair` | ตรวจสอบ ซ่อมแซม และติดตั้ง Skills ที่มีปัญหา syntax/permissions |
-
-### 💻 4. Professional Engineering & Architecture
+### 💻 3. Professional Engineering & Architecture (8 Skills)
 | ชื่อ Skill | คำอธิบาย |
 | :--- | :--- |
 | `code-reviewer` | รีวิวโค้ดเชิงลึก ตรวจสอบบั๊ก Logic, Security, Performance |
@@ -85,32 +103,30 @@ curl -sSL https://raw.githubusercontent.com/borwonratsri/my-agent-skills/main/in
 | `security-auditor` | ตรวจสอบช่องโหว่ความปลอดภัยตาม OWASP Top 10 และ Secrets Leak |
 | `technical-writer` | ผลิตเอกสารเทคนิค ADRs, API Reference, Runbook และ Architecture Guide |
 
-### 🔍 5. Chrome DevTools & Web Debugging
-- `chrome-devtools` : ตรวจสอบ ดีบักเว็บ ออโตเมชันเบราว์เซอร์
-- `chrome-devtools-cli` : ควบคุมและทดสอบเบราว์เซอร์ผ่าน CLI
-- `debug-optimize-lcp` : วิเคราะห์และปรับแต่งความเร็ว Core Web Vitals (LCP)
-- `memory-leak-debugging` : ตรวจจับและวิเคราะห์ปัญหา Memory Leak / Heap Snapshot
-- `a11y-debugging` : ตรวจสอบ Accessibility (a11y), Semantic HTML, ARIA, Focus
-- `cookie-debugging` : ดีบัก Cookies, Session State, Headers, Cookie Consent
-- `troubleshooting` : วิเคราะห์และแก้ปัญหาเชื่อมต่อ DevTools Server
+### 🏥 4. Enterprise, Pharma & Data Domain (5 Skills)
+| ชื่อ Skill | คำอธิบาย |
+| :--- | :--- |
+| `product-impact-assessment` | Pharmaceutical Product Impact Assessment (PIA) ประเมินผลกระทบ GMP/Change Control/OOS |
+| `schema-mapping` | วิเคราะห์ จัดทำ และแมปปิ้งโครงสร้างข้อมูลระหว่างระบบ API/Database |
+| `project-memory` | จัดการระบบความจำถาวรของโปรเจกต์ สร้างไฟล์ `PROJECT_CONTEXT.md` |
+| `summary-text` | สรุปความจากข้อความอย่างเป็นทางการระดับผู้บริหาร (Executive Summary) |
+| `skill-repair` | ตรวจสอบ ซ่อมแซม และติดตั้ง Skills ที่มีปัญหา syntax/permissions |
 
-### 🤖 6. Built-in & Web Tools
-- `web-app-development` : สร้างและปรับแต่ง Web App, UI, React, Next.js, Vite
-- `generative_ui` : เรนเดอร์ Rich Interactive Widgets, Charts, Dashboard ในแชต
-- `run-workflow` : รัน Autonomous Workflows และ Tasks ที่มีความซับซ้อน
-- `migrate-workflows` : แปลง Legacy Workflows เป็น Modern Skills อัตโนมัติ
+### 🔍 5. Chrome DevTools MCP (รวม 7 ทักษะเดิมเป็น 1 ทักษะ Master)
+| ชื่อ Skill | คำอธิบาย |
+| :--- | :--- |
+| `chrome-devtools` | **(Master Consolidated)** ควบคุมเบราว์เซอร์, Debug เว็บ, ปรับแต่ง Core Web Vitals (LCP), ตรวจสอบ Memory Leaks, Accessibility (a11y) และ Cookies |
 
-### ☁️ 7. Git & Google Workspace Apps
+### ☁️ 6. Cloud, Google Workspace & Management (8 Skills)
 - `github` : จัดการ Pull Requests, Issues, Repos, และ GitHub Actions ผ่าน CLI
 - `gdrive` : ค้นหา จัดการ อัปโหลด/ดาวน์โหลดไฟล์บน Google Drive
 - `gsheets` : จัดการ อ่าน เขียน และคำนวณข้อมูลใน Google Sheets
 - `gcalendar` : ตรวจสอบนัดหมายและตารางเวลาใน Google Calendar
 - `gdocs` : อ่าน เขียน และจัดรูปแบบเอกสาร Google Docs
 - `gslides` : ออกแบบและสร้างสไลด์ Google Slides
-
-### 🛠️ 8. Management & Template
+- `run-workflow` : รัน Autonomous Workflows และ Tasks ที่มีความซับซ้อน
+- `migrate-workflows` : แปลง Legacy Workflows เป็น Modern Skills อัตโนมัติ
 - `sync-agent-skills` : ซิงค์ Skills อัตโนมัติระหว่างเครื่องกับ GitHub Repo นี้
-- `example-custom-skill` : โครงสร้างแม่แบบสำหรับการสร้าง Custom Skill เพิ่มเติมในอนาคต
 
 ---
 
