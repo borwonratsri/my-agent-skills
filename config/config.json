@@ -1,0 +1,32 @@
+{
+  "scan_roots": [
+    {
+      "name": "repo_skills",
+      "path": "skills",
+      "is_plugin": false
+    },
+    {
+      "name": "user_global",
+      "path": "~/.gemini/config/skills",
+      "is_plugin": false
+    },
+    {
+      "name": "windows_user",
+      "path": "C:/Users/warm/.gemini/config/skills",
+      "is_plugin": false
+    },
+    {
+      "name": "windows_plugins",
+      "path": "C:/Users/warm/.gemini/config/plugins",
+      "is_plugin": true
+    },
+    {
+      "name": "builtin",
+      "path": "C:/Users/warm/.gemini/antigravity/builtin/skills",
+      "is_plugin": false
+    }
+  ],
+  "catalog_json": "catalog.json",
+  "catalog_md": "CATALOG.md",
+  "active_preset_file": "config/active_preset.json"
+}

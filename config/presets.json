@@ -1,0 +1,152 @@
+{
+  "protected_skills": [
+    "grilling",
+    "antigravity-guide",
+    "agy-customizations",
+    "code-review",
+    "skill-librarian",
+    "permissioned-github",
+    "automation",
+    "generative_ui",
+    "ui-plugin-navigation",
+    "poteto-mode"
+  ],
+  "presets": {
+    "full": {
+      "name": "Full Access",
+      "description": "Enables all skills installed in the system (except those explicitly blacklisted).",
+      "include_patterns": ["*"]
+    },
+    "minimal": {
+      "name": "Minimal Core",
+      "description": "Enables only core protected skills and skill-librarian. Extreme token savings.",
+      "include_patterns": []
+    },
+    "web-fullstack": {
+      "name": "Web & Full-Stack",
+      "description": "Next.js, React, Vercel, Netlify, Supabase, APIs, Web Security, UI/UX, and Testing.",
+      "include_patterns": [
+        "vercel-*",
+        "netlify-*",
+        "supabase*",
+        "ui-*",
+        "api-builder",
+        "arch-spec-designer",
+        "auth*",
+        "automated-testing",
+        "code-quality-auditor",
+        "env-docker-setup",
+        "project-scaffolder",
+        "cicd-pipeline-deployer",
+        "react-best-practices",
+        "verification",
+        "chat-sdk",
+        "db-schema-planner",
+        "incident-troubleshooter",
+        "tdd",
+        "chrome-devtools",
+        "cookie-debugging",
+        "a11y-debugging",
+        "debug-optimize-lcp",
+        "memory-leak-debugging"
+      ]
+    },
+    "mobile-app": {
+      "name": "Mobile & Flutter/Android",
+      "description": "Android CLI, Jetpack Compose, Flutter widgets/state, Dart tools, and Xcode setup.",
+      "include_patterns": [
+        "android-*",
+        "compose-preview",
+        "flutter*",
+        "dart-*",
+        "xcode-project-setup",
+        "firebase-*"
+      ]
+    },
+    "data-cloud": {
+      "name": "Data Engineering & Google Cloud",
+      "description": "Google Cloud, BigQuery, Bigtable, Cloud Composer, Spark, Dataform, dbt, and Storage.",
+      "include_patterns": [
+        "gcloud",
+        "google-cloud-*",
+        "bigquery-*",
+        "bigtable-*",
+        "gcp-*",
+        "dbt-*",
+        "dataform-*",
+        "data-autocleaning",
+        "enforcing-resource-attribution",
+        "gsheets",
+        "gdrive",
+        "discovering-gcp-data-assets",
+        "accidental-data-loss-prevention"
+      ]
+    },
+    "ai-engineer": {
+      "name": "AI & Agent Engineering",
+      "description": "Gemini APIs, Live API, Vercel AI SDK, Agent Platforms, Antigravity SDK, and AI Gateways.",
+      "include_patterns": [
+        "gemini-*",
+        "ai-*",
+        "build-agents",
+        "google-antigravity-sdk",
+        "firebase-ai-*",
+        "is-agentic",
+        "chat-workflow-designer"
+      ]
+    },
+    "design-creative": {
+      "name": "Design & UI/UX Creative",
+      "description": "Figma design-to-code, shaders, generative plugins, design systems, slides, and banner design.",
+      "include_patterns": [
+        "figma-*",
+        "banner-design",
+        "brand",
+        "design-system",
+        "slides",
+        "ui-ux-pro-max",
+        "ui-styling"
+      ]
+    },
+    "pstack-rigor": {
+      "name": "pstack Production Rigor",
+      "description": "Full production-grade engineering rigor by Lauren Tan (@poteto): 23 Playbooks, 24 Principles, Architect, Arena, Swarm, TDD, and Deslop.",
+      "include_patterns": [
+        "poteto-*",
+        "architect",
+        "arena",
+        "swarm",
+        "interrogate",
+        "principle-*",
+        "tdd",
+        "unslop",
+        "no-comments",
+        "benchmark-checklist",
+        "blast-radius",
+        "bro",
+        "correct",
+        "how",
+        "why",
+        "teach",
+        "recall",
+        "reflect",
+        "sharpen",
+        "statechart",
+        "show-me-your-work",
+        "figure-it-out",
+        "technical-writing",
+        "typescript-best-practices",
+        "create-verification-skill",
+        "create-formal-verification-skill",
+        "maintain-verification-skill",
+        "maintain-formal-verification-skill",
+        "in-your-own-words",
+        "make-bot-ui",
+        "setup-pstack",
+        "automate-me",
+        "ketchup",
+        "ketchup-video"
+      ]
+    }
+  }
+}

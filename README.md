@@ -1,32 +1,73 @@
-# 🚀 My Agent Skills Library (Curated & Consolidated Edition)
+# 🏛️ My Agent Skills & Factory Droids Library (Unified Master Edition)
 
-คลังรวบรวม **Antigravity Skills** แบบพกพาที่ผ่านการจัดหมวดหมู่ รวมทักษะที่ทับซ้อน และคัดสรรเฉพาะเครื่องมือที่จำเป็นและทรงพลังที่สุด (**รวม 55 Skills**) พร้อมคู่มือการตั้งค่า **MCP Servers** ที่จำเป็นต่อการพัฒนาซอฟต์แวร์
+คลังรวบรวม **Antigravity Skills** แบบพกพาที่รวมระบบ **Factory AI Architecture** (Autonomous Subagent Droids + Token Context Presets) เข้ากับ **Curated 57 Skills** และ **Essential MCP Servers** ไว้ในที่เดียวอย่างสมบูรณ์แบบ
 
 ---
 
 ## ⚡ วิธีติดตั้งด่วน (Quick 1-Line Install)
 
-เพียงรันคำสั่งด้านล่างนี้ใน Terminal ของเครื่องหรือ Environment ใดก็ได้ที่ใช้ Antigravity:
+เพียงเปิด Terminal แล้วรันคำสั่งบรรทัดเดียวนี้ในเครื่องหรือ Environment ใดก็ได้ที่ใช้ Antigravity:
 
 ### 1. ติดตั้งระดับ Global (แนะนำ - ใช้ได้กับทุกโปรเจกต์ในเครื่องทันที)
-คำสั่งนี้จะติดตั้ง Skills ทั้งหมดลงใน `~/.gemini/config/skills/` ทำให้ Agent ในเครื่องนั้นมองเห็นและเรียกใช้ได้ทันทีทุก Workspace:
-
 ```bash
 curl -sSL https://raw.githubusercontent.com/borwonratsri/my-agent-skills/main/install.sh | bash
 ```
 
 ### 2. ติดตั้งเฉพาะโปรเจกต์ปัจจุบัน (Workspace Scope)
-หากต้องการติดตั้งลงเฉพาะโฟลเดอร์โปรเจกต์ปัจจุบัน (`.agents/skills/`):
-
 ```bash
 curl -sSL https://raw.githubusercontent.com/borwonratsri/my-agent-skills/main/install.sh | bash -s -- --workspace
 ```
 
 ---
 
+## 🏭 สถาปัตยกรรมระดับ Factory (Autonomous Droids & Dark Factory)
+
+ระบบนำโมเดล **Factory AI x Anthropic Claude** มาใช้แยกบทบาทของ AI ออกเป็น 3 เอเจนต์ย่อยอิสระ พร้อมระบบ **Tool Gating** เพื่อป้องกัน Bias และช่องโหว่ความปลอดภัย:
+
+```mermaid
+flowchart LR
+    Task[User Task / Requirement] --> Coder["👨‍💻 Coder Droid<br/>(Full Edit & Exec)"]
+    Coder -->|Implementation| Tester["🧪 Tester Droid<br/>(Write Tests & Run)"]
+    Tester -->|Tests Fail| Coder
+    Tester -->|Tests Pass| Reviewer["🛡️ Reviewer Droid<br/>(🔒 Strictly Read-Only)"]
+    Reviewer -->|Changes Requested| Coder
+    Reviewer -->|APPROVED| PR["✅ Ready for Merge / PR"]
+```
+
+- **Coder Droid (`coder-droid`)**: Senior Software Engineer ทำหน้าที่วางแผนและเขียนโค้ด (Full Read/Write/Exec)
+- **Tester Droid (`tester-droid`)**: QA Engineer เขียน Unit/Integration Tests และรันเทสสวีท ส่ง Feedback กลับหา Coder ทันทีที่เทสไม่ผ่าน
+- **Reviewer Droid (`reviewer-droid`)**: Staff Engineer & Security Auditor ตรวจสอบโค้ดและช่องโหว่แบบ **Read-Only 100%** ป้องกันการแอบแก้โค้ดเพื่อหลบการตรวจ
+
+### 💬 วิธีสั่งงาน Droids ผ่านแชต:
+- พิมพ์คำสั่ง `/factory-droids` หรือสั่ง *"รัน Autonomous Pipeline สำหรับงานสร้างระบบ Login"*
+- AI จะกระจายงานให้ Coder -> Tester -> Reviewer ตามลำดับโดยอัตโนมัติ
+
+---
+
+## 🎛️ ระบบบริหาร Token ด้วย Presets (`skill_manager.py`)
+
+แก้ปัญหา Context Window เต็ม เมื่อมี Skills จำนวนมาก สามารถสลับ Preset เพื่อเปิดเฉพาะทักษะที่ต้องใช้ในงานนั้นๆ:
+
+```bash
+# ดูรายการ Presets ทั้งหมด
+python skill_manager.py preset list
+
+# สลับ Preset เฉพาะสายงาน (ลด Token ที่ไม่จำเป็นลง 65%)
+python skill_manager.py preset apply web-fullstack   # สำหรับงาน Web / Next.js / APIs
+python skill_manager.py preset apply mobile-app      # สำหรับงาน Flutter / Android
+python skill_manager.py preset apply data-cloud      # สำหรับงาน GCP / BigQuery / dbt
+python skill_manager.py preset apply minimal         # ประหยัด Token สูงสุด (เปิดเฉพาะทักษะหลัก)
+python skill_manager.py preset apply full            # เปิดครบทุกทักษะ
+
+# หรือสั่งผ่านแชตด้วยคำสั่ง:
+/skill-manager
+```
+
+---
+
 ## 🔌 คู่มือการตั้งค่า MCP Servers ที่จำเป็น (Essential MCPs Guide)
 
-Model Context Protocol (MCP) ช่วยให้ AI Agent เชื่อมต่อกับเครื่องมือจริงภายนอกได้โดยตรง แนะนำให้เพิ่มการตั้งค่าด้านล่างนี้ลงในไฟล์คอนฟิก MCP ของคุณ (`settings.json` หรือ client MCP configuration):
+เพิ่มการตั้งค่านี้ลงในไฟล์คอนฟิก MCP ของคุณ เพื่อให้ Agent เชื่อมต่อเครื่องมือภายนอกได้โดยตรง:
 
 ```json
 {
@@ -47,15 +88,17 @@ Model Context Protocol (MCP) ช่วยให้ AI Agent เชื่อม�
 }
 ```
 
-### 🌟 ประโยชน์ของแต่ละ MCP:
-1. **Chrome DevTools MCP (`chrome-devtools-mcp`)**: ควบคุม Google Chrome จริง ทำการคลิก, พิมพ์, แคปหน้าจอ, ดึง DOM Snapshot, ตรวจวัดความเร็ว Core Web Vitals (LCP), ตรวจสอบ Cookies และหา Memory Leaks
-2. **Postgres / SQLite MCP**: เปิดให้ Agent สามารถอ่าน Schema ตาราง, รันคำสั่ง SQL วิเคราะห์ข้อมูล และตรวจสอบ Migration ได้อย่างปลอดภัยโดยไม่ต้องสลับหน้าจอ
-
 ---
 
-## 📦 สารบัญ Skills ทั้งหมดในคลัง (55 รายการหลังรวมและคัดสรร)
+## 📦 สารบัญ Skills ทั้งหมดในคลัง (57 รายการ)
 
-### 🧩 1. Matt Pocock Engineering & Spec Workflow (23 Skills)
+### 🤖 1. Factory Droids & Presets Engine (2 Skills ใหม่)
+| ชื่อ Skill | คำอธิบาย | Slash Command |
+| :--- | :--- | :--- |
+| `factory-droids` | สั่งรัน Dark Factory Pipeline (Coder -> Tester -> Reviewer Droids) ในแชต | `/factory-droids` |
+| `skill-manager` | สลับ Presets คัดกรอง Token และค้นหาแคตตาล็อกทักษะผ่านแชต | `/skill-manager` |
+
+### 🧩 2. Matt Pocock Engineering & Spec Workflow (23 Skills)
 | ชื่อ Skill | คำอธิบาย |
 | :--- | :--- |
 | `setup-matt-pocock-skills` | ตั้งค่า Issue Tracker, Triage Labels, และโครงสร้างเอกสารของโปรเจกต์ |
@@ -82,7 +125,7 @@ Model Context Protocol (MCP) ช่วยให้ AI Agent เชื่อม�
 | `to-questionnaire` | สร้างแบบสอบถามเพื่อเจาะลึกความต้องการ |
 | `wait-what` | ตรวจสอบสมมติฐานและหยุดทบทวนความถูกต้อง |
 
-### 🎨 2. UI & Frontend Design (คัดสรรและรวมเหลือ 5 ทักษะตัวท็อป)
+### 🎨 3. UI & Frontend Design (5 Skills)
 | ชื่อ Skill | คำอธิบาย |
 | :--- | :--- |
 | `ui-taste` | **(Master Consolidated)** รวมกฎ Anti-UI-Slop, Design Tokens, และ Polish Playbooks ของ Uizze เข้าไว้ในตัวเดียว |
@@ -91,7 +134,7 @@ Model Context Protocol (MCP) ช่วยให้ AI Agent เชื่อม�
 | `web-app-development` | สร้างและปรับแต่ง Web App, React, Next.js, Vite, HTML/CSS/JS |
 | `generative_ui` | แสดงผล Rich Interactive Widgets, Charts, Dashboard ในแชต |
 
-### 💻 3. Professional Engineering & Architecture (8 Skills)
+### 💻 4. Professional Engineering & Architecture (8 Skills)
 | ชื่อ Skill | คำอธิบาย |
 | :--- | :--- |
 | `code-reviewer` | รีวิวโค้ดเชิงลึก ตรวจสอบบั๊ก Logic, Security, Performance |
@@ -103,7 +146,7 @@ Model Context Protocol (MCP) ช่วยให้ AI Agent เชื่อม�
 | `security-auditor` | ตรวจสอบช่องโหว่ความปลอดภัยตาม OWASP Top 10 และ Secrets Leak |
 | `technical-writer` | ผลิตเอกสารเทคนิค ADRs, API Reference, Runbook และ Architecture Guide |
 
-### 🏥 4. Enterprise, Pharma & Data Domain (5 Skills)
+### 🏥 5. Enterprise, Pharma & Data Domain (5 Skills)
 | ชื่อ Skill | คำอธิบาย |
 | :--- | :--- |
 | `product-impact-assessment` | Pharmaceutical Product Impact Assessment (PIA) ประเมินผลกระทบ GMP/Change Control/OOS |
@@ -112,12 +155,12 @@ Model Context Protocol (MCP) ช่วยให้ AI Agent เชื่อม�
 | `summary-text` | สรุปความจากข้อความอย่างเป็นทางการระดับผู้บริหาร (Executive Summary) |
 | `skill-repair` | ตรวจสอบ ซ่อมแซม และติดตั้ง Skills ที่มีปัญหา syntax/permissions |
 
-### 🔍 5. Chrome DevTools MCP (รวม 7 ทักษะเดิมเป็น 1 ทักษะ Master)
+### 🔍 6. Chrome DevTools MCP (1 Master Skill)
 | ชื่อ Skill | คำอธิบาย |
 | :--- | :--- |
 | `chrome-devtools` | **(Master Consolidated)** ควบคุมเบราว์เซอร์, Debug เว็บ, ปรับแต่ง Core Web Vitals (LCP), ตรวจสอบ Memory Leaks, Accessibility (a11y) และ Cookies |
 
-### ☁️ 6. Cloud, Google Workspace & Management (8 Skills)
+### ☁️ 7. Cloud, Google Workspace & Management (8 Skills)
 - `github` : จัดการ Pull Requests, Issues, Repos, และ GitHub Actions ผ่าน CLI
 - `gdrive` : ค้นหา จัดการ อัปโหลด/ดาวน์โหลดไฟล์บน Google Drive
 - `gsheets` : จัดการ อ่าน เขียน และคำนวณข้อมูลใน Google Sheets

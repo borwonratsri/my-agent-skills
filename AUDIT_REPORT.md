@@ -1,0 +1,164 @@
+# 🔍 Skill Library Quality & Pruning Audit Report
+
+## 1. ⚠️ Duplicates & ID Collisions
+- **`ai-sdk`** (2 occurrences):
+  - `C:\Users\warm\.gemini\config\plugins\vercel-plugin\skills\ai-sdk\SKILL.md`
+  - `C:\Users\warm\.gemini\config\plugins\vercel-plugin\skills\ai-sdk\upstream\SKILL.md.disabled`
+- **`eve`** (2 occurrences):
+  - `C:\Users\warm\.gemini\config\plugins\vercel-plugin\skills\eve\SKILL.md`
+  - `C:\Users\warm\.gemini\config\plugins\vercel-plugin\skills\eve\upstream\SKILL.md.disabled`
+- **`figma-design-to-code`** (2 occurrences):
+  - `C:\Users\warm\.gemini\config\plugins\figma\skills\figma-design-to-code\SKILL.md`
+  - `C:\Users\warm\.gemini\config\plugins\figma\skills-figquery\figma-design-to-code\SKILL.md.disabled`
+- **`is-agentic`** (2 occurrences):
+  - `C:\Users\warm\.gemini\config\plugins\vercel-plugin\skills\is-agentic\SKILL.md`
+  - `C:\Users\warm\.gemini\config\plugins\vercel-plugin\skills\is-agentic\upstream\SKILL.md.disabled`
+- **`netlify-agent-runner`** (3 occurrences):
+  - `C:\Users\warm\.gemini\config\plugins\netlify\agent-plugin\skills\netlify-agent-runner\SKILL.md.disabled`
+  - `C:\Users\warm\.gemini\config\plugins\netlify\codex\skills\netlify-agent-runner\SKILL.md.disabled`
+  - `C:\Users\warm\.gemini\config\plugins\netlify\skills\netlify-agent-runner\SKILL.md`
+- **`netlify-ai-gateway`** (3 occurrences):
+  - `C:\Users\warm\.gemini\config\plugins\netlify\agent-plugin\skills\netlify-ai-gateway\SKILL.md.disabled`
+  - `C:\Users\warm\.gemini\config\plugins\netlify\codex\skills\netlify-ai-gateway\SKILL.md.disabled`
+  - `C:\Users\warm\.gemini\config\plugins\netlify\skills\netlify-ai-gateway\SKILL.md`
+- **`retrieving-developer-knowledge`** (2 occurrences):
+  - `C:\Users\warm\.gemini\config\plugins\google-cloud-developer\skills\retrieving-developer-knowledge\SKILL.md`
+  - `C:\Users\warm\.gemini\config\plugins\google-developer-knowledge\skills\retrieving-developer-knowledge\SKILL.md.disabled`
+- **`figma-code-connect`** (2 occurrences):
+  - `C:\Users\warm\.gemini\config\plugins\figma\skills\figma-code-connect\SKILL.md`
+  - `C:\Users\warm\.gemini\config\plugins\figma\skills-figquery\figma-code-connect\SKILL.md.disabled`
+- **`figma-create-new-file`** (2 occurrences):
+  - `C:\Users\warm\.gemini\config\plugins\figma\skills\figma-create-new-file\SKILL.md`
+  - `C:\Users\warm\.gemini\config\plugins\figma\skills-figquery\figma-create-new-file\SKILL.md.disabled`
+- **`figma-generate-design`** (2 occurrences):
+  - `C:\Users\warm\.gemini\config\plugins\figma\skills\figma-generate-design\SKILL.md`
+  - `C:\Users\warm\.gemini\config\plugins\figma\skills-figquery\figma-generate-design\SKILL.md.disabled`
+- **`figma-generate-diagram`** (2 occurrences):
+  - `C:\Users\warm\.gemini\config\plugins\figma\skills\figma-generate-diagram\SKILL.md`
+  - `C:\Users\warm\.gemini\config\plugins\figma\skills-figquery\figma-generate-diagram\SKILL.md.disabled`
+- **`figma-generate-library`** (2 occurrences):
+  - `C:\Users\warm\.gemini\config\plugins\figma\skills\figma-generate-library\SKILL.md`
+  - `C:\Users\warm\.gemini\config\plugins\figma\skills-figquery\figma-generate-library\SKILL.md.disabled`
+- **`figma-generative-plugins`** (2 occurrences):
+  - `C:\Users\warm\.gemini\config\plugins\figma\skills\figma-generative-plugins\SKILL.md`
+  - `C:\Users\warm\.gemini\config\plugins\figma\skills-figquery\figma-generative-plugins\SKILL.md.disabled`
+- **`figma-implement-motion`** (2 occurrences):
+  - `C:\Users\warm\.gemini\config\plugins\figma\skills\figma-implement-motion\SKILL.md`
+  - `C:\Users\warm\.gemini\config\plugins\figma\skills-figquery\figma-implement-motion\SKILL.md.disabled`
+- **`figma-shaders`** (2 occurrences):
+  - `C:\Users\warm\.gemini\config\plugins\figma\skills\figma-shaders\SKILL.md.disabled`
+  - `C:\Users\warm\.gemini\config\plugins\figma\skills-figquery\figma-shaders\SKILL.md.disabled`
+- **`figma-use`** (2 occurrences):
+  - `C:\Users\warm\.gemini\config\plugins\figma\skills\figma-use\SKILL.md`
+  - `C:\Users\warm\.gemini\config\plugins\figma\skills-figquery\figma-use\SKILL.md.disabled`
+- **`figma-use-figjam`** (2 occurrences):
+  - `C:\Users\warm\.gemini\config\plugins\figma\skills\figma-use-figjam\SKILL.md`
+  - `C:\Users\warm\.gemini\config\plugins\figma\skills-figquery\figma-use-figjam\SKILL.md.disabled`
+- **`figma-use-motion`** (2 occurrences):
+  - `C:\Users\warm\.gemini\config\plugins\figma\skills\figma-use-motion\SKILL.md`
+  - `C:\Users\warm\.gemini\config\plugins\figma\skills-figquery\figma-use-motion\SKILL.md.disabled`
+- **`figma-use-slides`** (2 occurrences):
+  - `C:\Users\warm\.gemini\config\plugins\figma\skills\figma-use-slides\SKILL.md`
+  - `C:\Users\warm\.gemini\config\plugins\figma\skills-figquery\figma-use-slides\SKILL.md.disabled`
+- **`figma-swiftui`** (2 occurrences):
+  - `C:\Users\warm\.gemini\config\plugins\figma\skills\figma-swiftui\SKILL.md`
+  - `C:\Users\warm\.gemini\config\plugins\figma\skills-figquery\figma-swiftui\SKILL.md.disabled`
+- **`chat-sdk`** (2 occurrences):
+  - `C:\Users\warm\.gemini\config\plugins\vercel-plugin\skills\chat-sdk\SKILL.md`
+  - `C:\Users\warm\.gemini\config\plugins\vercel-plugin\skills\chat-sdk\upstream\SKILL.md.disabled`
+- **`flags-sdk`** (2 occurrences):
+  - `C:\Users\warm\.gemini\config\plugins\vercel-plugin\skills\flags-sdk\SKILL.md`
+  - `C:\Users\warm\.gemini\config\plugins\vercel-plugin\skills\flags-sdk\upstream\SKILL.md.disabled`
+- **`netlify-access-control`** (3 occurrences):
+  - `C:\Users\warm\.gemini\config\plugins\netlify\agent-plugin\skills\netlify-access-control\SKILL.md.disabled`
+  - `C:\Users\warm\.gemini\config\plugins\netlify\codex\skills\netlify-access-control\SKILL.md.disabled`
+  - `C:\Users\warm\.gemini\config\plugins\netlify\skills\netlify-access-control\SKILL.md`
+- **`netlify-blobs`** (3 occurrences):
+  - `C:\Users\warm\.gemini\config\plugins\netlify\agent-plugin\skills\netlify-blobs\SKILL.md.disabled`
+  - `C:\Users\warm\.gemini\config\plugins\netlify\codex\skills\netlify-blobs\SKILL.md.disabled`
+  - `C:\Users\warm\.gemini\config\plugins\netlify\skills\netlify-blobs\SKILL.md`
+- **`netlify-caching`** (3 occurrences):
+  - `C:\Users\warm\.gemini\config\plugins\netlify\agent-plugin\skills\netlify-caching\SKILL.md.disabled`
+  - `C:\Users\warm\.gemini\config\plugins\netlify\codex\skills\netlify-caching\SKILL.md.disabled`
+  - `C:\Users\warm\.gemini\config\plugins\netlify\skills\netlify-caching\SKILL.md`
+- **`netlify-config`** (3 occurrences):
+  - `C:\Users\warm\.gemini\config\plugins\netlify\agent-plugin\skills\netlify-config\SKILL.md.disabled`
+  - `C:\Users\warm\.gemini\config\plugins\netlify\codex\skills\netlify-config\SKILL.md.disabled`
+  - `C:\Users\warm\.gemini\config\plugins\netlify\skills\netlify-config\SKILL.md`
+- **`netlify-database`** (3 occurrences):
+  - `C:\Users\warm\.gemini\config\plugins\netlify\agent-plugin\skills\netlify-database\SKILL.md.disabled`
+  - `C:\Users\warm\.gemini\config\plugins\netlify\codex\skills\netlify-database\SKILL.md.disabled`
+  - `C:\Users\warm\.gemini\config\plugins\netlify\skills\netlify-database\SKILL.md`
+- **`netlify-deploy`** (3 occurrences):
+  - `C:\Users\warm\.gemini\config\plugins\netlify\agent-plugin\skills\netlify-deploy\SKILL.md.disabled`
+  - `C:\Users\warm\.gemini\config\plugins\netlify\codex\skills\netlify-deploy\SKILL.md.disabled`
+  - `C:\Users\warm\.gemini\config\plugins\netlify\skills\netlify-deploy\SKILL.md`
+- **`netlify-edge-functions`** (3 occurrences):
+  - `C:\Users\warm\.gemini\config\plugins\netlify\agent-plugin\skills\netlify-edge-functions\SKILL.md.disabled`
+  - `C:\Users\warm\.gemini\config\plugins\netlify\codex\skills\netlify-edge-functions\SKILL.md.disabled`
+  - `C:\Users\warm\.gemini\config\plugins\netlify\skills\netlify-edge-functions\SKILL.md`
+- **`netlify-forms`** (3 occurrences):
+  - `C:\Users\warm\.gemini\config\plugins\netlify\agent-plugin\skills\netlify-forms\SKILL.md.disabled`
+  - `C:\Users\warm\.gemini\config\plugins\netlify\codex\skills\netlify-forms\SKILL.md.disabled`
+  - `C:\Users\warm\.gemini\config\plugins\netlify\skills\netlify-forms\SKILL.md`
+- **`netlify-frameworks`** (3 occurrences):
+  - `C:\Users\warm\.gemini\config\plugins\netlify\agent-plugin\skills\netlify-frameworks\SKILL.md.disabled`
+  - `C:\Users\warm\.gemini\config\plugins\netlify\codex\skills\netlify-frameworks\SKILL.md.disabled`
+  - `C:\Users\warm\.gemini\config\plugins\netlify\skills\netlify-frameworks\SKILL.md`
+- **`netlify-functions`** (3 occurrences):
+  - `C:\Users\warm\.gemini\config\plugins\netlify\agent-plugin\skills\netlify-functions\SKILL.md.disabled`
+  - `C:\Users\warm\.gemini\config\plugins\netlify\codex\skills\netlify-functions\SKILL.md.disabled`
+  - `C:\Users\warm\.gemini\config\plugins\netlify\skills\netlify-functions\SKILL.md`
+- **`netlify-identity`** (3 occurrences):
+  - `C:\Users\warm\.gemini\config\plugins\netlify\agent-plugin\skills\netlify-identity\SKILL.md.disabled`
+  - `C:\Users\warm\.gemini\config\plugins\netlify\codex\skills\netlify-identity\SKILL.md.disabled`
+  - `C:\Users\warm\.gemini\config\plugins\netlify\skills\netlify-identity\SKILL.md`
+- **`netlify-image-cdn`** (3 occurrences):
+  - `C:\Users\warm\.gemini\config\plugins\netlify\agent-plugin\skills\netlify-image-cdn\SKILL.md.disabled`
+  - `C:\Users\warm\.gemini\config\plugins\netlify\codex\skills\netlify-image-cdn\SKILL.md.disabled`
+  - `C:\Users\warm\.gemini\config\plugins\netlify\skills\netlify-image-cdn\SKILL.md`
+- **`netlify-mcp-servers`** (3 occurrences):
+  - `C:\Users\warm\.gemini\config\plugins\netlify\agent-plugin\skills\netlify-mcp-servers\SKILL.md.disabled`
+  - `C:\Users\warm\.gemini\config\plugins\netlify\codex\skills\netlify-mcp-servers\SKILL.md.disabled`
+  - `C:\Users\warm\.gemini\config\plugins\netlify\skills\netlify-mcp-servers\SKILL.md`
+- **`vercel-cli`** (2 occurrences):
+  - `C:\Users\warm\.gemini\config\plugins\vercel-plugin\skills\vercel-cli\SKILL.md`
+  - `C:\Users\warm\.gemini\config\plugins\vercel-plugin\skills\vercel-cli\upstream\SKILL.md.disabled`
+- **`vercel-flags`** (2 occurrences):
+  - `C:\Users\warm\.gemini\config\plugins\vercel-plugin\skills\vercel-flags\SKILL.md`
+  - `C:\Users\warm\.gemini\config\plugins\vercel-plugin\skills\vercel-flags\upstream\SKILL.md.disabled`
+- **`vercel-sandbox`** (2 occurrences):
+  - `C:\Users\warm\.gemini\config\plugins\vercel-plugin\skills\vercel-sandbox\SKILL.md`
+  - `C:\Users\warm\.gemini\config\plugins\vercel-plugin\skills\vercel-sandbox\upstream\SKILL.md.disabled`
+- **`workflow`** (2 occurrences):
+  - `C:\Users\warm\.gemini\config\plugins\vercel-plugin\skills\workflow\SKILL.md`
+  - `C:\Users\warm\.gemini\config\plugins\vercel-plugin\skills\workflow\upstream\SKILL.md.disabled`
+
+## 2. 📝 Missing / Brief Descriptions (< 25 chars)
+- *All skills have satisfactory descriptions.*
+
+## 3. 📦 High-Density Functional Clusters
+- **BIGQUERY**: 6 skills (e.g., bigquery-ai-ml, bigquery-data-transfer-service, bigquery-graph-author, bigquery-graph-query, bigquery-sql...)
+- **FIGMA**: 30 skills (e.g., figma-design-to-code, figma-design-to-code, figma-code-connect, figma-code-connect, figma-code-workflows...)
+- **FIREBASE**: 10 skills (e.g., firebase-ai-logic-basics, firebase-firestore, firebase-remote-config-basics, firebase-basics, firebase-security-rules-auditor...)
+- **GCP**: 11 skills (e.g., gcp-dataflow, gcp-composer-troubleshooting, gcp-data-pipelines, gcp-managed-airflow-dag-authoring, gcp-managed-airflow-migrations...)
+- **NETLIFY**: 45 skills (e.g., netlify-agent-runner, netlify-agent-runner, netlify-agent-runner, netlify-ai-gateway, netlify-ai-gateway...)
+- **VERCEL**: 14 skills (e.g., vercel-agent, vercel-cli, vercel-cli, vercel-connect, vercel-firewall...)
+- **GOOGLE**: 8 skills (e.g., google-cloud-auth-verification, google-cloud-recipe-auth, google-cloud-recipe-onboarding, google-cloud-storage-basics, google-cloud-storage-bucket-architect...)
+- **DART**: 15 skills (e.g., dart-add-unit-test, dart-build-cli-app, dart-collect-coverage, dart-fix-runtime-errors, dart-generate-test-mocks...)
+- **FLUTTER**: 10 skills (e.g., flutter-add-integration-test, flutter-add-widget-preview, flutter-add-widget-test, flutter-apply-architecture-best-practices, flutter-build-responsive-layout...)
+
+## 4. ✂️ Pruning / On-Demand Candidates
+Identified **12** specialized skills ideal for on-demand Librarian routing:
+- **`bigquery-graph-author`** (AI & Agent Systems): Highly specialized / niche skill. Recommended to load on-demand via Librarian rather than keeping in active prompt.
+- **`bigquery-graph-query`** (AI & Agent Systems): Highly specialized / niche skill. Recommended to load on-demand via Librarian rather than keeping in active prompt.
+- **`gcp-composer-troubleshooting`** (Cloud Infrastructure & Big Data): Highly specialized / niche skill. Recommended to load on-demand via Librarian rather than keeping in active prompt.
+- **`gcp-managed-airflow-dag-authoring`** (Cloud Infrastructure & Big Data): Highly specialized / niche skill. Recommended to load on-demand via Librarian rather than keeping in active prompt.
+- **`gcp-managed-airflow-migrations`** (Cloud Infrastructure & Big Data): Highly specialized / niche skill. Recommended to load on-demand via Librarian rather than keeping in active prompt.
+- **`gcp-managed-airflow-recommendations`** (Cloud Infrastructure & Big Data): Highly specialized / niche skill. Recommended to load on-demand via Librarian rather than keeping in active prompt.
+- **`gcp-spark-troubleshooting`** (Cloud Infrastructure & Big Data): Highly specialized / niche skill. Recommended to load on-demand via Librarian rather than keeping in active prompt.
+- **`figma-shaders`** (Design & Creative Tools): Highly specialized / niche skill. Recommended to load on-demand via Librarian rather than keeping in active prompt.
+- **`dart-migrate-to-checks-package`** (Mobile & Multiplatform): Highly specialized / niche skill. Recommended to load on-demand via Librarian rather than keeping in active prompt.
+- **`dart-use-ffigen`** (Mobile & Multiplatform): Highly specialized / niche skill. Recommended to load on-demand via Librarian rather than keeping in active prompt.
+- **`dart-use-pattern-matching`** (Mobile & Multiplatform): Highly specialized / niche skill. Recommended to load on-demand via Librarian rather than keeping in active prompt.
+- **`extension-to-functions-codebase`** (Testing, Quality & Security): Highly specialized / niche skill. Recommended to load on-demand via Librarian rather than keeping in active prompt.

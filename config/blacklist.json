@@ -1,0 +1,5 @@
+{
+  "description": "Skills and patterns listed here will be blacklisted (marked pruned / disabled) during scan and preset actions.",
+  "blacklisted_skills": [],
+  "blacklisted_patterns": []
+}
