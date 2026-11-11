@@ -37,10 +37,12 @@ Options:
   -g, --global       Install skills globally to ~/.gemini/config/skills (Default)
   -w, --workspace    Install skills to current workspace (./.agents/skills)
   -t, --target <dir> Install skills to a specific custom directory
+  -p, --pstack       Also install the 60 isolated PStack Production Rigor skills
   -h, --help         Show this help message
 
 Examples:
-  ./install.sh                # Install globally
+  ./install.sh                # Install standard curated skills globally
+  ./install.sh --pstack       # Install standard skills + PStack rigor suite
   ./install.sh --workspace    # Install into current project
   ./install.sh -t /custom/dir # Install into custom path
 EOF
@@ -50,6 +52,7 @@ EOF
 # Parse options
 MODE="global"
 CUSTOM_TARGET=""
+INCLUDE_PSTACK=false
 
 while [[ $# -gt 0 ]]; do
     case "$1" in
@@ -65,6 +68,10 @@ while [[ $# -gt 0 ]]; do
             MODE="custom"
             CUSTOM_TARGET="$2"
             shift 2
+            ;;
+        -p|--pstack)
+            INCLUDE_PSTACK=true
+            shift
             ;;
         -h|--help)
             show_help
@@ -135,6 +142,33 @@ for skill_path in "$SKILLS_SOURCE"/*; do
         COUNT=$((COUNT + 1))
     fi
 done
+
+if [[ "$INCLUDE_PSTACK" == true ]]; then
+    echo ""
+    echo -e "${BOLD}${CYAN}Installing isolated PStack Production Rigor suite:${RESET}"
+    PSTACK_SOURCE=""
+    if [[ -n "$SCRIPT_DIR" && -d "$SCRIPT_DIR/pstack" ]]; then
+        PSTACK_SOURCE="$SCRIPT_DIR/pstack"
+    elif [[ -n "$TMP_DIR" && -d "$TMP_DIR/${REPO_NAME}-${DEFAULT_BRANCH}/pstack" ]]; then
+        PSTACK_SOURCE="$TMP_DIR/${REPO_NAME}-${DEFAULT_BRANCH}/pstack"
+    fi
+
+    if [[ -n "$PSTACK_SOURCE" && -d "$PSTACK_SOURCE" ]]; then
+        PSTACK_COUNT=0
+        for pstack_path in "$PSTACK_SOURCE"/*; do
+            if [[ -d "$pstack_path" ]]; then
+                pstack_name="$(basename "$pstack_path")"
+                dest_path="$TARGET_DIR/$pstack_name"
+                mkdir -p "$dest_path"
+                cp -r "$pstack_path/"* "$dest_path/"
+                echo -e "  ${CYAN}🛡️${RESET} ${BOLD}${pstack_name}${RESET}"
+                PSTACK_COUNT=$((PSTACK_COUNT + 1))
+                COUNT=$((COUNT + 1))
+            fi
+        done
+        echo -e "Installed ${BOLD}${PSTACK_COUNT}${RESET} PStack rigor skills."
+    fi
+fi
 
 echo ""
 echo -e "${BOLD}${GREEN}🎉 Installation successful!${RESET}"

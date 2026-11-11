@@ -1,8 +1,8 @@
 {
-  "generated_at": "2026-11-10T15:07:34.053592",
+  "generated_at": "2026-11-11T03:13:23.980711",
   "summary": {
-    "total_skills": 110,
-    "active_skills": 110,
+    "total_skills": 116,
+    "active_skills": 116,
     "disabled_skills": 0,
     "categories_count": 8,
     "active_preset": "custom"
@@ -11,7 +11,7 @@
     {
       "id": "engineering_rigor",
       "name": "Production Rigor & pstack",
-      "count": 10
+      "count": 12
     },
     {
       "id": "ai_agents",
@@ -26,7 +26,7 @@
     {
       "id": "mobile_multiplatform",
       "name": "Mobile & Multiplatform",
-      "count": 2
+      "count": 4
     },
     {
       "id": "cloud_data",
@@ -41,7 +41,7 @@
     {
       "id": "testing_security",
       "name": "Testing, Quality & Security",
-      "count": 16
+      "count": 18
     },
     {
       "id": "productivity_workspace",
@@ -534,6 +534,40 @@
       "hash": "ce3390af7b2d"
     },
     {
+      "id": "skill-manager",
+      "name": "skill-manager",
+      "description": "Manage, switch presets, and control the AI Skill Library directly from chat. Toggle presets like web-fullstack, mobile-app, or minimal to save context window tokens.",
+      "status": "active",
+      "category_id": "mobile_multiplatform",
+      "category_name": "Mobile & Multiplatform",
+      "tags": [
+        "mobile",
+        "mobile_multiplatform"
+      ],
+      "source_type": "repo_skills",
+      "plugin_name": "",
+      "file_path": "/home/antigravity/borwonratsri/my-agent-skills/skills/skill-manager/SKILL.md",
+      "dir_path": "/home/antigravity/borwonratsri/my-agent-skills/skills/skill-manager",
+      "hash": "e4e15f0d2947"
+    },
+    {
+      "id": "skill-manager",
+      "name": "skill-manager",
+      "description": "Manage, switch presets, and control the AI Skill Library directly from chat. Toggle presets like web-fullstack, mobile-app, or minimal to save context window tokens.",
+      "status": "active",
+      "category_id": "mobile_multiplatform",
+      "category_name": "Mobile & Multiplatform",
+      "tags": [
+        "mobile",
+        "mobile_multiplatform"
+      ],
+      "source_type": "user_global",
+      "plugin_name": "",
+      "file_path": "/shared/user/.gemini/config/skills/skill-manager/SKILL.md",
+      "dir_path": "/shared/user/.gemini/config/skills/skill-manager",
+      "hash": "e4e15f0d2947"
+    },
+    {
       "id": "api-architect",
       "name": "api-architect",
       "description": "Designs production-grade RESTful APIs, OpenAPI 3.0/Swagger specifications, GraphQL schemas, and gRPC definitions with strict error handling. Trigger via /api-architect or when designing APIs.",
@@ -600,6 +634,42 @@
       "file_path": "/shared/user/.gemini/config/skills/improve-codebase-architecture/SKILL.md",
       "dir_path": "/shared/user/.gemini/config/skills/improve-codebase-architecture",
       "hash": "35b03a3db61e"
+    },
+    {
+      "id": "setup-pstack",
+      "name": "setup-pstack",
+      "description": "Configure model assignments and reasoning budgets for the pstack production engineering rigor suite. Supports both Cursor (MDC rules) and Antigravity/Gemini (subagent tiers pro/flash/inherit). Use for /setup-pstack, \"configure pstack\", \"pstack budget\", or setting up production-grade engineering workflows.",
+      "status": "active",
+      "category_id": "engineering_rigor",
+      "category_name": "Production Rigor & pstack",
+      "tags": [
+        "engineering_rigor",
+        "pstack",
+        "rigor"
+      ],
+      "source_type": "repo_skills",
+      "plugin_name": "",
+      "file_path": "/home/antigravity/borwonratsri/my-agent-skills/skills/setup-pstack/SKILL.md",
+      "dir_path": "/home/antigravity/borwonratsri/my-agent-skills/skills/setup-pstack",
+      "hash": "eb3dd0918ddd"
+    },
+    {
+      "id": "setup-pstack",
+      "name": "setup-pstack",
+      "description": "Configure model assignments and reasoning budgets for the pstack production engineering rigor suite. Supports both Cursor (MDC rules) and Antigravity/Gemini (subagent tiers pro/flash/inherit). Use for /setup-pstack, \"configure pstack\", \"pstack budget\", or setting up production-grade engineering workflows.",
+      "status": "active",
+      "category_id": "engineering_rigor",
+      "category_name": "Production Rigor & pstack",
+      "tags": [
+        "engineering_rigor",
+        "pstack",
+        "rigor"
+      ],
+      "source_type": "user_global",
+      "plugin_name": "",
+      "file_path": "/shared/user/.gemini/config/skills/setup-pstack/SKILL.md",
+      "dir_path": "/shared/user/.gemini/config/skills/setup-pstack",
+      "hash": "eb3dd0918ddd"
     },
     {
       "id": "technical-writer",
@@ -1024,6 +1094,44 @@
       "file_path": "/shared/user/.gemini/config/skills/diagnosing-bugs/SKILL.md",
       "dir_path": "/shared/user/.gemini/config/skills/diagnosing-bugs",
       "hash": "849198df88cd"
+    },
+    {
+      "id": "factory-droids",
+      "name": "factory-droids",
+      "description": "Orchestrates the Factory AI Autonomous Droid Trio (Coder Droid, Tester Droid, Reviewer Droid) to build, test, and audit software tasks autonomously with tool gating.",
+      "status": "active",
+      "category_id": "testing_security",
+      "category_name": "Testing, Quality & Security",
+      "tags": [
+        "audit",
+        "review",
+        "test",
+        "testing_security"
+      ],
+      "source_type": "repo_skills",
+      "plugin_name": "",
+      "file_path": "/home/antigravity/borwonratsri/my-agent-skills/skills/factory-droids/SKILL.md",
+      "dir_path": "/home/antigravity/borwonratsri/my-agent-skills/skills/factory-droids",
+      "hash": "3ef8cf31059a"
+    },
+    {
+      "id": "factory-droids",
+      "name": "factory-droids",
+      "description": "Orchestrates the Factory AI Autonomous Droid Trio (Coder Droid, Tester Droid, Reviewer Droid) to build, test, and audit software tasks autonomously with tool gating.",
+      "status": "active",
+      "category_id": "testing_security",
+      "category_name": "Testing, Quality & Security",
+      "tags": [
+        "audit",
+        "review",
+        "test",
+        "testing_security"
+      ],
+      "source_type": "user_global",
+      "plugin_name": "",
+      "file_path": "/shared/user/.gemini/config/skills/factory-droids/SKILL.md",
+      "dir_path": "/shared/user/.gemini/config/skills/factory-droids",
+      "hash": "3ef8cf31059a"
     },
     {
       "id": "github",

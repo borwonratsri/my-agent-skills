@@ -56,12 +56,29 @@ python skill_manager.py preset list
 python skill_manager.py preset apply web-fullstack   # สำหรับงาน Web / Next.js / APIs
 python skill_manager.py preset apply mobile-app      # สำหรับงาน Flutter / Android
 python skill_manager.py preset apply data-cloud      # สำหรับงาน GCP / BigQuery / dbt
+python skill_manager.py preset apply pstack-rigor    # สำหรับเปิดระบบ PStack Production Rigor (60 skills)
 python skill_manager.py preset apply minimal         # ประหยัด Token สูงสุด (เปิดเฉพาะทักษะหลัก)
 python skill_manager.py preset apply full            # เปิดครบทุกทักษะ
 
 # หรือสั่งผ่านแชตด้วยคำสั่ง:
 /skill-manager
 ```
+
+---
+
+## 🛡️ PStack Production Rigor Subsystem (ระบบวิศวกรรมความถูกต้องระดับสูงสุด)
+
+ระบบ **PStack** พัฒนาขึ้นโดย Lauren Tan ([@poteto](https://github.com/poteto)) เพื่อยกระดับ AI Agent จากการเขียนโค้ดแบบรีบร้อน ให้กลายเป็น **Principal Systems Engineer** ที่ทำงานด้วยความรอบคอบสูงสุด:
+
+- **Isolated Ecosystem**: แยกเก็บ 60 ทักษะเฉพาะทางไว้ในไดเรกทอรี `pstack/` โดยไม่ปะปนกับทักษะทั่วไป ช่วยให้ Context สะอาดและไม่เปลือง Token
+- **4-Phase Rigor Lifecycle**:
+  1. **Setup & Budgeting** (`/setup-pstack`): กำหนด Reasoning Budget และจับคู่โมเดลตามความยากของงาน
+  2. **Architectural Exploration** (`/why`, `/how`, `/architect`): สำรวจความจริงเชิงประจักษ์ และออกแบบสถาปัตยกรรมแข่งขันกัน 2 แบบ (Design Twice)
+  3. **Multi-Agent Competition** (`/arena`, `/swarm`, `/interrogate`): ให้ Agent แข่งกันแก้ปัญหา และใช้ Cross-Judge จากโมเดลค่ายอื่นตัดสิน
+  4. **Verification & Proofs** (`/create-verification-skill`, `/statechart`, `/unslop`): ขับเคลื่อนแอปจริง, พิสูจน์ด้วยแบบจำลองคณิตศาสตร์ TLA+, และล้าง AI Slop
+- **Universal Compatibility**: รองรับทั้ง Cursor (`.cursor/rules/pstack-models.mdc`) และ Antigravity/Gemini (`pro`/`flash`/`inherit` tiers)
+
+📖 **อ่านคู่มือขั้นตอนการทำงานและสถาปัตยกรรมฉบับสมบูรณ์ได้ที่:** [`PSTACK_WORKFLOW.md`](file:///home/antigravity/borwonratsri/my-agent-skills/PSTACK_WORKFLOW.md)
 
 ---
 
@@ -90,13 +107,14 @@ python skill_manager.py preset apply full            # เปิดครบท�
 
 ---
 
-## 📦 สารบัญ Skills ทั้งหมดในคลัง (57 รายการ)
+## 📦 สารบัญ Skills ทั้งหมดในคลัง (58 รายการ Curated + 60 รายการ PStack Isolated)
 
-### 🤖 1. Factory Droids & Presets Engine (2 Skills ใหม่)
+### 🤖 1. Factory Droids, Presets & Rigor Engine (3 Skills)
 | ชื่อ Skill | คำอธิบาย | Slash Command |
 | :--- | :--- | :--- |
 | `factory-droids` | สั่งรัน Dark Factory Pipeline (Coder -> Tester -> Reviewer Droids) ในแชต | `/factory-droids` |
 | `skill-manager` | สลับ Presets คัดกรอง Token และค้นหาแคตตาล็อกทักษะผ่านแชต | `/skill-manager` |
+| `setup-pstack` | ตั้งค่าโมเดลและงบประมาณการคิดสำหรับระบบ PStack Production Rigor | `/setup-pstack` |
 
 ### 🧩 2. Matt Pocock Engineering & Spec Workflow (23 Skills)
 | ชื่อ Skill | คำอธิบาย |

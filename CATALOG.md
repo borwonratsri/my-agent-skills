@@ -1,20 +1,20 @@
 # 📚 AI Skill Library & Central Catalog
 
 > [!IMPORTANT]
-> **System Status:** Total **110** Skills | **110 Active** | **0 Disabled** | Active Preset: `custom`
+> **System Status:** Total **116** Skills | **116 Active** | **0 Disabled** | Active Preset: `custom`
 
-*Last updated: 2026-11-10T15:07:34.053592*
+*Last updated: 2026-11-11T03:13:23.980711*
 
 ## 📑 Categories Overview
 
 | Category | Skills Count | Navigation |
 | :--- | :---: | :--- |
-| **Production Rigor & pstack** | 10 | [Jump to Section](#production-rigor--pstack) |
+| **Production Rigor & pstack** | 12 | [Jump to Section](#production-rigor--pstack) |
 | **AI & Agent Systems** | 20 | [Jump to Section](#ai--agent-systems) |
 | **Web & Full-Stack Development** | 46 | [Jump to Section](#web--full-stack-development) |
-| **Mobile & Multiplatform** | 2 | [Jump to Section](#mobile--multiplatform) |
+| **Mobile & Multiplatform** | 4 | [Jump to Section](#mobile--multiplatform) |
 | **Design & Creative Tools** | 2 | [Jump to Section](#design--creative-tools) |
-| **Testing, Quality & Security** | 16 | [Jump to Section](#testing-quality--security) |
+| **Testing, Quality & Security** | 18 | [Jump to Section](#testing-quality--security) |
 | **Productivity & Google Workspace** | 10 | [Jump to Section](#productivity--google-workspace) |
 | **Core Platform & System** | 4 | [Jump to Section](#core-platform--system) |
 
@@ -67,6 +67,8 @@
 | :---: | :--- | :--- | :--- |
 | 🟢 `ACTIVE` | [`generative_ui`](file:///home/antigravity/borwonratsri/my-agent-skills/skills/generative_ui/SKILL.md) | How to render rich interactive HTML widgets inline in the chat or as standalone artifacts. Use this skill when you want to show the user diagrams, data visua... | *repo_skills* |
 | 🟢 `ACTIVE` | [`generative_ui`](file:///shared/user/.gemini/config/skills/generative_ui/SKILL.md) | How to render rich interactive HTML widgets inline in the chat or as standalone artifacts. Use this skill when you want to show the user diagrams, data visua... | *user_global* |
+| 🟢 `ACTIVE` | [`skill-manager`](file:///home/antigravity/borwonratsri/my-agent-skills/skills/skill-manager/SKILL.md) | Manage, switch presets, and control the AI Skill Library directly from chat. Toggle presets like web-fullstack, mobile-app, or minimal to save context window... | *repo_skills* |
+| 🟢 `ACTIVE` | [`skill-manager`](file:///shared/user/.gemini/config/skills/skill-manager/SKILL.md) | Manage, switch presets, and control the AI Skill Library directly from chat. Toggle presets like web-fullstack, mobile-app, or minimal to save context window... | *user_global* |
 
 ## Production Rigor & pstack
 
@@ -76,6 +78,8 @@
 | 🟢 `ACTIVE` | [`api-architect`](file:///shared/user/.gemini/config/skills/api-architect/SKILL.md) | Designs production-grade RESTful APIs, OpenAPI 3.0/Swagger specifications, GraphQL schemas, and gRPC definitions with strict error handling. Trigger via /api... | *user_global* |
 | 🟢 `ACTIVE` | [`improve-codebase-architecture`](file:///home/antigravity/borwonratsri/my-agent-skills/skills/improve-codebase-architecture/SKILL.md) | Scan a codebase for deepening opportunities, present them as a visual HTML report, then grill through whichever one you pick. | *repo_skills* |
 | 🟢 `ACTIVE` | [`improve-codebase-architecture`](file:///shared/user/.gemini/config/skills/improve-codebase-architecture/SKILL.md) | Scan a codebase for deepening opportunities, present them as a visual HTML report, then grill through whichever one you pick. | *user_global* |
+| 🟢 `ACTIVE` | [`setup-pstack`](file:///home/antigravity/borwonratsri/my-agent-skills/skills/setup-pstack/SKILL.md) | Configure model assignments and reasoning budgets for the pstack production engineering rigor suite. Supports both Cursor (MDC rules) and Antigravity/Gemini ... | *repo_skills* |
+| 🟢 `ACTIVE` | [`setup-pstack`](file:///shared/user/.gemini/config/skills/setup-pstack/SKILL.md) | Configure model assignments and reasoning budgets for the pstack production engineering rigor suite. Supports both Cursor (MDC rules) and Antigravity/Gemini ... | *user_global* |
 | 🟢 `ACTIVE` | [`technical-writer`](file:///home/antigravity/borwonratsri/my-agent-skills/skills/technical-writer/SKILL.md) | Generates comprehensive software documentation including Architecture Decision Records (ADRs), API references, READMEs, and technical runbooks. Trigger via /... | *repo_skills* |
 | 🟢 `ACTIVE` | [`technical-writer`](file:///shared/user/.gemini/config/skills/technical-writer/SKILL.md) | Generates comprehensive software documentation including Architecture Decision Records (ADRs), API references, READMEs, and technical runbooks. Trigger via /... | *user_global* |
 | 🟢 `ACTIVE` | [`ui-taste`](file:///home/antigravity/borwonratsri/my-agent-skills/skills/ui-taste/SKILL.md) | Give your coding agent better UI taste. Combines Uizze's Anti-UI-Slop playbooks, design tokens, visual hierarchy, responsive layouts, and UI finish gates int... | *repo_skills* |
@@ -110,6 +114,8 @@
 | 🟢 `ACTIVE` | [`codebase-design`](file:///shared/user/.gemini/config/skills/codebase-design/SKILL.md) | Shared vocabulary for designing deep modules. Use when the user wants to design or improve a module's interface, find deepening opportunities, decide where a... | *user_global* |
 | 🟢 `ACTIVE` | [`diagnosing-bugs`](file:///home/antigravity/borwonratsri/my-agent-skills/skills/diagnosing-bugs/SKILL.md) | Diagnosis loop for hard bugs and performance regressions. Use when the user says "diagnose"/"debug this", or reports something broken/throwing/failing/slow. | *repo_skills* |
 | 🟢 `ACTIVE` | [`diagnosing-bugs`](file:///shared/user/.gemini/config/skills/diagnosing-bugs/SKILL.md) | Diagnosis loop for hard bugs and performance regressions. Use when the user says "diagnose"/"debug this", or reports something broken/throwing/failing/slow. | *user_global* |
+| 🟢 `ACTIVE` | [`factory-droids`](file:///home/antigravity/borwonratsri/my-agent-skills/skills/factory-droids/SKILL.md) | Orchestrates the Factory AI Autonomous Droid Trio (Coder Droid, Tester Droid, Reviewer Droid) to build, test, and audit software tasks autonomously with tool... | *repo_skills* |
+| 🟢 `ACTIVE` | [`factory-droids`](file:///shared/user/.gemini/config/skills/factory-droids/SKILL.md) | Orchestrates the Factory AI Autonomous Droid Trio (Coder Droid, Tester Droid, Reviewer Droid) to build, test, and audit software tasks autonomously with tool... | *user_global* |
 | 🟢 `ACTIVE` | [`github`](file:///home/antigravity/borwonratsri/my-agent-skills/skills/github/SKILL.md) | Work with GitHub through the official gh CLI — pull requests (view, diff, checks, review, create, merge), issues, GitHub Actions runs and logs, releases, rep... | *repo_skills* |
 | 🟢 `ACTIVE` | [`github`](file:///shared/user/.gemini/config/skills/github/SKILL.md) | Work with GitHub through the official gh CLI — pull requests (view, diff, checks, review, create, merge), issues, GitHub Actions runs and logs, releases, rep... | *user_global* |
 | 🟢 `ACTIVE` | [`security-auditor`](file:///home/antigravity/borwonratsri/my-agent-skills/skills/security-auditor/SKILL.md) | Audits codebases for security vulnerabilities, OWASP Top 10 flaws, hardcoded credentials, insecure dependencies, and injection risks. Trigger via /security-a... | *repo_skills* |
