@@ -6,14 +6,38 @@
 
 ## ⚡ วิธีติดตั้งด่วน (Quick 1-Line Install)
 
-เพียงเปิด Terminal แล้วรันคำสั่งบรรทัดเดียวนี้ในเครื่องหรือ Environment ใดก็ได้ที่ใช้ Antigravity:
+เปิด Terminal แล้วคัดลอกคำสั่งบรรทัดเดียวไปวางและรันได้ทันที:
 
-### 1. ติดตั้งระดับ Global (แนะนำ - ใช้ได้กับทุกโปรเจกต์ในเครื่องทันที)
+### 🪟 สำหรับ Windows (PowerShell)
+
+**1. ติดตั้งครบทั้งหมด 118 สกิลทันที (58 มาตรฐาน + 60 PStack Production Rigor):**
+```powershell
+& ([scriptblock]::Create((irm https://raw.githubusercontent.com/borwonratsri/my-agent-skills/main/install.ps1))) -All
+```
+
+**2. ติดตั้งเฉพาะชุดหลัก Curated 58 สกิล (เร็ว เบา ประหยัด Token):**
+```powershell
+irm https://raw.githubusercontent.com/borwonratsri/my-agent-skills/main/install.ps1 | iex
+```
+
+> [!TIP]
+> ตัวติดตั้งรองรับ **Smart Update**: หากในเครื่องคุณมีสกิลอยู่แล้ว ระบบจะอัปเดตทับเฉพาะสกิลที่ชื่อตรงกันให้เป็นเวอร์ชันล่าสุดจาก GitHub แต่จะคง Custom Skills อื่นๆ ที่คุณมีไว้ตามเดิม ไม่มีการลบของเก่าทิ้งครับ
+
+---
+
+### 🐧 สำหรับ Linux / macOS / Git Bash / WSL
+
+**1. ติดตั้งครบทั้งหมด 118 สกิล (รวม PStack):**
+```bash
+curl -sSL https://raw.githubusercontent.com/borwonratsri/my-agent-skills/main/install.sh | bash -s -- --pstack
+```
+
+**2. ติดตั้งชุดหลัก 58 สกิล:**
 ```bash
 curl -sSL https://raw.githubusercontent.com/borwonratsri/my-agent-skills/main/install.sh | bash
 ```
 
-### 2. ติดตั้งเฉพาะโปรเจกต์ปัจจุบัน (Workspace Scope)
+**3. ติดตั้งเฉพาะในโฟลเดอร์โปรเจกต์ปัจจุบัน (Workspace Scope):**
 ```bash
 curl -sSL https://raw.githubusercontent.com/borwonratsri/my-agent-skills/main/install.sh | bash -s -- --workspace
 ```
