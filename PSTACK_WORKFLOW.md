@@ -165,20 +165,27 @@ flowchart TD
 
 ## 4. ตาราง Model Allocation Matrix (Universal Compatibility)
 
-| บทบาทใน PStack (Role) | Antigravity / Gemini Tier | Cursor Recommended Slug | หน้าที่ความรับผิดชอบ |
-|---|---|---|---|
-| **Judgment & Prose** | `pro` | `claude-opus-5-5-xhigh` | ประเมินภาพรวม สังเคราะห์ข้อความ และตัดสินใจระดับสถาปัตยกรรม |
-| **Hardest Tasks** | `pro` | `claude-opus-5-5-xhigh` | แก้ปัญหาอัลกอริทึมซับซ้อน หรือโจทย์ที่ต้องการการใช้เหตุผลระดับลึก |
-| **Architect Runners** | `pro` (Multi-arm) | `claude-opus-5-5-xhigh` / `grok-4.7-xhigh-fast` | คิดและออกแบบสถาปัตยกรรม 2 รูปแบบที่แข่งขันกัน |
-| **Arena Cross-Judge** | `pro` (Independent) | `claude-opus-5-5-xhigh` | กรรมการคนกลางตัดสินการแข่งขันของ Agent อย่างเป็นกลาง |
-| **How Explainer** | `pro` | `claude-opus-5-5-xhigh` | อธิบายกลไกการทำงานของระบบอย่างเข้าใจง่ายและลึกซึ้ง |
-| **Why Synthesizer** | `pro` | `claude-opus-5-5-xhigh` | สรุปผลการขุดค้นประวัติศาสตร์ของระบบและสาเหตุรากเหง้า |
-| **Feature & Refactoring**| `flash` | `grok-4.7-xhigh-fast` | เขียนโค้ดฟีเจอร์และปรับแต่งโค้ดด้วยความเร็วสูง |
-| **Bug-Fix & Perf-Issue** | `flash` | `grok-4.7-xhigh-fast` | ไล่แก้จุดบกพร่องเฉพาะจุดและการเพิ่มประสิทธิภาพ |
-| **Swarm Workers** | `flash` (Fan-out) | `grok-4.7-xhigh-fast` | คนงานย่อยที่รับงานคู่ขนานไปประมวลผล |
-| **How Explorer** | `flash` | `grok-4.7-xhigh-fast` | สำรวจไฟล์และโครงสร้าง Codebase รวดเร็ว |
-| **Why Investigators** | `flash` | `grok-4.7-xhigh-fast` | ค้นหาหลักฐานจากบันทึกและระบบติดตามเหตุการณ์ |
-| **Reflect Tooling** | `flash` | `grok-4.7-xhigh-fast` | รัน linter, tests, syntax checker |
+| บทบาทใน PStack (Role) | Antigravity Tier (มี Pro) | Antigravity Tier (ไม่มี Pro / แนะนำ) | Cursor Slug (Large Budget) | หน้าที่ความรับผิดชอบ |
+|---|---|---|---|---|
+| **Judgment & Prose** | `pro` | **`inherit`** *(Parent Model)* | `claude-opus-5-5-xhigh` | ประเมินภาพรวม สังเคราะห์ข้อความ และตัดสินใจระดับสถาปัตยกรรม |
+| **Hardest Tasks** | `pro` | **`inherit`** *(Parent Model)* | `claude-opus-5-5-xhigh` | แก้ปัญหาอัลกอริทึมซับซ้อน หรือโจทย์ที่ต้องการการใช้เหตุผลระดับลึก |
+| **Architect Runners** | `pro` (Multi-arm) | **`inherit`** *(Parent Model)* | `claude-opus-5-5-xhigh` / `grok-4.7-xhigh-fast` | คิดและออกแบบสถาปัตยกรรม 2 รูปแบบที่แข่งขันกัน |
+| **Arena Cross-Judge** | `pro` (Independent) | **`inherit`** *(Parent Model)* | `claude-opus-5-5-xhigh` | กรรมการคนกลางตัดสินการแข่งขันของ Agent อย่างเป็นกลาง |
+| **How Explainer** | `pro` | **`inherit`** *(Parent Model)* | `claude-opus-5-5-xhigh` | อธิบายกลไกการทำงานของระบบอย่างเข้าใจง่ายและลึกซึ้ง |
+| **Why Synthesizer** | `pro` | **`inherit`** *(Parent Model)* | `claude-opus-5-5-xhigh` | สรุปผลการขุดค้นประวัติศาสตร์ของระบบและสาเหตุรากเหง้า |
+| **Feature & Refactoring**| `flash` | `flash` (หรือ `inherit`) | `grok-4.7-xhigh-fast` | เขียนโค้ดฟีเจอร์และปรับแต่งโค้ดด้วยความเร็วสูง |
+| **Bug-Fix & Perf-Issue** | `flash` | `flash` (หรือ `inherit`) | `grok-4.7-xhigh-fast` | ไล่แก้จุดบกพร่องเฉพาะจุดและการเพิ่มประสิทธิภาพ |
+| **Swarm Workers** | `flash` (Fan-out) | `flash` (Fan-out) | `grok-4.7-xhigh-fast` | คนงานย่อยที่รับงานคู่ขนานไปประมวลผล |
+| **How Explorer** | `flash` | `flash` | `grok-4.7-xhigh-fast` | สำรวจไฟล์และโครงสร้าง Codebase รวดเร็ว |
+| **Why Investigators** | `flash` | `flash` | `grok-4.7-xhigh-fast` | ค้นหาหลักฐานจากบันทึกและระบบติดตามเหตุการณ์ |
+| **Reflect Tooling** | `flash` | `flash` | `grok-4.7-xhigh-fast` | รัน linter, tests, syntax checker |
+
+> [!IMPORTANT]
+> **กรณีที่ Antigravity ไม่มีโมเดล `pro` หรือติดข้อจำกัด Quota:**
+> 1. **เปลี่ยนบทบาทที่ใช้สมองคิดระดับลึกให้เป็น `inherit`**:  
+>    เมื่อตั้งค่าเป็น `inherit` ตัว Subagent จะสืบทอดโมเดลหลักที่กำลังรันอยู่ในห้องแชตปัจจุบัน (Parent Chat Model) เช่น หากคุณเลือกโมเดลหลักเป็น Claude 3.7 Sonnet หรือโมเดลตัวท็อปใน Antigravity UI ตัว Subagent ก็จะทำงานด้วยโมเดลนั้นทันทีโดยอัตโนมัติ
+> 2. **บทบาทคนงานย่อย (Swarm / Explorers / Tooling)**:  
+>    ยังคงใช้ `flash` เพื่อการประมวลผลที่รวดเร็วและประหยัดเวลา หรือจะใช้ `inherit` ทั้งหมด (All-Inherit Mode) ก็ได้เช่นกัน
 
 ---
 

@@ -39,20 +39,26 @@ Prompt the user to select their desired reasoning budget:
 
 #### Universal Model Mapping Matrix
 
-| pstack Role | Antigravity Subagent Tier | Cursor Slug (Large Budget) | Description |
-|---|---|---|---|
-| `judgment and prose` | `pro` | `claude-opus-5-5-xhigh` | Deep evaluations, architecture synthesis |
-| `hardest tasks` | `pro` | `claude-opus-5-5-xhigh` | Complex algorithms, state machines |
-| `architect runners` | `pro` (multi-arm) | `claude-opus-5-5-xhigh`, `grok-4.7-xhigh-fast` | Independent solution architects |
-| `arena cross-judge pool`| `pro` (independent) | `claude-opus-5-5-xhigh` | Neutral judge scoring competing arms |
-| `how explainer` | `pro` | `claude-opus-5-5-xhigh` | High-level architectural explanations |
-| `why synthesizer` | `pro` | `claude-opus-5-5-xhigh` | Deep epistemic investigation synthesis |
-| `feature, refactoring` | `flash` | `grok-4.7-xhigh-fast` | High-speed coding and implementation |
-| `bug-fix`, `perf-issue` | `flash` | `grok-4.7-xhigh-fast` | Targeted defect resolution |
-| `swarm workers` | `flash` (fan-out) | `grok-4.7-xhigh-fast` | Parallelized worker subagents |
-| `how explorer` | `flash` | `grok-4.7-xhigh-fast` | Codebase traversal and mapping |
-| `why investigators` | `flash` | `grok-4.7-xhigh-fast` | Telemetry & archaeology gathering |
-| `reflect tooling` | `flash` | `grok-4.7-xhigh-fast` | Linting, test execution, tooling |
+| pstack Role | Antigravity Tier (Standard / Pro Available) | Antigravity Tier (When Pro Unavailable / Recommended) | Cursor Slug (Large Budget) | Description |
+|---|---|---|---|---|
+| `judgment and prose` | `pro` | **`inherit`** *(Parent Model)* | `claude-opus-5-5-xhigh` | Deep evaluations, architecture synthesis |
+| `hardest tasks` | `pro` | **`inherit`** *(Parent Model)* | `claude-opus-5-5-xhigh` | Complex algorithms, state machines |
+| `architect runners` | `pro` (multi-arm) | **`inherit`** *(Parent Model)* | `claude-opus-5-5-xhigh`, `grok-4.7-xhigh-fast` | Independent solution architects |
+| `arena cross-judge pool`| `pro` (independent) | **`inherit`** *(Parent Model)* | `claude-opus-5-5-xhigh` | Neutral judge scoring competing arms |
+| `how explainer` | `pro` | **`inherit`** *(Parent Model)* | `claude-opus-5-5-xhigh` | High-level architectural explanations |
+| `why synthesizer` | `pro` | **`inherit`** *(Parent Model)* | `claude-opus-5-5-xhigh` | Deep epistemic investigation synthesis |
+| `feature, refactoring` | `flash` | `flash` (or `inherit`) | `grok-4.7-xhigh-fast` | High-speed coding and implementation |
+| `bug-fix`, `perf-issue` | `flash` | `flash` (or `inherit`) | `grok-4.7-xhigh-fast` | Targeted defect resolution |
+| `swarm workers` | `flash` (fan-out) | `flash` (fan-out) | `grok-4.7-xhigh-fast` | Parallelized worker subagents |
+| `how explorer` | `flash` | `flash` | `grok-4.7-xhigh-fast` | Codebase traversal and mapping |
+| `why investigators` | `flash` | `flash` | `grok-4.7-xhigh-fast` | Telemetry & archaeology gathering |
+| `reflect tooling` | `flash` | `flash` | `grok-4.7-xhigh-fast` | Linting, test execution, tooling |
+
+> [!TIP]
+> **กรณีที่ Antigravity ไม่มีโมเดล `pro` หรือติดข้อจำกัด Quota:**
+> - ให้ใช้ค่า **`inherit`** แทน `pro` สำหรับบทบาทการคิดวิเคราะห์ทั้งหมด (Judgment, Architect, Cross-Judge, Synthesizer)
+> - เมื่อกำหนดเป็น `inherit` ตัว Subagent จะดึงโมเดลหลักในห้องแชต (เช่น Claude 3.7 Sonnet หรือโมเดลตัวท็อปที่คุณเลือกไว้ในหน้าแชต) มาทำงานแทนทันที ทำให้ได้ความสามารถระดับสูงสุดโดยไม่ต้องพึ่งพา `pro` tier
+> - ส่วนงานที่เป็นคนงานย่อย (Swarm Workers, File Searching, Tooling) ยังคงใช้ **`flash`** เพื่อประหยัดเวลาและทำงานแบบขนานได้รวดเร็ว หรือจะเลือกใช้ `inherit` ทั้งหมด (All-Inherit Mode) ก็ได้เช่นกัน
 
 ---
 
