@@ -1,0 +1,32 @@
+{
+  "name": "canva",
+  "displayName": "Canva",
+  "version": "1.0.0",
+  "logo": "assets/logo-canva.svg",
+  "description": "Create, edit, review, resize, and brand-check Canva designs with the Canva MCP server.",
+  "suggestedPrompts": [
+    "Resize this Canva design for Instagram and LinkedIn",
+    "Review this Canva design and suggest improvements",
+    "Check this Canva design against my brand kit"
+  ],
+  "author": {
+    "name": "Canva"
+  },
+  "keywords": [
+    "canva",
+    "design",
+    "presentation",
+    "social media",
+    "brand kit",
+    "ai generation",
+    "flyer",
+    "poster",
+    "graphic design",
+    "marketing"
+  ],
+  "skills": [
+    "./skills"
+  ],
+  "homepage": "https://www.canva.com/developers/",
+  "repository": "https://github.com/canva-sdks/canva-skills"
+}

@@ -1,0 +1,31 @@
+{
+  "mcpServers": {
+    "dak-notebook": {
+      "command": "node",
+      "type": "stdio",
+      "args": [
+        "mcp/dist/index.js",
+        "--mode=notebook"
+      ]
+    },
+    "dak-viz": {
+      "command": "node",
+      "type": "stdio",
+      "args": [
+        "mcp/dist/index.js",
+        "--mode=visualization"
+      ]
+    },
+    "dak-bigquery": {
+      "command": "node",
+      "type": "stdio",
+      "args": [
+        "mcp/bin/mcp_proxy_bundle.cjs",
+        "https://bigquery.googleapis.com/mcp"
+      ],
+      "env": {
+        "X_GOOG_PROXY_HEADERS": "{\"User-Agent\":\"datacloud.antigravity\"}"
+      }
+    }
+  }
+}

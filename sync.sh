@@ -23,9 +23,11 @@ RESET="\033[0m"
 SCRIPT_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
 SKILLS_DIR="$SCRIPT_DIR/skills"
 RULES_DIR="$SCRIPT_DIR/rules"
+PLUGINS_DIR="$SCRIPT_DIR/plugins"
 GLOBAL_CONFIG_DIR="$HOME/.gemini/config"
 GLOBAL_SKILLS_DIR="$GLOBAL_CONFIG_DIR/skills"
 GLOBAL_RULES_DIR="$GLOBAL_CONFIG_DIR/rules"
+GLOBAL_PLUGINS_DIR="$GLOBAL_CONFIG_DIR/plugins"
 WORKSPACE_SKILLS_DIR="$(pwd)/.agents/skills"
 
 ACTION="${1:-status}"
@@ -114,6 +116,20 @@ case "$ACTION" in
         if [[ -f "$GLOBAL_CONFIG_DIR/AGENTS.template.md" ]]; then
             cp "$GLOBAL_CONFIG_DIR/AGENTS.template.md" "$SCRIPT_DIR/AGENTS.template.md"
             echo -e "  ${GREEN}+${RESET} Synced AGENTS.template.md"
+        fi
+
+        # Sync from global plugins directory if exists
+        if [[ -d "$GLOBAL_PLUGINS_DIR" ]]; then
+            mkdir -p "$PLUGINS_DIR"
+            for plugin_path in "$GLOBAL_PLUGINS_DIR"/*; do
+                if [[ -d "$plugin_path" ]]; then
+                    name="$(basename "$plugin_path")"
+                    mkdir -p "$PLUGINS_DIR/$name"
+                    cp -r "$plugin_path/"* "$PLUGINS_DIR/$name/"
+                    rm -f "$PLUGINS_DIR/$name/auth.json"
+                    echo -e "  ${GREEN}+${RESET} Synced plugin: ${BOLD}$name${RESET}"
+                fi
+            done
         fi
 
         git add .

@@ -1,0 +1,2 @@
+# Exclude OAuth client secrets in plugins
+plugins/**/auth.json

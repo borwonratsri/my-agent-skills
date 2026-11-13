@@ -1,0 +1,165 @@
+{
+    "plugins":  {
+                    "android-cli-plugin":  {
+                                               "installedFrom":  {
+                                                                     "id":  "antigravity-plugins-official/plugin/android-cli-plugin",
+                                                                     "marketplace":  "antigravity-plugins-official",
+                                                                     "version":  "1.0.16625370"
+                                                                 }
+                                           },
+                    "canva":  {
+                                  "installedFrom":  {
+                                                        "id":  "antigravity-plugins-partners/plugin/canva",
+                                                        "marketplace":  "antigravity-plugins-partners",
+                                                        "version":  "1.0.0"
+                                                    }
+                              },
+                    "chrome-devtools-plugin":  {
+                                                   "installedFrom":  {
+                                                                         "id":  "antigravity-plugins-official/plugin/chrome-devtools-plugin",
+                                                                         "marketplace":  "antigravity-plugins-official",
+                                                                         "version":  "1.10.1"
+                                                                     }
+                                               },
+                    "data-agent-kit-plugin":  {
+                                                  "installedFrom":  {
+                                                                        "id":  "antigravity-plugins-official/plugin/data-agent-kit-plugin",
+                                                                        "marketplace":  "antigravity-plugins-official",
+                                                                        "version":  "1.1.0"
+                                                                    }
+                                              },
+                    "egm":  {
+                                "installedFrom":  {
+                                                      "id":  "antigravity-plugins-official/plugin/egm",
+                                                      "marketplace":  "antigravity-plugins-official",
+                                                      "version":  "0.1.1"
+                                                  }
+                            },
+                    "figma":  {
+                                  "installedFrom":  {
+                                                        "id":  "antigravity-plugins-partners/plugin/figma",
+                                                        "marketplace":  "antigravity-plugins-partners",
+                                                        "version":  "2.2.163"
+                                                    }
+                              },
+                    "firebase":  {
+                                     "installedFrom":  {
+                                                           "id":  "antigravity-plugins-official/plugin/firebase",
+                                                           "marketplace":  "antigravity-plugins-official",
+                                                           "version":  "1.0.3"
+                                                       }
+                                 },
+                    "flutter":  {
+                                    "installedFrom":  {
+                                                          "id":  "antigravity-plugins-official/plugin/flutter",
+                                                          "marketplace":  "antigravity-plugins-official",
+                                                          "version":  "1.0.7"
+                                                      }
+                                },
+                    "gcalendar":  {
+                                      "installedFrom":  {
+                                                            "id":  "antigravity-plugins-official/plugin/gcalendar",
+                                                            "marketplace":  "antigravity-plugins-official",
+                                                            "version":  "0.0.7"
+                                                        }
+                                  },
+                    "gdocs":  {
+                                  "installedFrom":  {
+                                                        "id":  "antigravity-plugins-official/plugin/gdocs",
+                                                        "marketplace":  "antigravity-plugins-official",
+                                                        "version":  "0.0.8"
+                                                    }
+                              },
+                    "gdrive":  {
+                                   "installedFrom":  {
+                                                         "id":  "antigravity-plugins-official/plugin/gdrive",
+                                                         "marketplace":  "antigravity-plugins-official",
+                                                         "version":  "0.0.8"
+                                                     }
+                               },
+                    "gemini-api":  {
+                                       "installedFrom":  {
+                                                             "id":  "antigravity-plugins-official/plugin/gemini-api",
+                                                             "marketplace":  "antigravity-plugins-official",
+                                                             "version":  "2.3.1"
+                                                         }
+                                   },
+                    "google-antigravity-sdk":  {
+                                                   "installedFrom":  {
+                                                                         "id":  "antigravity-plugins-official/plugin/google-antigravity-sdk",
+                                                                         "marketplace":  "antigravity-plugins-official",
+                                                                         "version":  "0.0.9"
+                                                                     }
+                                               },
+                    "google-cloud-developer":  {
+                                                   "installedFrom":  {
+                                                                         "id":  "antigravity-plugins-official/plugin/google-cloud-developer",
+                                                                         "marketplace":  "antigravity-plugins-official",
+                                                                         "version":  "1.1.14"
+                                                                     }
+                                               },
+                    "google-developer-knowledge":  {
+                                                       "installedFrom":  {
+                                                                             "id":  "antigravity-plugins-official/plugin/google-developer-knowledge",
+                                                                             "marketplace":  "antigravity-plugins-official",
+                                                                             "version":  "1.0.2"
+                                                                         }
+                                                   },
+                    "google_maps_platform":  {
+                                                 "installedFrom":  {
+                                                                       "id":  "antigravity-plugins-official/plugin/google_maps_platform",
+                                                                       "marketplace":  "antigravity-plugins-official",
+                                                                       "version":  "1.0.0"
+                                                                   }
+                                             },
+                    "gsheets":  {
+                                    "installedFrom":  {
+                                                          "id":  "antigravity-plugins-official/plugin/gsheets",
+                                                          "marketplace":  "antigravity-plugins-official",
+                                                          "version":  "0.0.7"
+                                                      }
+                                },
+                    "gslides":  {
+                                    "installedFrom":  {
+                                                          "id":  "antigravity-plugins-official/plugin/gslides",
+                                                          "marketplace":  "antigravity-plugins-official",
+                                                          "version":  "0.0.7"
+                                                      }
+                                },
+                    "modern-web-guidance-plugin":  {
+                                                       "installedFrom":  {
+                                                                             "id":  "antigravity-plugins-official/plugin/modern-web-guidance-plugin",
+                                                                             "marketplace":  "antigravity-plugins-official",
+                                                                             "version":  "0.0.196"
+                                                                         }
+                                                   },
+                    "netlify":  {
+                                    "installedFrom":  {
+                                                          "id":  "antigravity-plugins-partners/plugin/netlify",
+                                                          "marketplace":  "antigravity-plugins-partners",
+                                                          "version":  "1.7.0"
+                                                      }
+                                },
+                    "notion":  {
+                                   "installedFrom":  {
+                                                         "id":  "antigravity-plugins-partners/plugin/notion",
+                                                         "marketplace":  "antigravity-plugins-partners",
+                                                         "version":  "0.1.0"
+                                                     }
+                               },
+                    "supabase":  {
+                                     "installedFrom":  {
+                                                           "id":  "antigravity-plugins-partners/plugin/supabase",
+                                                           "marketplace":  "antigravity-plugins-partners",
+                                                           "version":  "0.1.17"
+                                                       }
+                                 },
+                    "vercel-plugin":  {
+                                          "installedFrom":  {
+                                                                "id":  "antigravity-plugins-partners/plugin/vercel-plugin",
+                                                                "marketplace":  "antigravity-plugins-partners",
+                                                                "version":  "0.54.1"
+                                                            }
+                                      }
+                }
+}

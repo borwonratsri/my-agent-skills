@@ -32,6 +32,10 @@ irm https://raw.githubusercontent.com/borwonratsri/my-agent-skills/main/install.
 - `20-database-backend.md` (`model_decision`): กฎสำหรับ Supabase / Postgres RLS / Firestore (`firestore-rules-author`) / API
 - `30-architecture-docs-executive.md` (`model_decision`): กฎสำหรับ `egm-*` Architecture Review, ADR/README, `.pptx` และ `summary-text`
 
+### 🔌 Antigravity Plugins Bundle (`plugins/` + `config/plugins-manifest.json`)
+
+ตัวติดตั้งจะคัดลอก **23 Plugins** (เช่น `vercel-plugin`, `supabase`, `firebase`, `egm`, `figma`, `canva`, `notion`, `flutter`, `chrome-devtools-plugin`, Google Workspace, Google Cloud) ลงใน `~/.gemini/config/plugins/` และผสานรายการลงทะเบียนเข้ากับ `~/.gemini/config/config.json` ให้อัตโนมัติ (โดยไม่ทับ `userSettings` และ `sidecars` เดิมของเครื่องปลายทาง; เพิ่ม `--no-plugins` หรือ `-NoPlugins` หากต้องการข้าม)
+
 ---
 
 ### 🐧 สำหรับ Linux / macOS / Git Bash / WSL

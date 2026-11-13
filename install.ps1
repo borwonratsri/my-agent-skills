@@ -1,11 +1,11 @@
 ﻿# ==============================================================================
-# Antigravity Skills & Global Rules Installer for Windows (PowerShell)
+# Antigravity Skills, Global Rules & Plugins Installer for Windows (PowerShell)
 # Repository: https://github.com/borwonratsri/my-agent-skills
 #
-# Quick 1-Line Install (All 118 Skills + PStack Rigor + Global Rules):
+# Quick 1-Line Install (All Skills + PStack Rigor + Global Rules + 23 Plugins):
 #   & ([scriptblock]::Create((irm https://raw.githubusercontent.com/borwonratsri/my-agent-skills/main/install.ps1))) -All
 #
-# Standard Install (58 Curated Skills + Global Rules):
+# Standard Install (Curated Skills + Global Rules + 23 Plugins):
 #   irm https://raw.githubusercontent.com/borwonratsri/my-agent-skills/main/install.ps1 | iex
 # ==============================================================================
 
@@ -14,6 +14,7 @@ param(
     [switch]$All = $false,
     [switch]$PStack = $false,
     [switch]$NoRules = $false,
+    [switch]$NoPlugins = $false,
     [switch]$Global = $true,
     [switch]$Workspace = $false,
     [string]$Target = "",
@@ -24,25 +25,26 @@ $ErrorActionPreference = "Stop"
 
 if ($Help) {
     Write-Host @"
-Antigravity Skills & Global Rules Installer for Windows
+Antigravity Skills, Global Rules & Plugins Installer for Windows
 
 Usage:
-  install.ps1 [-All] [-PStack] [-NoRules] [-Global] [-Workspace] [-Target <dir>]
+  install.ps1 [-All] [-PStack] [-NoRules] [-NoPlugins] [-Global] [-Workspace] [-Target <dir>]
 
 Options:
-  -All        Install all 118 skills (Curated 58 + PStack Rigor 60) + Global Rules
+  -All        Install all skills (Curated + PStack Rigor) + Global Rules + 23 Plugins
   -PStack     Include the 60 isolated PStack Production Rigor skills
   -NoRules    Skip installing Global Rules (~/.gemini/config/rules)
+  -NoPlugins  Skip installing Plugins (~/.gemini/config/plugins & config.json registration)
   -Global     Install to user's global config: ~/.gemini/config (Default)
   -Workspace  Install into current project workspace (./.agents)
   -Target     Install skills to a specific custom directory path
   -Help       Show this help message
 
 Examples:
-  # Install all 118 skills + Global Rules globally (Recommended):
+  # Install everything globally (Recommended):
   & ([scriptblock]::Create((irm https://raw.githubusercontent.com/borwonratsri/my-agent-skills/main/install.ps1))) -All
 
-  # Install standard 58 skills + Global Rules globally:
+  # Install standard skills + Global Rules + Plugins globally:
   irm https://raw.githubusercontent.com/borwonratsri/my-agent-skills/main/install.ps1 | iex
 "@
     exit 0
@@ -52,6 +54,8 @@ Examples:
 $UserHome = if ($env:USERPROFILE) { $env:USERPROFILE } else { [System.Environment]::GetFolderPath('UserProfile') }
 $UserHomeForward = $UserHome -replace '\\', '/'
 $GlobalConfigDir = Join-Path $UserHome ".gemini\config"
+$PluginsTargetDir = Join-Path $GlobalConfigDir "plugins"
+$GlobalConfigJsonPath = Join-Path $GlobalConfigDir "config.json"
 
 if ($Target -ne "") {
     $TargetDir = $Target
@@ -65,12 +69,15 @@ if ($Target -ne "") {
 }
 
 Write-Host "======================================================" -ForegroundColor Cyan
-Write-Host "   🚀 Antigravity Skills & Rules Installer (Windows)" -ForegroundColor Cyan
+Write-Host "   🚀 Antigravity Full Setup Installer (Windows)" -ForegroundColor Cyan
 Write-Host "   Repository: borwonratsri/my-agent-skills" -ForegroundColor Cyan
 Write-Host "======================================================" -ForegroundColor Cyan
-Write-Host "Skills Directory: $TargetDir" -ForegroundColor Yellow
+Write-Host "Skills Directory:  $TargetDir" -ForegroundColor Yellow
 if (-not $NoRules) {
-    Write-Host "Rules Directory:  $RulesTargetDir" -ForegroundColor Yellow
+    Write-Host "Rules Directory:   $RulesTargetDir" -ForegroundColor Yellow
+}
+if (-not $NoPlugins -and -not $Workspace) {
+    Write-Host "Plugins Directory: $PluginsTargetDir" -ForegroundColor Yellow
 }
 
 if (-not (Test-Path $TargetDir)) {
@@ -86,8 +93,10 @@ if ($ScriptDir -and (Test-Path (Join-Path $ScriptDir "skills"))) {
     $SkillsSource = Join-Path $ScriptDir "skills"
     $PStackSource = Join-Path $ScriptDir "pstack"
     $RulesSource = Join-Path $ScriptDir "rules"
+    $PluginsSource = Join-Path $ScriptDir "plugins"
+    $PluginsManifestSource = Join-Path $ScriptDir "config\plugins-manifest.json"
 } else {
-    Write-Host "Downloading latest skill & rules library from GitHub..." -ForegroundColor Yellow
+    Write-Host "Downloading latest skill, rules & plugins library from GitHub..." -ForegroundColor Yellow
     $ZipUrl = "https://github.com/borwonratsri/my-agent-skills/archive/refs/heads/main.zip"
     $TempZip = [System.IO.Path]::Combine([System.IO.Path]::GetTempPath(), [System.IO.Path]::GetRandomFileName() + ".zip")
     $TempDir = [System.IO.Path]::Combine([System.IO.Path]::GetTempPath(), [System.IO.Path]::GetRandomFileName())
@@ -103,6 +112,8 @@ if ($ScriptDir -and (Test-Path (Join-Path $ScriptDir "skills"))) {
     $SkillsSource = Join-Path $ExtractedRoot "skills"
     $PStackSource = Join-Path $ExtractedRoot "pstack"
     $RulesSource = Join-Path $ExtractedRoot "rules"
+    $PluginsSource = Join-Path $ExtractedRoot "plugins"
+    $PluginsManifestSource = Join-Path $ExtractedRoot "config\plugins-manifest.json"
 }
 
 try {
@@ -110,6 +121,7 @@ try {
     $UpdatedCount = 0
     $NewCount = 0
     $RulesCount = 0
+    $PluginsCount = 0
 
     # 1. Install Curated Standard Skills
     Write-Host "`n📦 Installing Standard Curated Skills:" -ForegroundColor Green
@@ -178,16 +190,60 @@ try {
         }
     }
 
+    # 4. Install Plugins & Merge into ~/.gemini/config/config.json (unless -NoPlugins or -Workspace)
+    if (-not $NoPlugins -and -not $Workspace -and (Test-Path $PluginsSource)) {
+        Write-Host "`n🔌 Installing & Registering Antigravity Plugins (23 Plugins):" -ForegroundColor Yellow
+        if (-not (Test-Path $PluginsTargetDir)) {
+            New-Item -ItemType Directory -Path $PluginsTargetDir -Force | Out-Null
+        }
+
+        $PluginDirs = Get-ChildItem -Path $PluginsSource -Directory
+        foreach ($pDir in $PluginDirs) {
+            $destPluginPath = Join-Path $PluginsTargetDir $pDir.Name
+            if (-not (Test-Path $destPluginPath)) {
+                New-Item -ItemType Directory -Path $destPluginPath -Force | Out-Null
+            }
+            Copy-Item -Path (Join-Path $pDir.FullName "*") -Destination $destPluginPath -Recurse -Force
+            Write-Host "  [✓] $($pDir.Name)" -ForegroundColor Yellow
+            $PluginsCount++
+        }
+
+        if (Test-Path $PluginsManifestSource) {
+            $manifestData = Get-Content -Path $PluginsManifestSource -Raw -Encoding UTF8 | ConvertFrom-Json
+            if (Test-Path $GlobalConfigJsonPath) {
+                $existingConfig = Get-Content -Path $GlobalConfigJsonPath -Raw -Encoding UTF8 | ConvertFrom-Json
+            } else {
+                $existingConfig = [PSCustomObject]@{}
+            }
+
+            if (-not ($existingConfig.PSObject.Properties.Name -contains "plugins") -or $null -eq $existingConfig.plugins) {
+                $existingConfig | Add-Member -MemberType NoteProperty -Name "plugins" -Value ([PSCustomObject]@{}) -Force
+            }
+
+            foreach ($prop in $manifestData.plugins.PSObject.Properties) {
+                $existingConfig.plugins | Add-Member -MemberType NoteProperty -Name $prop.Name -Value $prop.Value -Force
+            }
+
+            $updatedConfigJson = $existingConfig | ConvertTo-Json -Depth 10
+            [System.IO.File]::WriteAllText($GlobalConfigJsonPath, $updatedConfigJson, [System.Text.UTF8Encoding]::new($false))
+            Write-Host "  [✓] Registered $PluginsCount plugins in $GlobalConfigJsonPath" -ForegroundColor Green
+        }
+    }
+
     Write-Host "`n======================================================" -ForegroundColor Green
     Write-Host "🎉 Installation & Smart Update Successful!" -ForegroundColor Green
     Write-Host "======================================================" -ForegroundColor Green
     Write-Host "Total Skills Processed: $InstallCount (New: $NewCount, Updated: $UpdatedCount)" -ForegroundColor White
     Write-Host "Total Rules Installed:  $RulesCount" -ForegroundColor Magenta
+    Write-Host "Total Plugins Synced:   $PluginsCount" -ForegroundColor Yellow
     Write-Host "Skills Directory:       $TargetDir" -ForegroundColor Cyan
     if (-not $NoRules) {
         Write-Host "Rules Directory:        $RulesTargetDir" -ForegroundColor Cyan
     }
-    Write-Host "`nAll skills and global rules are now ready for Antigravity on this machine!`n" -ForegroundColor Green
+    if (-not $NoPlugins -and -not $Workspace) {
+        Write-Host "Plugins Directory:      $PluginsTargetDir" -ForegroundColor Cyan
+    }
+    Write-Host "`nAll skills, global rules, and plugins are now ready for Antigravity on this machine!`n" -ForegroundColor Green
 
 } finally {
     if ($TempDir -and (Test-Path $TempDir)) {
