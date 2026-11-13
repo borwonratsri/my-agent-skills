@@ -23,6 +23,15 @@ irm https://raw.githubusercontent.com/borwonratsri/my-agent-skills/main/install.
 > [!TIP]
 > ตัวติดตั้งรองรับ **Smart Update**: หากในเครื่องคุณมีสกิลอยู่แล้ว ระบบจะอัปเดตทับเฉพาะสกิลที่ชื่อตรงกันให้เป็นเวอร์ชันล่าสุดจาก GitHub แต่จะคง Custom Skills อื่นๆ ที่คุณมีไว้ตามเดิม ไม่มีการลบของเก่าทิ้งครับ
 
+### 🧭 Global Rules & Skill Playbook Router (`rules/` + `AGENTS.template.md`)
+
+ตัวติดตั้งทั้ง `install.ps1` และ `install.sh` จะติดตั้ง **Global Rules** ทั้ง 5 ไฟล์ลงใน `~/.gemini/config/rules/` และ **`AGENTS.template.md`** ลงใน `~/.gemini/config/` ให้โดยอัตโนมัติ (พร้อมแปลง Path `~/.gemini/config` ให้ตรงกับ User ของเครื่องปลายทาง):
+- `00-global-core-rules.md` (`always_on`): Step 0 อ่าน `PROJECT_CONTEXT.md` / `AGENTS.md`, หลักวิศวกรรม `pstack`, เกณฑ์ส่งต่อ Subagents (`research`, `browser`, `egm-*`, `factory-droids`), Antigravity Runtime Adapter และ Safety Gate
+- `05-skill-playbooks-router.md` (`always_on`): แผนที่ชี้พิกัดสกิลผสาน `matt-pocock-skills` + `pstack` ตามเฟสงาน
+- `10-web-fullstack.md` (`glob`): กฎสำหรับ React / Next.js / TypeScript / Vercel / Netlify / UI (`ui-taste`, `website-design`)
+- `20-database-backend.md` (`model_decision`): กฎสำหรับ Supabase / Postgres RLS / Firestore (`firestore-rules-author`) / API
+- `30-architecture-docs-executive.md` (`model_decision`): กฎสำหรับ `egm-*` Architecture Review, ADR/README, `.pptx` และ `summary-text`
+
 ---
 
 ### 🐧 สำหรับ Linux / macOS / Git Bash / WSL

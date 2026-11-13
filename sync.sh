@@ -22,7 +22,10 @@ RESET="\033[0m"
 
 SCRIPT_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
 SKILLS_DIR="$SCRIPT_DIR/skills"
-GLOBAL_SKILLS_DIR="$HOME/.gemini/config/skills"
+RULES_DIR="$SCRIPT_DIR/rules"
+GLOBAL_CONFIG_DIR="$HOME/.gemini/config"
+GLOBAL_SKILLS_DIR="$GLOBAL_CONFIG_DIR/skills"
+GLOBAL_RULES_DIR="$GLOBAL_CONFIG_DIR/rules"
 WORKSPACE_SKILLS_DIR="$(pwd)/.agents/skills"
 
 ACTION="${1:-status}"
@@ -94,6 +97,23 @@ case "$ACTION" in
                     echo -e "  ${GREEN}+${RESET} Synced workspace: ${BOLD}$name${RESET}"
                 fi
             done
+        fi
+
+        # Sync from global rules directory if exists
+        if [[ -d "$GLOBAL_RULES_DIR" ]]; then
+            mkdir -p "$RULES_DIR"
+            for rule_path in "$GLOBAL_RULES_DIR"/*.md; do
+                if [[ -f "$rule_path" ]]; then
+                    name="$(basename "$rule_path")"
+                    sed "s|$HOME/.gemini/config|~/.gemini/config|g" "$rule_path" > "$RULES_DIR/$name"
+                    echo -e "  ${GREEN}+${RESET} Synced global rule: ${BOLD}$name${RESET}"
+                fi
+            done
+        fi
+
+        if [[ -f "$GLOBAL_CONFIG_DIR/AGENTS.template.md" ]]; then
+            cp "$GLOBAL_CONFIG_DIR/AGENTS.template.md" "$SCRIPT_DIR/AGENTS.template.md"
+            echo -e "  ${GREEN}+${RESET} Synced AGENTS.template.md"
         fi
 
         git add .

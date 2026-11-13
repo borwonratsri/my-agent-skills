@@ -38,6 +38,7 @@ Options:
   -w, --workspace    Install skills to current workspace (./.agents/skills)
   -t, --target <dir> Install skills to a specific custom directory
   -p, --pstack       Also install the 60 isolated PStack Production Rigor skills
+  --no-rules         Skip installing Global Rules (~/.gemini/config/rules)
   -h, --help         Show this help message
 
 Examples:
@@ -53,6 +54,7 @@ EOF
 MODE="global"
 CUSTOM_TARGET=""
 INCLUDE_PSTACK=false
+INSTALL_RULES=true
 
 while [[ $# -gt 0 ]]; do
     case "$1" in
@@ -73,6 +75,10 @@ while [[ $# -gt 0 ]]; do
             INCLUDE_PSTACK=true
             shift
             ;;
+        --no-rules)
+            INSTALL_RULES=false
+            shift
+            ;;
         -h|--help)
             show_help
             ;;
@@ -86,10 +92,13 @@ done
 # Resolve Target Directory
 if [[ "$MODE" == "global" ]]; then
     TARGET_DIR="$HOME/.gemini/config/skills"
+    RULES_TARGET_DIR="$HOME/.gemini/config/rules"
 elif [[ "$MODE" == "workspace" ]]; then
     TARGET_DIR="$(pwd)/.agents/skills"
+    RULES_TARGET_DIR="$(pwd)/.agents/rules"
 elif [[ "$MODE" == "custom" ]]; then
     TARGET_DIR="$CUSTOM_TARGET"
+    RULES_TARGET_DIR="$(dirname "$CUSTOM_TARGET")/rules"
 fi
 
 echo -e "${BOLD}${CYAN}======================================================${RESET}"
@@ -170,9 +179,44 @@ if [[ "$INCLUDE_PSTACK" == true ]]; then
     fi
 fi
 
+RULES_COUNT=0
+if [[ "$INSTALL_RULES" == true ]]; then
+    ROOT_SOURCE=""
+    if [[ -n "$SCRIPT_DIR" && -d "$SCRIPT_DIR/rules" ]]; then
+        ROOT_SOURCE="$SCRIPT_DIR"
+    elif [[ -n "$TMP_DIR" && -d "$TMP_DIR/${REPO_NAME}-${DEFAULT_BRANCH}/rules" ]]; then
+        ROOT_SOURCE="$TMP_DIR/${REPO_NAME}-${DEFAULT_BRANCH}"
+    fi
+
+    if [[ -n "$ROOT_SOURCE" && -d "$ROOT_SOURCE/rules" ]]; then
+        echo ""
+        echo -e "${BOLD}${BLUE}Installing Global Rules & Skill Playbook Router:${RESET}"
+        mkdir -p "$RULES_TARGET_DIR"
+        RESOLVED_GLOBAL_CONFIG="$HOME/.gemini/config"
+        for rule_path in "$ROOT_SOURCE/rules"/*.md; do
+            if [[ -f "$rule_path" ]]; then
+                rule_name="$(basename "$rule_path")"
+                sed "s|~/.gemini/config|${RESOLVED_GLOBAL_CONFIG}|g" "$rule_path" > "$RULES_TARGET_DIR/$rule_name"
+                echo -e "  ${GREEN}✓${RESET} ${BOLD}${rule_name}${RESET}"
+                RULES_COUNT=$((RULES_COUNT + 1))
+            fi
+        done
+
+        if [[ -f "$ROOT_SOURCE/AGENTS.template.md" ]]; then
+            mkdir -p "$HOME/.gemini/config"
+            cp "$ROOT_SOURCE/AGENTS.template.md" "$HOME/.gemini/config/AGENTS.template.md"
+            echo -e "  ${GREEN}✓${RESET} ${BOLD}AGENTS.template.md${RESET}"
+        fi
+    fi
+fi
+
 echo ""
 echo -e "${BOLD}${GREEN}🎉 Installation successful!${RESET}"
 echo -e "Total skills installed: ${BOLD}${COUNT}${RESET} skills"
+echo -e "Total rules installed:  ${BOLD}${RULES_COUNT}${RESET} rules"
 echo -e "Installed location:     ${CYAN}${TARGET_DIR}${RESET}"
+if [[ "$INSTALL_RULES" == true ]]; then
+    echo -e "Rules location:         ${CYAN}${RULES_TARGET_DIR}${RESET}"
+fi
 echo ""
-echo -e "Skills are now active and ready to be used by Antigravity in this environment!"
+echo -e "Skills and global rules are now active and ready to be used by Antigravity in this environment!"
