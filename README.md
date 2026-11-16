@@ -36,6 +36,13 @@ irm https://raw.githubusercontent.com/borwonratsri/my-agent-skills/main/install.
 
 ตัวติดตั้งจะคัดลอก **23 Plugins** (เช่น `vercel-plugin`, `supabase`, `firebase`, `egm`, `figma`, `canva`, `notion`, `flutter`, `chrome-devtools-plugin`, Google Workspace, Google Cloud) ลงใน `~/.gemini/config/plugins/` และผสานรายการลงทะเบียนเข้ากับ `~/.gemini/config/config.json` ให้อัตโนมัติ (โดยไม่ทับ `userSettings` และ `sidecars` เดิมของเครื่องปลายทาง; เพิ่ม `--no-plugins` หรือ `-NoPlugins` หากต้องการข้าม)
 
+### 🏛️ 4-Pillar Personal AI OS (Gems, Hooks, Knowledge Vault & Saved Info)
+
+1. **5 Role Personas (`gem-*`)**: `/gem-qa` (Pharma QA/GMP), `/gem-exec` (Executive Secretary & `.pptx`), `/gem-dev` (Fullstack Tech Lead), `/gem-data` (Data & Office Automation), `/gem-coach` (Idea Sparring)
+2. **Global Lifecycle Hooks (`hooks.json` + `hooks/*.mjs`)**: `SessionStart` (โหลด `USER_MEMORY.md`, `knowledge/INDEX.md`, `PROJECT_CONTEXT.md`), `PreToolUse` (บล็อกคำสั่งอันตราย), `PostToolUse` (Auto-format เฉพาะเมื่อมี Formatter ท้องถิ่น), `Stop` (Verification Gate ก่อนจบงานแก้โค้ด)
+3. **Connectors & MCP (`mcp_config.json`)**: ตั้งค่า `chrome-devtools` MCP ให้โดยอัตโนมัติ (ไม่ทับ Server เดิมที่มีอยู่) พร้อมกฎ 3-Tier Clearance
+4. **Local-Only Cabinet & Memory**: สร้างโครงสร้าง `~/.gemini/config/knowledge/` (4 ลิ้นชัก + `INDEX.md`) และ `~/.gemini/config/USER_MEMORY.md` จากเทมเพลตเฉพาะกรณีที่ยังไม่มีไฟล์ (ไม่เก็บข้อมูลจริงขึ้น GitHub สาธารณะ)
+
 ---
 
 ### 🐧 สำหรับ Linux / macOS / Git Bash / WSL

@@ -15,6 +15,7 @@ param(
     [switch]$PStack = $false,
     [switch]$NoRules = $false,
     [switch]$NoPlugins = $false,
+    [switch]$NoHooks = $false,
     [switch]$Global = $true,
     [switch]$Workspace = $false,
     [string]$Target = "",
@@ -28,13 +29,14 @@ if ($Help) {
 Antigravity Skills, Global Rules & Plugins Installer for Windows
 
 Usage:
-  install.ps1 [-All] [-PStack] [-NoRules] [-NoPlugins] [-Global] [-Workspace] [-Target <dir>]
+  install.ps1 [-All] [-PStack] [-NoRules] [-NoPlugins] [-NoHooks] [-Global] [-Workspace] [-Target <dir>]
 
 Options:
-  -All        Install all skills (Curated + PStack Rigor) + Global Rules + 23 Plugins
+  -All        Install all skills (Curated + PStack Rigor) + Global Rules + Hooks + 23 Plugins
   -PStack     Include the 60 isolated PStack Production Rigor skills
   -NoRules    Skip installing Global Rules (~/.gemini/config/rules)
   -NoPlugins  Skip installing Plugins (~/.gemini/config/plugins & config.json registration)
+  -NoHooks    Skip installing Global Hooks (~/.gemini/config/hooks.json) & 4-Pillar templates
   -Global     Install to user's global config: ~/.gemini/config (Default)
   -Workspace  Install into current project workspace (./.agents)
   -Target     Install skills to a specific custom directory path
@@ -227,6 +229,72 @@ try {
             $updatedConfigJson = $existingConfig | ConvertTo-Json -Depth 10
             [System.IO.File]::WriteAllText($GlobalConfigJsonPath, $updatedConfigJson, [System.Text.UTF8Encoding]::new($false))
             Write-Host "  [OK] Registered $PluginsCount plugins in $GlobalConfigJsonPath" -ForegroundColor Green
+        }
+    }
+
+    # 5. Install Global Hooks & Bootstrap 4-Pillar Templates (unless -NoHooks or -Workspace)
+    if (-not $NoHooks -and -not $Workspace) {
+        $HooksJsonSource = Join-Path $RootSource "hooks.json"
+        $HooksDirSource = Join-Path $RootSource "hooks"
+        if ((Test-Path $HooksJsonSource) -and (Test-Path $HooksDirSource)) {
+            Write-Host "`nInstalling Global Lifecycle Hooks & 4-Pillar Templates:" -ForegroundColor Cyan
+            $HooksTargetDir = Join-Path $GlobalConfigDir "hooks"
+            if (-not (Test-Path $HooksTargetDir)) {
+                New-Item -ItemType Directory -Path $HooksTargetDir -Force | Out-Null
+            }
+            Copy-Item -Path (Join-Path $HooksDirSource "*.mjs") -Destination $HooksTargetDir -Force
+            Copy-Item -Path $HooksJsonSource -Destination (Join-Path $GlobalConfigDir "hooks.json") -Force
+            Write-Host "  [OK] hooks.json & hooks/*.mjs -> $GlobalConfigDir" -ForegroundColor Cyan
+        }
+
+        # Initialize USER_MEMORY.md only if missing (never overwrite user's live memory)
+        $MemoryDest = Join-Path $GlobalConfigDir "USER_MEMORY.md"
+        $MemoryTpl = Join-Path $RootSource "config\USER_MEMORY.template.md"
+        if (-not (Test-Path $MemoryDest) -and (Test-Path $MemoryTpl)) {
+            Copy-Item -Path $MemoryTpl -Destination $MemoryDest -Force
+            Write-Host "  [OK] Initialized USER_MEMORY.md from template" -ForegroundColor Cyan
+        } elseif (Test-Path $MemoryDest) {
+            Write-Host "  [KEEP] Kept existing USER_MEMORY.md intact" -ForegroundColor Gray
+        }
+
+        # Initialize knowledge/ drawers + INDEX.md only if missing
+        $KnowledgeDir = Join-Path $GlobalConfigDir "knowledge"
+        $KnowledgeIndexDest = Join-Path $KnowledgeDir "INDEX.md"
+        $KnowledgeIndexTpl = Join-Path $RootSource "config\knowledge-INDEX.template.md"
+        foreach ($drawer in @("qa-gmp", "exec-templates", "tech-standards", "prompt-frameworks")) {
+            $drawerPath = Join-Path $KnowledgeDir $drawer
+            if (-not (Test-Path $drawerPath)) {
+                New-Item -ItemType Directory -Path $drawerPath -Force | Out-Null
+            }
+        }
+        if (-not (Test-Path $KnowledgeIndexDest) -and (Test-Path $KnowledgeIndexTpl)) {
+            Copy-Item -Path $KnowledgeIndexTpl -Destination $KnowledgeIndexDest -Force
+            Write-Host "  [OK] Initialized knowledge/INDEX.md and 4 drawers" -ForegroundColor Cyan
+        } elseif (Test-Path $KnowledgeIndexDest) {
+            Write-Host "  [KEEP] Kept existing knowledge/INDEX.md intact" -ForegroundColor Gray
+        }
+
+        # Merge missing MCP servers from config/mcp_config.template.json into ~/.gemini/config/mcp_config.json
+        $McpTpl = Join-Path $RootSource "config\mcp_config.template.json"
+        $McpDest = Join-Path $GlobalConfigDir "mcp_config.json"
+        if (Test-Path $McpTpl) {
+            $tplObj = Get-Content -Path $McpTpl -Raw -Encoding UTF8 | ConvertFrom-Json
+            if (Test-Path $McpDest) {
+                $destObj = Get-Content -Path $McpDest -Raw -Encoding UTF8 | ConvertFrom-Json
+            } else {
+                $destObj = [PSCustomObject]@{ mcpServers = [PSCustomObject]@{} }
+            }
+            if (-not ($destObj.PSObject.Properties.Name -contains "mcpServers") -or $null -eq $destObj.mcpServers) {
+                $destObj | Add-Member -MemberType NoteProperty -Name "mcpServers" -Value ([PSCustomObject]@{}) -Force
+            }
+            foreach ($srv in $tplObj.mcpServers.PSObject.Properties) {
+                if (-not ($destObj.mcpServers.PSObject.Properties.Name -contains $srv.Name)) {
+                    $destObj.mcpServers | Add-Member -MemberType NoteProperty -Name $srv.Name -Value $srv.Value -Force
+                    Write-Host "  [OK] Added MCP server '$($srv.Name)' to mcp_config.json" -ForegroundColor Cyan
+                }
+            }
+            $updatedMcpJson = $destObj | ConvertTo-Json -Depth 10
+            [System.IO.File]::WriteAllText($McpDest, $updatedMcpJson, [System.Text.UTF8Encoding]::new($false))
         }
     }
 

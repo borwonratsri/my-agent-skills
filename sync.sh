@@ -118,6 +118,17 @@ case "$ACTION" in
             echo -e "  ${GREEN}+${RESET} Synced AGENTS.template.md"
         fi
 
+        # Sync global hooks.json and hooks/*.mjs (never sync private USER_MEMORY.md or knowledge/)
+        if [[ -f "$GLOBAL_CONFIG_DIR/hooks.json" ]]; then
+            cp "$GLOBAL_CONFIG_DIR/hooks.json" "$SCRIPT_DIR/hooks.json"
+            echo -e "  ${GREEN}+${RESET} Synced hooks.json"
+        fi
+        if [[ -d "$GLOBAL_CONFIG_DIR/hooks" ]]; then
+            mkdir -p "$SCRIPT_DIR/hooks"
+            cp "$GLOBAL_CONFIG_DIR/hooks/"*.mjs "$SCRIPT_DIR/hooks/"
+            echo -e "  ${GREEN}+${RESET} Synced hooks/*.mjs"
+        fi
+
         # Sync from global plugins directory if exists
         if [[ -d "$GLOBAL_PLUGINS_DIR" ]]; then
             mkdir -p "$PLUGINS_DIR"

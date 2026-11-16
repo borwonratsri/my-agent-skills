@@ -40,6 +40,7 @@ Options:
   -p, --pstack       Also install the 60 isolated PStack Production Rigor skills
   --no-rules         Skip installing Global Rules (~/.gemini/config/rules)
   --no-plugins       Skip installing Plugins (~/.gemini/config/plugins & config.json registration)
+  --no-hooks         Skip installing Global Hooks (~/.gemini/config/hooks.json) & 4-Pillar templates
   -h, --help         Show this help message
 
 Examples:
@@ -57,6 +58,7 @@ CUSTOM_TARGET=""
 INCLUDE_PSTACK=false
 INSTALL_RULES=true
 INSTALL_PLUGINS=true
+INSTALL_HOOKS=true
 
 while [[ $# -gt 0 ]]; do
     case "$1" in
@@ -83,6 +85,10 @@ while [[ $# -gt 0 ]]; do
             ;;
         --no-plugins)
             INSTALL_PLUGINS=false
+            shift
+            ;;
+        --no-hooks)
+            INSTALL_HOOKS=false
             shift
             ;;
         -h|--help)
@@ -274,6 +280,57 @@ fs.writeFileSync(configPath, JSON.stringify(cfg, null, 2));
             else
                 echo -e "  ${YELLOW}!${RESET} python3/node not found; please merge config/plugins-manifest.json into ${CONFIG_JSON_PATH} manually."
             fi
+        fi
+    fi
+fi
+
+if [[ "$INSTALL_HOOKS" == true && "$MODE" == "global" ]]; then
+    ROOT_SOURCE=""
+    if [[ -n "$SCRIPT_DIR" && -d "$SCRIPT_DIR/hooks" ]]; then
+        ROOT_SOURCE="$SCRIPT_DIR"
+    elif [[ -n "$TMP_DIR" && -d "$TMP_DIR/${REPO_NAME}-${DEFAULT_BRANCH}/hooks" ]]; then
+        ROOT_SOURCE="$TMP_DIR/${REPO_NAME}-${DEFAULT_BRANCH}"
+    fi
+
+    if [[ -n "$ROOT_SOURCE" ]]; then
+        echo ""
+        echo -e "${BOLD}${CYAN}Installing Global Hooks & 4-Pillar Templates:${RESET}"
+        GLOBAL_CFG="$HOME/.gemini/config"
+        mkdir -p "$GLOBAL_CFG/hooks"
+        if [[ -d "$ROOT_SOURCE/hooks" ]]; then
+            cp -r "$ROOT_SOURCE/hooks/"*.mjs "$GLOBAL_CFG/hooks/"
+        fi
+        if [[ -f "$ROOT_SOURCE/hooks.json" ]]; then
+            cp "$ROOT_SOURCE/hooks.json" "$GLOBAL_CFG/hooks.json"
+            echo -e "  ${GREEN}✓${RESET} hooks.json & hooks/*.mjs"
+        fi
+
+        if [[ ! -f "$GLOBAL_CFG/USER_MEMORY.md" && -f "$ROOT_SOURCE/config/USER_MEMORY.template.md" ]]; then
+            cp "$ROOT_SOURCE/config/USER_MEMORY.template.md" "$GLOBAL_CFG/USER_MEMORY.md"
+            echo -e "  ${GREEN}✓${RESET} Initialized USER_MEMORY.md"
+        fi
+
+        for drawer in qa-gmp exec-templates tech-standards prompt-frameworks; do
+            mkdir -p "$GLOBAL_CFG/knowledge/$drawer"
+        done
+        if [[ ! -f "$GLOBAL_CFG/knowledge/INDEX.md" && -f "$ROOT_SOURCE/config/knowledge-INDEX.template.md" ]]; then
+            cp "$ROOT_SOURCE/config/knowledge-INDEX.template.md" "$GLOBAL_CFG/knowledge/INDEX.md"
+            echo -e "  ${GREEN}✓${RESET} Initialized knowledge/INDEX.md and 4 drawers"
+        fi
+
+        if [[ -f "$ROOT_SOURCE/config/mcp_config.template.json" ]] && command -v node >/dev/null 2>&1; then
+            node -e '
+const fs = require("fs");
+const [tplPath, destPath] = process.argv.slice(1);
+const tpl = JSON.parse(fs.readFileSync(tplPath, "utf8"));
+const dest = fs.existsSync(destPath) ? JSON.parse(fs.readFileSync(destPath, "utf8")) : {};
+dest.mcpServers = dest.mcpServers || {};
+for (const [k, v] of Object.entries(tpl.mcpServers || {})) {
+  if (!(k in dest.mcpServers)) dest.mcpServers[k] = v;
+}
+fs.writeFileSync(destPath, JSON.stringify(dest, null, 2));
+' "$ROOT_SOURCE/config/mcp_config.template.json" "$GLOBAL_CFG/mcp_config.json"
+            echo -e "  ${GREEN}✓${RESET} Synced missing MCP servers into mcp_config.json"
         fi
     fi
 fi

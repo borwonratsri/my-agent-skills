@@ -7,11 +7,17 @@ description: Global pre-work checklist, engineering rigor principles, smart suba
 
 You must follow this workflow at the start of and throughout every task across all workspaces.
 
-## 1. Step 0: Pre-Work Context & Project Memory Check
+## 1. Step 0: Pre-Work Context, Saved Info & Knowledge Vault
 
-Before modifying code or making architectural decisions in an active workspace:
-1. **Check Project Memory & Rules**: Inspect the workspace root for `PROJECT_CONTEXT.md`, `.agents/memory/bridge.json`, and `AGENTS.md` (plus `GLOSSARY.md` and `docs/adr/` when present). Read any existing files first to align with project state, conventions, and pending backlog.
-2. **Progressive Bootstrap**:
+Before modifying code or making architectural decisions:
+1. **Global Memory (`Saved Info`) & Knowledge Vault**:
+   - Read `~/.gemini/config/USER_MEMORY.md` (auto-injected by `SessionStart` hook when active) to align with user profile, preferred stack, and cross-project lessons.
+   - Consult `~/.gemini/config/knowledge/INDEX.md` **on demand** when the task needs domain standards, templates, or frameworks stored in the Global Knowledge Vault (`qa-gmp/`, `exec-templates/`, `tech-standards/`, `prompt-frameworks/`).
+   - **Memory Update Rule (Manual + Smart Suggest)**:
+     - When the user says `"จำไว้ว่า..."` (or explicitly asks to remember a cross-project preference/rule), update `~/.gemini/config/USER_MEMORY.md` immediately and confirm what was saved.
+     - When the user corrects your approach or after `/retro`, propose a concise 1-2 line rule to add to `USER_MEMORY.md` and wait for confirmation before writing. Keep project-specific code details in `PROJECT_CONTEXT.md`, not in `USER_MEMORY.md`.
+2. **Check Project Memory & Rules**: In an active workspace, inspect the root for `PROJECT_CONTEXT.md`, `.agents/memory/bridge.json`, and `AGENTS.md` (plus `GLOSSARY.md` and `docs/adr/` when present). Read any existing files first to align with project state, conventions, and pending backlog.
+3. **Progressive Bootstrap**:
    - If working in a code repository that does not yet have `PROJECT_CONTEXT.md`, perform a quick structural scan (`package.json`, `pyproject.toml`, `pubspec.yaml`, directory layout) and offer to initialize or update `PROJECT_CONTEXT.md` (via `~/.gemini/config/skills/project-memory/SKILL.md`) upon completing a major milestone.
    - Only create `GLOSSARY.md`, `docs/adr/`, or `.scratch/` when starting a large feature or when running `grill-with-docs`, `domain-modeling`, `to-spec`, or `wayfinder`.
 
@@ -49,9 +55,13 @@ Many skills in `~/.gemini/config/skills/` reference Cursor or Claude Code primit
 - **User Questions**: Where a skill references `AskQuestion`, use Antigravity's `ask_question` tool.
 - **Global Rules Path**: Where a skill references `~/.cursor/rules/`, use `~/.gemini/config/rules/`.
 
-## 5. Safety, Verification & Communication Standards
+## 5. Safety, Connector Clearance & Communication Standards
 
 - **Data Loss Prevention**: Strictly follow `~/.gemini/config/skills/accidental-data-loss-prevention/SKILL.md`. NEVER execute destructive operations (`DROP`, `TRUNCATE`, `DELETE` without `WHERE`, deleting production storage/resources, or overwriting critical data) without explicit prior user confirmation.
+- **3-Tier Connector Clearance (`Apps / MCP / Plugins`)**:
+  - **Tier 1 (Read / Search)**: Search and read freely across connected apps (`Notion`, `Google Workspace`, `Figma`, `Supabase`, `Context7`, etc.).
+  - **Tier 2 (Local Drafts / Staging)**: Create local files or non-destructive drafts freely.
+  - **Tier 3 (External Writes / Sends / Deletes / Deploys)**: Always ask explicit user confirmation before sending emails/messages, publishing/deploying to production, deleting external resources, or overwriting shared external docs/databases.
 - **Language & Tone**: Communicate in **clear, concise Thai (ภาษาไทย)** while keeping technical terms, code identifiers, file paths, and CLI commands in **English**. Keep helpful, high-signal comments in code that explain *why*.
 - **Clickable File Links**: Always format file references as clickable GitHub-style markdown links using `file:///` with forward slashes (e.g., `[filename.ts](file:///C:/path/to/filename.ts)`).
 - **Executive Summary on Completion**: When finishing a significant feature, fix, or report, provide a structured summary covering:

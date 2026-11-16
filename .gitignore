@@ -1,2 +1,6 @@
 # Exclude OAuth client secrets in plugins
 plugins/**/auth.json
+
+# Exclude private personal memory & local knowledge vault files
+USER_MEMORY.md
+knowledge/

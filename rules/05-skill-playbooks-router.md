@@ -7,6 +7,15 @@ description: Context pointer routing map for matt-pocock-skills, pstack playbook
 
 Several high-leverage skills in `~/.gemini/config/skills/` have `disable-model-invocation: true` to save context tokens. Use the context pointers below to read the relevant `SKILL.md` file via `read_file` whenever a task enters that branch.
 
+## Role Personas (`Gems`)
+
+Activate the matching persona skill when a task fits its role or when the user invokes `/gem-*`:
+- **Pharma QA & GMP Specialist (`/gem-qa`)**: `~/.gemini/config/skills/gem-qa/SKILL.md` (reads `knowledge/qa-gmp/`)
+- **Executive Secretary & Presentation (`/gem-exec`)**: `~/.gemini/config/skills/gem-exec/SKILL.md` (reads `knowledge/exec-templates/`)
+- **Fullstack Tech Lead (`/gem-dev`)**: `~/.gemini/config/skills/gem-dev/SKILL.md` (reads `knowledge/tech-standards/`)
+- **Data & Office Automation (`/gem-data`)**: `~/.gemini/config/skills/gem-data/SKILL.md`
+- **Prompt & Idea Sparring (`/gem-coach`)**: `~/.gemini/config/skills/gem-coach/SKILL.md` (reads `knowledge/prompt-frameworks/`)
+
 ## Phase 1: Clarify, Scope & Plan (`matt-pocock-skills`)
 
 When requirements are ambiguous, domain terms are unsettled, or a feature spans multiple steps/sessions:

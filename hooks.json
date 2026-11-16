@@ -1,0 +1,48 @@
+{
+  "four-pillars-session-start": {
+    "SessionStart": [
+      {
+        "type": "command",
+        "command": "node ./hooks/session-start.mjs",
+        "timeout": 10
+      }
+    ]
+  },
+  "four-pillars-safety-guard": {
+    "PreToolUse": [
+      {
+        "matcher": "run_command",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node ./hooks/pre-tool-safety.mjs",
+            "timeout": 5
+          }
+        ]
+      }
+    ]
+  },
+  "four-pillars-auto-format": {
+    "PostToolUse": [
+      {
+        "matcher": "write_file|edit_file",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node ./hooks/post-tool-format.mjs",
+            "timeout": 8
+          }
+        ]
+      }
+    ]
+  },
+  "four-pillars-verify-gate": {
+    "Stop": [
+      {
+        "type": "command",
+        "command": "node ./hooks/stop-verify-gate.mjs",
+        "timeout": 10
+      }
+    ]
+  }
+}
