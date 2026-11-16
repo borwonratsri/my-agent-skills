@@ -21,6 +21,13 @@
                                                                          "version":  "1.10.1"
                                                                      }
                                                },
+                    "context7":  {
+                                     "installedFrom":  {
+                                                           "id":  "antigravity-plugins-partners/plugin/context7",
+                                                           "marketplace":  "antigravity-plugins-partners",
+                                                           "version":  "1.0.1"
+                                                       }
+                                 },
                     "data-agent-kit-plugin":  {
                                                   "installedFrom":  {
                                                                         "id":  "antigravity-plugins-official/plugin/data-agent-kit-plugin",

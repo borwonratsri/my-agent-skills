@@ -34,7 +34,7 @@ irm https://raw.githubusercontent.com/borwonratsri/my-agent-skills/main/install.
 
 ### 🔌 Antigravity Plugins Bundle (`plugins/` + `config/plugins-manifest.json`)
 
-ตัวติดตั้งจะคัดลอก **23 Plugins** (เช่น `vercel-plugin`, `supabase`, `firebase`, `egm`, `figma`, `canva`, `notion`, `flutter`, `chrome-devtools-plugin`, Google Workspace, Google Cloud) ลงใน `~/.gemini/config/plugins/` และผสานรายการลงทะเบียนเข้ากับ `~/.gemini/config/config.json` ให้อัตโนมัติ (โดยไม่ทับ `userSettings` และ `sidecars` เดิมของเครื่องปลายทาง; เพิ่ม `--no-plugins` หรือ `-NoPlugins` หากต้องการข้าม)
+ตัวติดตั้งจะคัดลอก **24 Plugins** (เช่น `context7`, `vercel-plugin`, `supabase`, `firebase`, `egm`, `figma`, `canva`, `notion`, `flutter`, `chrome-devtools-plugin`, Google Workspace, Google Cloud) ลงใน `~/.gemini/config/plugins/` และผสานรายการลงทะเบียนเข้ากับ `~/.gemini/config/config.json` ให้อัตโนมัติ (โดยไม่ทับ `userSettings` และ `sidecars` เดิมของเครื่องปลายทาง; เพิ่ม `--no-plugins` หรือ `-NoPlugins` หากต้องการข้าม)
 
 ### 🏛️ 4-Pillar Personal AI OS (Gems, Hooks, Knowledge Vault & Saved Info)
 

@@ -2,10 +2,10 @@
 # Antigravity Skills, Global Rules & Plugins Installer for Windows (PowerShell)
 # Repository: https://github.com/borwonratsri/my-agent-skills
 #
-# Quick 1-Line Install (All Skills + PStack Rigor + Global Rules + 23 Plugins):
+# Quick 1-Line Install (All Skills + PStack Rigor + Global Rules + 24 Plugins):
 #   & ([scriptblock]::Create((irm https://raw.githubusercontent.com/borwonratsri/my-agent-skills/main/install.ps1))) -All
 #
-# Standard Install (Curated Skills + Global Rules + 23 Plugins):
+# Standard Install (Curated Skills + Global Rules + 24 Plugins):
 #   irm https://raw.githubusercontent.com/borwonratsri/my-agent-skills/main/install.ps1 | iex
 # ==============================================================================
 
@@ -32,7 +32,7 @@ Usage:
   install.ps1 [-All] [-PStack] [-NoRules] [-NoPlugins] [-NoHooks] [-Global] [-Workspace] [-Target <dir>]
 
 Options:
-  -All        Install all skills (Curated + PStack Rigor) + Global Rules + Hooks + 23 Plugins
+  -All        Install all skills (Curated + PStack Rigor) + Global Rules + Hooks + 24 Plugins
   -PStack     Include the 60 isolated PStack Production Rigor skills
   -NoRules    Skip installing Global Rules (~/.gemini/config/rules)
   -NoPlugins  Skip installing Plugins (~/.gemini/config/plugins & config.json registration)
@@ -194,7 +194,7 @@ try {
 
     # 4. Install Plugins & Merge into ~/.gemini/config/config.json (unless -NoPlugins or -Workspace)
     if (-not $NoPlugins -and -not $Workspace -and (Test-Path $PluginsSource)) {
-        Write-Host "`nInstalling & Registering Antigravity Plugins (23 Plugins):" -ForegroundColor Yellow
+        Write-Host "`nInstalling & Registering Antigravity Plugins (24 Plugins):" -ForegroundColor Yellow
         if (-not (Test-Path $PluginsTargetDir)) {
             New-Item -ItemType Directory -Path $PluginsTargetDir -Force | Out-Null
         }
