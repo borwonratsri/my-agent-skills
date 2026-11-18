@@ -11,6 +11,10 @@ import {
   evaluateContextMemoryGate,
   extractLatestTokenCount,
 } from "./context-memory-gate.mjs";
+import {
+  evaluateContextMeter,
+  formatContextMeterMarkdown,
+} from "./post-invocation-context-meter.mjs";
 
 const HOOKS_DIR = path.dirname(fileURLToPath(import.meta.url));
 
@@ -256,6 +260,57 @@ test("session-start.mjs CLI auto-loads handoff-latest.md when inside a workspace
     } finally {
       fs.rmSync(plainDir, { recursive: true, force: true });
     }
+  } finally {
+    fs.rmSync(tmpDir, { recursive: true, force: true });
+  }
+});
+
+test("evaluateContextMeter emits user_markdown only on final PLANNER_RESPONSE without tool_calls", () => {
+  // Mid-turn with tool_calls -> silent
+  const midTurn = [
+    { step_index: 0, type: "USER_INPUT" },
+    makePlannerStep(1, 3000, 127000, 500, [{ name: "run_command", args: {} }]),
+  ];
+  assert.equal(evaluateContextMeter(midTurn), null);
+
+  // Final response without tool_calls -> emits zero-model-token user_markdown
+  const endTurn = [
+    { step_index: 0, type: "USER_INPUT" },
+    makePlannerStep(1, 3000, 127000, 500, []),
+  ];
+  const res = evaluateContextMeter(endTurn);
+  assert.equal(res?.terminationBehavior, "");
+  assert.equal(res?.injectSteps?.[0]?.systemMessage?.systemMessage, "");
+  assert.match(
+    res?.injectSteps?.[0]?.systemMessage?.metadata?.user_markdown || "",
+    /130\.5k \/ 450k.*29%/
+  );
+
+  assert.match(formatContextMeterMarkdown(360000), /⚠️.*80%/);
+  assert.match(formatContextMeterMarkdown(455000), /🔴.*101%/);
+});
+
+test("post-invocation-context-meter.mjs CLI outputs valid JSON payload on final turn step", () => {
+  const tmpDir = makeTempDir("agy-meter-cli-");
+  try {
+    const transcriptPath = path.join(tmpDir, "transcript.jsonl");
+    const lines = [
+      JSON.stringify({ step_index: 0, type: "USER_INPUT", content: "hi" }),
+      JSON.stringify(makePlannerStep(1, 2000, 128000, 400, [])),
+    ];
+    fs.writeFileSync(transcriptPath, `${lines.join("\n")}\n`, "utf8");
+
+    const run = spawnSync("node", [path.join(HOOKS_DIR, "post-invocation-context-meter.mjs")], {
+      input: JSON.stringify({ transcriptPath }),
+      encoding: "utf8",
+    });
+    assert.equal(run.status, 0);
+    const parsed = JSON.parse(run.stdout.trim());
+    assert.equal(parsed.injectSteps[0].systemMessage.systemMessage, "");
+    assert.match(
+      parsed.injectSteps[0].systemMessage.metadata.user_markdown,
+      /130\.4k \/ 450k/
+    );
   } finally {
     fs.rmSync(tmpDir, { recursive: true, force: true });
   }

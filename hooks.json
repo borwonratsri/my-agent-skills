@@ -44,5 +44,14 @@
         "timeout": 10
       }
     ]
+  },
+  "four-pillars-context-meter": {
+    "PostInvocation": [
+      {
+        "type": "command",
+        "command": "node ./hooks/post-invocation-context-meter.mjs",
+        "timeout": 5
+      }
+    ]
   }
 }

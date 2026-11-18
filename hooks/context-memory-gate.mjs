@@ -21,11 +21,33 @@ function toFiniteNumber(value) {
 }
 
 /**
- * Extract the latest token usage snapshot from transcript steps.
- * Sums input_tokens + cache_read_tokens + output_tokens from the most recent
- * PLANNER_RESPONSE step that carries token metadata.
+ * Parse a JSONL transcript file into an array of step objects.
  */
-export function extractLatestTokenCount(steps) {
+export function readTranscriptSteps(transcriptPath) {
+  if (!transcriptPath || !fs.existsSync(transcriptPath)) return [];
+  let raw;
+  try {
+    raw = fs.readFileSync(transcriptPath, "utf8");
+  } catch {
+    return [];
+  }
+
+  const steps = [];
+  for (const line of raw.split(/\r?\n/)) {
+    if (!line) continue;
+    try {
+      steps.push(JSON.parse(line));
+    } catch {
+      // Ignore malformed lines.
+    }
+  }
+  return steps;
+}
+
+/**
+ * Find the most recent PLANNER_RESPONSE step carrying token metadata.
+ */
+export function getLatestPlannerStep(steps) {
   if (!Array.isArray(steps)) return null;
 
   for (let i = steps.length - 1; i >= 0; i--) {
@@ -38,23 +60,40 @@ export function extractLatestTokenCount(steps) {
       step.output_tokens !== undefined;
     if (!hasTokenField) continue;
 
-    const inputTokens = toFiniteNumber(step.input_tokens);
-    const cacheReadTokens = toFiniteNumber(step.cache_read_tokens);
-    const outputTokens = toFiniteNumber(step.output_tokens);
-    const totalTokens = inputTokens + cacheReadTokens + outputTokens;
+    const totalTokens =
+      toFiniteNumber(step.input_tokens) +
+      toFiniteNumber(step.cache_read_tokens) +
+      toFiniteNumber(step.output_tokens);
 
     if (totalTokens > 0) {
-      return {
-        totalTokens,
-        inputTokens,
-        cacheReadTokens,
-        outputTokens,
-        stepIndex: step.step_index ?? i,
-      };
+      return { step, index: i };
     }
   }
 
   return null;
+}
+
+/**
+ * Extract the latest token usage snapshot from transcript steps.
+ * Sums input_tokens + cache_read_tokens + output_tokens from the most recent
+ * PLANNER_RESPONSE step that carries token metadata.
+ */
+export function extractLatestTokenCount(steps) {
+  const latest = getLatestPlannerStep(steps);
+  if (!latest) return null;
+
+  const { step, index } = latest;
+  const inputTokens = toFiniteNumber(step.input_tokens);
+  const cacheReadTokens = toFiniteNumber(step.cache_read_tokens);
+  const outputTokens = toFiniteNumber(step.output_tokens);
+
+  return {
+    totalTokens: inputTokens + cacheReadTokens + outputTokens,
+    inputTokens,
+    cacheReadTokens,
+    outputTokens,
+    stepIndex: step.step_index ?? index,
+  };
 }
 
 function cleanTargetPath(rawPath) {

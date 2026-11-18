@@ -1,6 +1,8 @@
-import fs from "node:fs";
 import path from "node:path";
-import { evaluateContextMemoryGate } from "./context-memory-gate.mjs";
+import {
+  evaluateContextMemoryGate,
+  readTranscriptSteps,
+} from "./context-memory-gate.mjs";
 import { emitJson, readStdinJson } from "./lib.mjs";
 
 const CODE_EXTS = new Set([
@@ -72,27 +74,10 @@ function main() {
   }
 
   const transcriptPath = input.transcriptPath;
-  if (!transcriptPath || !fs.existsSync(transcriptPath)) {
+  const steps = readTranscriptSteps(transcriptPath);
+  if (steps.length === 0) {
     emitJson({});
     return;
-  }
-
-  let lines;
-  try {
-    const raw = fs.readFileSync(transcriptPath, "utf8");
-    lines = raw.split(/\r?\n/).filter(Boolean);
-  } catch {
-    emitJson({});
-    return;
-  }
-
-  const steps = [];
-  for (const line of lines) {
-    try {
-      steps.push(JSON.parse(line));
-    } catch {
-      // Ignore malformed lines.
-    }
   }
 
   let lastUserIdx = -1;
