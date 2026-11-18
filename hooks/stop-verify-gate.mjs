@@ -22,6 +22,11 @@ const CODE_EXTS = new Set([
 const VERIFY_CMD_PATTERN =
   /\b(test|tsc|typecheck|lint|build|pytest|vitest|jest|mocha|playwright|cypress|flutter|dart\s+analyze|cargo\s+(test|check)|go\s+test|uv\s+run|npm\s+run|pnpm\s+|yarn\s+|bun\s+|node\s+|python\s+)/i;
 
+const OFFICE_DELIVERABLE_EXT_PATTERN = /\.(docx|xlsx|pptx|pdf)\b/i;
+const OFFICE_READONLY_CMD_PATTERN =
+  /^\s*(Get-ChildItem|Get-Item|Get-Content|dir|ls|Test-Path|Select-String)\b/i;
+const QA_DOCS_CMD_PATTERN = /\bqa_docs\.py\b/i;
+
 function cleanArgString(val) {
   if (typeof val !== "string") return "";
   const trimmed = val.trim();
@@ -42,6 +47,14 @@ function isCodePath(filePath) {
   // Exclude global hooks/skills edits from triggering app test gates.
   if (normalized.includes("/.gemini/config/")) return false;
   return CODE_EXTS.has(path.extname(normalized).toLowerCase());
+}
+
+function isOfficeDeliverableScript(filePath) {
+  if (!filePath) return false;
+  const normalized = cleanArgString(filePath).replace(/\\/g, "/");
+  if (normalized.includes("/.gemini/config/")) return false;
+  if (normalized.includes("/_qa_report/")) return false;
+  return OFFICE_DELIVERABLE_EXT_PATTERN.test(normalized);
 }
 
 function main() {
@@ -93,6 +106,8 @@ function main() {
   let callCounter = 0;
   let lastCodeEditIdx = -1;
   let lastVerifyIdx = -1;
+  let lastOfficeBuildIdx = -1;
+  let lastQaDocsIdx = -1;
 
   for (const step of turnSteps) {
     const toolCalls = Array.isArray(step?.tool_calls) ? step.tool_calls : [];
@@ -106,10 +121,27 @@ function main() {
         if (isCodePath(target)) {
           lastCodeEditIdx = callCounter;
         }
+        if (isOfficeDeliverableScript(target)) {
+          lastOfficeBuildIdx = callCounter;
+        }
       } else if (name === "run_command") {
         const cmd = cleanArgString(args.CommandLine || args.command || "");
+        if (QA_DOCS_CMD_PATTERN.test(cmd)) {
+          lastQaDocsIdx = callCounter;
+          lastVerifyIdx = callCounter;
+          continue;
+        }
         if (VERIFY_CMD_PATTERN.test(cmd)) {
           lastVerifyIdx = callCounter;
+        }
+        if (
+          OFFICE_DELIVERABLE_EXT_PATTERN.test(cmd) &&
+          !OFFICE_READONLY_CMD_PATTERN.test(cmd) &&
+          !/\.rendered\.pdf\b/i.test(cmd) &&
+          !cmd.includes("/_qa_report/") &&
+          !cmd.includes("\\_qa_report\\")
+        ) {
+          lastOfficeBuildIdx = callCounter;
         }
       } else if (name === "invoke_subagent") {
         const typeName = cleanArgString(args.TypeName || "");
@@ -120,11 +152,22 @@ function main() {
     }
   }
 
+  const reasons = [];
   if (lastCodeEditIdx !== -1 && lastVerifyIdx < lastCodeEditIdx) {
+    reasons.push(
+      "Code Verification Gate (Prove It Works): Source code files were modified in this turn without a subsequent test, typecheck, build, or browser verification."
+    );
+  }
+  if (lastOfficeBuildIdx !== -1 && lastQaDocsIdx < lastOfficeBuildIdx) {
+    reasons.push(
+      "Office QA Gate (qa-docs): If a final .docx/.xlsx/.pptx/.pdf deliverable was generated in this turn (skipping quick intermediate drafts), run qa-docs before concluding."
+    );
+  }
+
+  if (reasons.length > 0) {
     emitJson({
       decision: "continue",
-      reason:
-        "Verification Gate (Prove It Works): You modified source code files in this turn without running a test, typecheck, build, or browser verification afterward. Run the relevant verification check before concluding.",
+      reason: reasons.join(" | "),
     });
     return;
   }

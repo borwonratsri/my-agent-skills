@@ -19,7 +19,10 @@ When planning complex systems, authoring documentation, building presentations, 
    - When creating or editing `AGENTS.md`, `SKILL.md`, or agent rules, follow `~/.gemini/config/skills/writing-for-agents/SKILL.md`.
 
 3. **PowerPoint Presentations (`.pptx` / `.potx`)**:
-   - Whenever creating, reading, or updating slide decks or `.pptx` files, read both `~/.gemini/config/skills/pptx/SKILL.md` and `~/.gemini/config/skills/elite-powerpoint-designer/SKILL.md`.
+   - Whenever creating, reading, or updating slide decks or `.pptx` files, read `~/.gemini/config/skills/pptx/SKILL.md` (or `~/.gemini/config/plugins/pptx-skill/skills/pptx/SKILL.md` if installed as a plugin) and `~/.gemini/config/skills/elite-powerpoint-designer/SKILL.md`.
 
 4. **Executive Formal Summaries**:
    - When summarizing long documents, meeting notes, or project reports for management, follow `~/.gemini/config/skills/summary-text/SKILL.md` (structured with Key Highlights, Core Substance, and Action Items).
+
+5. **Document & Slide Verification Auto-Gate (`qa-docs`)**:
+   - After producing final `.docx`, `.xlsx`, `.pptx`, or `.pdf` deliverables (skipping quick intermediate drafts), run `~/.gemini/config/skills/qa-docs/SKILL.md` to verify Office COM visual rendering, Excel formula calculation, Thai formatting, and source-data consistency before delivery.
