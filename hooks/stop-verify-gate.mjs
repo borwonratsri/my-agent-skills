@@ -1,5 +1,6 @@
 import fs from "node:fs";
 import path from "node:path";
+import { evaluateContextMemoryGate } from "./context-memory-gate.mjs";
 import { emitJson, readStdinJson } from "./lib.mjs";
 
 const CODE_EXTS = new Set([
@@ -162,6 +163,11 @@ function main() {
     reasons.push(
       "Office QA Gate (qa-docs): If a final .docx/.xlsx/.pptx/.pdf deliverable was generated in this turn (skipping quick intermediate drafts), run qa-docs before concluding."
     );
+  }
+
+  const contextGate = evaluateContextMemoryGate({ input, steps, turnSteps });
+  if (contextGate.shouldContinue && contextGate.reason) {
+    reasons.push(contextGate.reason);
   }
 
   if (reasons.length > 0) {

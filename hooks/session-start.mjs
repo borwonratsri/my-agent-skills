@@ -1,5 +1,18 @@
+import fs from "node:fs";
 import path from "node:path";
 import { emitJson, getConfigDir, readStdinJson, safeReadText } from "./lib.mjs";
+
+function isProjectRoot(input, workspaceRoot) {
+  if (!workspaceRoot) return false;
+  if (Array.isArray(input.workspacePaths) && input.workspacePaths.length > 0) {
+    return true;
+  }
+  return (
+    fs.existsSync(path.join(workspaceRoot, ".git")) ||
+    fs.existsSync(path.join(workspaceRoot, "PROJECT_CONTEXT.md")) ||
+    fs.existsSync(path.join(workspaceRoot, ".agents", "memory"))
+  );
+}
 
 function main() {
   const input = readStdinJson();
@@ -24,11 +37,26 @@ function main() {
     input.cwd ||
     "";
 
-  if (workspaceRoot) {
+  if (isProjectRoot(input, workspaceRoot)) {
     const projectContextPath = path.join(workspaceRoot, "PROJECT_CONTEXT.md");
     const projectContext = safeReadText(projectContextPath, 1800);
     if (projectContext) {
       sections.push(`## Active Project Context (${projectContextPath})\n${projectContext}`);
+    }
+
+    const handoffPath = path.join(
+      workspaceRoot,
+      ".agents",
+      "memory",
+      "handoff-latest.md"
+    );
+    const handoff = safeReadText(handoffPath, 6000);
+    if (handoff) {
+      sections.push(
+        `## Latest Session Handoff (${handoffPath})\n` +
+          `> Auto-loaded from previous session handoff. If truncated, read the full file before continuing.\n\n` +
+          handoff
+      );
     }
 
     const bridgePath = path.join(workspaceRoot, ".agents", "memory", "bridge.json");
