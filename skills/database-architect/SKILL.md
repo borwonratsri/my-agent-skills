@@ -1,6 +1,7 @@
 ---
 name: database-architect
 description: Designs normalized/denormalized database schemas, writes migration scripts, optimizes indexes, and tunes SQL/NoSQL queries. Trigger via /database-architect or when designing schemas.
+disable-model-invocation: true
 ---
 
 # Database Architect Skill

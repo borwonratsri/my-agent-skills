@@ -1,6 +1,7 @@
 ---
 name: github
 description: Work with GitHub through the official gh CLI — pull requests (view, diff, checks, review, create, merge), issues, GitHub Actions runs and logs, releases, repos, code and issue search, and the raw REST/GraphQL API via gh api. Use when the user shares a github.com URL or an owner/repo reference, asks about a PR, issue, release, or repository on GitHub, references a project or codebase not present in the local workspace, wants CI on GitHub Actions debugged, or wants anything else done on GitHub. Don't use for Piper/Critique CLs, Gerrit, GitLab, or Bitbucket.
+disable-model-invocation: true
 ---
 
 # GitHub

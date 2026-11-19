@@ -1,6 +1,7 @@
 ---
 name: skill-manager
 description: "Manage, switch presets, and control the AI Skill Library directly from chat. Toggle presets like web-fullstack, mobile-app, or minimal to save context window tokens."
+disable-model-invocation: true
 ---
 
 # Skill Manager Skill

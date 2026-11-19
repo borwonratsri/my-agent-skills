@@ -1,6 +1,7 @@
 ---
 name: code-reviewer
 description: Conducts deep, rigorous, multi-dimensional code reviews for correctness, security, performance, clean architecture, and maintainability. Trigger via /code-reviewer or when asking for a code review.
+disable-model-invocation: true
 ---
 
 # Code Reviewer Skill

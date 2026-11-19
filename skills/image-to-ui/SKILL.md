@@ -5,6 +5,7 @@ license: MIT
 metadata:
   author: UIZZE
   version: "1.0.0"
+disable-model-invocation: true
 ---
 
 ![Stop Making UI Slop with UIZZE](https://uizze.com/landing/anti-ui-slop-skill-banner.png)

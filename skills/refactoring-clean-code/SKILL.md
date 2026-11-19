@@ -1,6 +1,7 @@
 ---
 name: refactoring-clean-code
 description: Refactors complex, tightly-coupled, or legacy code into clean, modular, SOLID-compliant code without breaking existing functionality. Trigger via /refactoring-clean-code or when cleaning up code.
+disable-model-invocation: true
 ---
 
 # Refactoring & Clean Code Skill

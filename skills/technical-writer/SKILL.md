@@ -1,6 +1,7 @@
 ---
 name: technical-writer
 description: Generates comprehensive software documentation including Architecture Decision Records (ADRs), API references, READMEs, and technical runbooks. Trigger via /technical-writer or when generating docs.
+disable-model-invocation: true
 ---
 
 # Technical Writer Skill

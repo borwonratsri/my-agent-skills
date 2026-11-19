@@ -1,78 +1,51 @@
 ---
 name: setup-pstack
-description: Configure model assignments and reasoning budgets for the pstack production engineering rigor suite. Supports both Cursor (MDC rules) and Antigravity/Gemini (subagent tiers pro/flash/inherit). Use for /setup-pstack, "configure pstack", "pstack budget", or setting up production-grade engineering workflows.
+description: Configure which models pstack uses per role and at what reasoning budget. Detects your available models and writes an always-applied rule that overrides the skill defaults. Use for /setup-pstack, "configure pstack models", "pstack budget", or changing pstack's model choices.
+disable-model-invocation: true
 ---
 
-# Setup pstack (Production Engineering Rigor)
+# Setup pstack
 
-Configure model allocations and reasoning budgets for the **pstack** production engineering framework created by Lauren Tan (@poteto).
-
-pstack enforces extreme engineering rigor across four core pillars:
-1. **Architectural Exploration** (`architect`, `how`, `why`): Design twice, explore epistemic truth before coding.
-2. **Multi-Agent Competition** (`arena`, `swarm`): Multi-arm races and independent cross-judging.
-3. **Verification & Proofs** (`create-verification-skill`, `create-formal-verification-skill`, `statechart`): Model-checked proofs and behavioral verifications.
-4. **Deslop & Quality Gates** (`unslop`, `no-comments`, `blast-radius`, `benchmark-checklist`, 24 Principles).
-
----
+Write `~/.cursor/rules/pstack-models.mdc`, an always-applied rule that sets pstack's model per role.
 
 ## Steps
 
-### 1. Detect Environment & Available Models
+### 1. Detect available models
 
-Detect the host IDE/agent platform:
-- **Antigravity / Gemini Code Assist**: Uses subagent tiers (`pro`, `flash`, `inherit`).
-- **Cursor IDE**: Uses model slugs with reasoning effort levels (e.g. `claude-opus-5-5-xhigh`, `grok-4.7-xhigh-fast`).
-- **Claude Code / Generic Agent**: Uses model flags or system guidelines.
+Enumerate the model slugs you can pass to a `Task` subagent in this session. That is the dependable source. If Cursor also exposes a models API or CLI that lists the user's entitled models, prefer it for completeness. If you cannot detect any, ask the user to paste the slugs they have access to. Never write a real slug you have not confirmed is available. The aliases `inherit-parent` and `auto` are always valid even though they are not detected slugs.
 
-### 2. Choose Reasoning Budget
+### 2. Load current state
 
-Prompt the user to select their desired reasoning budget:
+The default role-to-model mapping is the rule shape shown in step 5 below. If `~/.cursor/rules/pstack-models.mdc` already exists, read it and treat its `# budget` line and its role values as the current choices. Otherwise start from those defaults. A line whose role is not in step 5, such as `how critics`, is from a retired role. Drop it.
 
-| Budget Level | Target Effort | Description | Recommended Usage |
-|---|---|---|---|
-| `unlimited` | `max` | Maximum depth and full reasoning steps | Critical infrastructure, mission-critical security |
-| `large` *(Default)* | `xhigh` | Heavy reasoning, deep verification | Production architectures, complex refactoring |
-| `medium` | `high` | Balanced speed, intelligence, and token cost | Standard feature work, daily development |
-| `small` | `medium` | Fast turnaround, lower token consumption | Quick fixes, documentation, prototypes |
+### 3. Budget, map, and confirm
 
-### 3. Role-to-Model Mapping
+**(a) Ask for a budget.** Prefer AskQuestion over free text. Offer these four options with these exact labels, and name the current budget when the rule records one. With no rule, say that `large` matches the skill defaults.
 
-#### Universal Model Mapping Matrix
+- `unlimited — max reasoning`
+- `large — xhigh reasoning`
+- `medium — high reasoning`
+- `small — medium reasoning`
 
-| pstack Role | Antigravity Tier (Standard / Pro Available) | Antigravity Tier (When Pro Unavailable / Recommended) | Cursor Slug (Large Budget) | Description |
-|---|---|---|---|---|
-| `judgment and prose` | `pro` | **`inherit`** *(Parent Model)* | `claude-opus-5-5-xhigh` | Deep evaluations, architecture synthesis |
-| `hardest tasks` | `pro` | **`inherit`** *(Parent Model)* | `claude-opus-5-5-xhigh` | Complex algorithms, state machines |
-| `architect runners` | `pro` (multi-arm) | **`inherit`** *(Parent Model)* | `claude-opus-5-5-xhigh`, `grok-4.7-xhigh-fast` | Independent solution architects |
-| `arena cross-judge pool`| `pro` (independent) | **`inherit`** *(Parent Model)* | `claude-opus-5-5-xhigh` | Neutral judge scoring competing arms |
-| `how explainer` | `pro` | **`inherit`** *(Parent Model)* | `claude-opus-5-5-xhigh` | High-level architectural explanations |
-| `why synthesizer` | `pro` | **`inherit`** *(Parent Model)* | `claude-opus-5-5-xhigh` | Deep epistemic investigation synthesis |
-| `feature, refactoring` | `flash` | `flash` (or `inherit`) | `grok-4.7-xhigh-fast` | High-speed coding and implementation |
-| `bug-fix`, `perf-issue` | `flash` | `flash` (or `inherit`) | `grok-4.7-xhigh-fast` | Targeted defect resolution |
-| `swarm workers` | `flash` (fan-out) | `flash` (fan-out) | `grok-4.7-xhigh-fast` | Parallelized worker subagents |
-| `how explorer` | `flash` | `flash` | `grok-4.7-xhigh-fast` | Codebase traversal and mapping |
-| `why investigators` | `flash` | `flash` | `grok-4.7-xhigh-fast` | Telemetry & archaeology gathering |
-| `reflect tooling` | `flash` | `flash` | `grok-4.7-xhigh-fast` | Linting, test execution, tooling |
+**(b) Apply it.** Build the working table from the skill defaults, and on a re-run keep any role you changed by family, list, or alias (`inherit-parent`, `auto`). `unlimited`, `large`, `medium`, and `small` set the effort token of every real slug, panel entries included, to `max`, `xhigh`, `high`, or `medium`. The effort token is the last token, or the one before a trailing `fast`, on the ladder `max` > `xhigh` > `high` > `medium` > `low`. If the result is not a detected slug, use the same family's detected slug with the highest effort at or below the target, else mark the role as needing a choice. `inherit-parent` and `auto` do not change. So `unlimited` turns `claude-opus-5-5-xhigh` into `claude-opus-5-5-max`. Grok slugs top out at `xhigh`, so under `unlimited` the fallback puts Grok at `xhigh` and keeps `grok-4.7-xhigh-fast` as it is. `large` keeps both defaults. `small` turns them into `claude-opus-5-5-medium` and `grok-4.7-medium-fast`.
 
-> [!TIP]
-> **กรณีที่ Antigravity ไม่มีโมเดล `pro` หรือติดข้อจำกัด Quota:**
-> - ให้ใช้ค่า **`inherit`** แทน `pro` สำหรับบทบาทการคิดวิเคราะห์ทั้งหมด (Judgment, Architect, Cross-Judge, Synthesizer)
-> - เมื่อกำหนดเป็น `inherit` ตัว Subagent จะดึงโมเดลหลักในห้องแชต (เช่น Claude 3.7 Sonnet หรือโมเดลตัวท็อปที่คุณเลือกไว้ในหน้าแชต) มาทำงานแทนทันที ทำให้ได้ความสามารถระดับสูงสุดโดยไม่ต้องพึ่งพา `pro` tier
-> - ส่วนงานที่เป็นคนงานย่อย (Swarm Workers, File Searching, Tooling) ยังคงใช้ **`flash`** เพื่อประหยัดเวลาและทำงานแบบขนานได้รวดเร็ว หรือจะเลือกใช้ `inherit` ทั้งหมด (All-Inherit Mode) ก็ได้เช่นกัน
+**(c) Show the roles and confirm.** Show every role with its model, marking any real slug not in the detected set as needing a choice. Also list each line step 2 dropped. Ask whether to accept as-is or change specific roles, offering the detected models plus `inherit-parent` and `auto` (both mean: this role runs on the parent chat model, which is how Auto users stay on Auto) as the options. Prefer AskQuestion over free text. For panel roles (arena runners, architect runners, interrogate reviewers) the value is a list, and one subagent runs per entry, alias entries included, so the list length sets the count. `arena cross-judge pool` is also a list, but Arena runs one judge. It tries only values from a family other than the parent's, in list order, so order it by preference. An `inherit-parent` or `auto` value never judges. `swarm workers` is the default model for every worker unless a race or comparison assigns another model per arm.
 
----
+### 4. Validate
 
-### 4. Write Configuration Rule
+Every real slug written must be in the detected set. `inherit-parent` and `auto` always pass. If a chosen real slug is not available, stop and ask again.
 
-Write the appropriate configuration file based on the environment:
+### 5. Write the rule
 
-#### For Cursor: `~/.cursor/rules/pstack-models.mdc`
-```yaml
+Write `~/.cursor/rules/pstack-models.mdc` with `alwaysApply: true`, a `# budget` line with the chosen label and its target effort, and one line per role, using the same labels poteto-mode uses. Overwrite the whole file so re-runs stay idempotent. Shape:
+
+```
 ---
 description: pstack per-role model choices (overrides skill defaults)
 alwaysApply: true
 ---
-# pstack model configuration. One line per role.
+# pstack model configuration. One line per role. Delete a line to fall back to the skill default.
+# `inherit-parent` or `auto` as a value: the role runs on the parent chat model (omit Task `model`). Alias entries in a panel list still count toward its fan-out.
 # budget: large (xhigh)
 feature, refactoring: grok-4.7-xhigh-fast
 bug-fix: grok-4.7-xhigh-fast
@@ -93,33 +66,14 @@ architect runners: claude-opus-5-5-xhigh, grok-4.7-xhigh-fast
 interrogate reviewers: claude-opus-5-5-xhigh, grok-4.7-xhigh-fast
 ```
 
-#### For Antigravity / Gemini: `.agents/rules/pstack-models.md`
-```markdown
-# PStack Model Allocation Rule
-- Pro Tier (`Model: pro`): Judgment, Hardest Tasks, Architect Runners, Arena Cross-Judge, Why Synthesizer
-- Flash Tier (`Model: flash`): Features, Bug Fixes, Swarm Workers, How Explorers, Telemetry Collectors
-- Inherit (`Model: inherit`): Fallback to parent agent session model
-```
+### 6. Confirm
 
----
+Tell the user the rule was written and that it applies to new sessions. Re-running this skill updates it.
 
-### 5. Offer Verification Skills
+### 7. Offer a verification skill (optional)
 
-Inquire if the target codebase requires automated verification:
-1. **Behavioral App Verification (`create-verification-skill`)**:
-   - Generates project-local Playwright/CLI verification skills to drive the application like a real human.
-2. **Formal Model Verification (`create-formal-verification-skill`)**:
-   - Generates TLA+ / statechart model checking to mathematically prove invariants hold under all reachable states.
+Check whether the project has a way to drive the real app for proof (a `verify-*` skill, or an existing harness). If not, offer once: "want a project-local verification skill, so agents can drive the app the way a user does and prove changes work? I can generate one with /create-verification-skill." On yes, invoke `/create-verification-skill` (resolves wherever pstack is installed: workspace, user, or plugin). On no, move on without pushing.
 
----
+### 8. Offer a formal verification skill (optional)
 
-### 6. Managing PStack Isolation
-
-To activate or toggle the isolated pstack suite within this library:
-```bash
-# Apply pstack rigor preset (enables all 60 pstack skills):
-python skill_manager.py preset apply pstack-rigor
-
-# Revert to standard lightweight skills:
-python skill_manager.py preset apply minimal
-```
+Check whether the project already has a formal verification skill (a project skill that runs a model checker, a proof, or another verifier against the code). If not, offer once: "want a formal verification skill, so agents can prove a key property of your code holds in every case in scope, not only the cases tests reach? I can generate one with /create-formal-verification-skill." On yes, invoke `/create-formal-verification-skill` (resolves wherever pstack is installed: workspace, user, or plugin). On no, move on without pushing.

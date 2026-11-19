@@ -1,6 +1,7 @@
 ---
 name: schema-mapping
 description: Guides the process of analyzing, mapping, and documenting transformations between different data schemas, models, database tables, and API payloads.
+disable-model-invocation: true
 ---
 
 # Schema Mapping & Data Transformation Skill

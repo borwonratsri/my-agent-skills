@@ -8,6 +8,7 @@ description: >-
   bugs, or review angles, then aggregate), or when the user asks for a
   workflow. Don't use for a single delegated task (use a subagent) or for
   legacy workflow files (see migrate-workflows).
+disable-model-invocation: true
 ---
 
 # Dynamic workflows with `run_workflow`

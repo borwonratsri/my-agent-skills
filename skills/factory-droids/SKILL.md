@@ -1,6 +1,7 @@
 ---
 name: factory-droids
 description: "Orchestrates the Factory AI Autonomous Droid Trio (Coder Droid, Tester Droid, Reviewer Droid) to build, test, and audit software tasks autonomously with tool gating."
+disable-model-invocation: true
 ---
 
 # Factory Droids: Autonomous Subagent Pipeline (Dark Factory)

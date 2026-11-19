@@ -1,6 +1,7 @@
 ---
 name: docker-devops
 description: Creates production-ready Dockerfiles, docker-compose setups, GitHub Actions CI/CD workflows, and container optimizations. Trigger via /docker-devops or when containerizing or setting up CI/CD.
+disable-model-invocation: true
 ---
 
 # Docker & DevOps Skill

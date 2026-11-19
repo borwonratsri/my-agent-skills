@@ -1,6 +1,7 @@
 ---
 name: api-architect
 description: Designs production-grade RESTful APIs, OpenAPI 3.0/Swagger specifications, GraphQL schemas, and gRPC definitions with strict error handling. Trigger via /api-architect or when designing APIs.
+disable-model-invocation: true
 ---
 
 # API Architect Skill

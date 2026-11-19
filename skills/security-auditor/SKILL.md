@@ -1,6 +1,7 @@
 ---
 name: security-auditor
 description: Audits codebases for security vulnerabilities, OWASP Top 10 flaws, hardcoded credentials, insecure dependencies, and injection risks. Trigger via /security-auditor or when asking for a security audit.
+disable-model-invocation: true
 ---
 
 # Security Auditor Skill

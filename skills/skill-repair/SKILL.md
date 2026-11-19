@@ -1,6 +1,7 @@
 ---
 name: skill-repair
 description: Use this to fix and re-install agent skills that have failed installation. This skill provides diagnostics, YAML syntax fixing, permission repair, and cache re-indexing.
+disable-model-invocation: true
 ---
 
 # Skill Repair & Diagnostics Tool

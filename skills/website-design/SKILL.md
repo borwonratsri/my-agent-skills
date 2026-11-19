@@ -1,6 +1,7 @@
 ---
 name: website-design
 description: ออกแบบหน้าเว็บไซต์และ UI/UX ระดับมืออาชีพ (Web UI/UX Design, Prototyping & Architecture) และสร้าง Interactive Components สวยงาม ทันสมัย รองรับ Responsive ทุกอุปกรณ์
+disable-model-invocation: true
 ---
 
 # Website Design & Prototyping Skill

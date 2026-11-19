@@ -1,6 +1,7 @@
 ---
 name: unit-test-generator
 description: Generates robust, high-coverage unit and integration test suites covering happy paths, edge cases, error conditions, and mocks. Trigger via /unit-test-generator or when asking to write tests.
+disable-model-invocation: true
 ---
 
 # Unit Test Generator Skill
