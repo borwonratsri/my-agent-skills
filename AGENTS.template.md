@@ -4,8 +4,8 @@
 
 ## 1. Project Overview & Tech Stack
 - **Project Name**: `<ชื่อโปรเจกต์>`
-- **Primary Stack**: `<เช่น Next.js 15 / TypeScript / Tailwind CSS / Supabase / Vercel>`
-- **Memory & Context File**: Read `[PROJECT_CONTEXT.md](./PROJECT_CONTEXT.md)` and `.agents/memory/bridge.json` before starting any task.
+- **Primary Stack**: `<เช่น Next.js (App Router) / TypeScript / Tailwind CSS / Supabase / Vercel>`
+- **Memory & Context Files**: Read `[PROJECT_CONTEXT.md](./PROJECT_CONTEXT.md)`, `.agents/memory/handoff-latest.md`, and `.agents/memory/bridge.json` before starting any task.
 
 ## 2. Project-Specific Commands
 - **Install**: `npm install`
