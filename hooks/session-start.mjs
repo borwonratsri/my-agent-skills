@@ -21,13 +21,13 @@ function main() {
   const sections = [];
 
   const userMemoryPath = path.join(configDir, "USER_MEMORY.md");
-  const userMemory = safeReadText(userMemoryPath, 3000);
+  const userMemory = safeReadText(userMemoryPath, 5500);
   if (userMemory) {
     sections.push(`## Global Saved Info (${userMemoryPath})\n${userMemory}`);
   }
 
   const knowledgeIndexPath = path.join(configDir, "knowledge", "INDEX.md");
-  const knowledgeIndex = safeReadText(knowledgeIndexPath, 1500);
+  const knowledgeIndex = safeReadText(knowledgeIndexPath, 3000);
   if (knowledgeIndex) {
     sections.push(`## Global Knowledge Vault Index (${knowledgeIndexPath})\n${knowledgeIndex}`);
   }
